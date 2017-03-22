@@ -20,6 +20,7 @@
 		03F1A4D61E55204F0094262A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03F1A4D41E55204F0094262A /* LaunchScreen.storyboard */; };
 		03F1A4E11E55204F0094262A /* TaskForceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4E01E55204F0094262A /* TaskForceTests.swift */; };
 		03F1A4EC1E55204F0094262A /* TaskForceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4EB1E55204F0094262A /* TaskForceUITests.swift */; };
+		C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		03F1A4E71E55204F0094262A /* TaskForceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskForceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F1A4EB1E55204F0094262A /* TaskForceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskForceUITests.swift; sourceTree = "<group>"; };
 		03F1A4ED1E55204F0094262A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				03F1A4D41E55204F0094262A /* LaunchScreen.storyboard */,
 				03F1A4D71E55204F0094262A /* Info.plist */,
 				0353F9F81E5DF25100B15797 /* TaskFeed.swift */,
+				C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */,
 				0353F9FA1E5DFBF900B15797 /* Profile.swift */,
 				0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */,
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */,
 				0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */,
 				0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */,
 				0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */,
