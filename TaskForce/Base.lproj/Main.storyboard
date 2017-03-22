@@ -103,7 +103,7 @@
         <!--Groups-->
         <scene sceneID="Rdg-aY-YNf">
             <objects>
-                <viewController id="TaD-bU-bUP" sceneMemberID="viewController">
+                <viewController id="TaD-bU-bUP" customClass="Groups" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BEI-Gr-eWo"/>
                         <viewControllerLayoutGuide type="bottom" id="wWh-b6-7aR"/>
@@ -126,14 +126,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="O3N-0r-FXR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" id="O3N-0r-FXR" customClass="GroupsCell" customModule="TaskForce" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O3N-0r-FXR" id="NwA-Hz-wgU">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wu-6U-eYE">
+                                                    <rect key="frame" x="17" y="0.0" width="341" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="groupName" destination="8wu-6U-eYE" id="Ild-U3-YU5"/>
                                             <segue destination="lMd-dW-5eP" kind="show" id="qhO-Vi-bBH"/>
                                         </connections>
                                     </tableViewCell>
@@ -150,6 +160,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Groups" id="NWO-gp-PYU"/>
+                    <connections>
+                        <outlet property="groupsTable" destination="YA5-dz-Xch" id="s0T-w4-KTa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EW-Am-TUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

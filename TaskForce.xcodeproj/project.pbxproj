@@ -21,6 +21,7 @@
 		03F1A4E11E55204F0094262A /* TaskForceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4E01E55204F0094262A /* TaskForceTests.swift */; };
 		03F1A4EC1E55204F0094262A /* TaskForceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4EB1E55204F0094262A /* TaskForceUITests.swift */; };
 		C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */; };
+		C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE82931E833AC5004528A2 /* GroupsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		03F1A4EB1E55204F0094262A /* TaskForceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskForceUITests.swift; sourceTree = "<group>"; };
 		03F1A4ED1E55204F0094262A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeedCell.swift; sourceTree = "<group>"; };
+		C9EE82931E833AC5004528A2 /* GroupsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
 				0353FA001E5DFF0900B15797 /* Groups.swift */,
 				0353FA021E5DFF9F00B15797 /* Members.swift */,
+				C9EE82931E833AC5004528A2 /* GroupsCell.swift */,
 			);
 			path = TaskForce;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */,
 				0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */,
 				0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */,
+				C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */,
 				03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */,
 				0353FA031E5DFF9F00B15797 /* Members.swift in Sources */,
 				03F1A4CC1E55204F0094262A /* AppDelegate.swift in Sources */,
