@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033BC2A91E8968ED00A2C5F9 /* TaskClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */; };
 		0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9F81E5DF25100B15797 /* TaskFeed.swift */; };
 		0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FA1E5DFBF900B15797 /* Profile.swift */; };
 		0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskClass.swift; sourceTree = "<group>"; };
 		0353F9F81E5DF25100B15797 /* TaskFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeed.swift; sourceTree = "<group>"; };
 		0353F9FA1E5DFBF900B15797 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				0353FA001E5DFF0900B15797 /* Groups.swift */,
 				0353FA021E5DFF9F00B15797 /* Members.swift */,
 				C9EE82931E833AC5004528A2 /* GroupsCell.swift */,
+				033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */,
 			);
 			path = TaskForce;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */,
 				C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */,
 				03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */,
+				033BC2A91E8968ED00A2C5F9 /* TaskClass.swift in Sources */,
 				0353FA031E5DFF9F00B15797 /* Members.swift in Sources */,
 				03F1A4CC1E55204F0094262A /* AppDelegate.swift in Sources */,
 				0353FA011E5DFF0900B15797 /* Groups.swift in Sources */,
