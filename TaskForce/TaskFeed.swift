@@ -23,7 +23,6 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         feedTable.delegate = self
         feedTable.dataSource = self
-        print("1")
     }
     
     override func didReceiveMemoryWarning() {
