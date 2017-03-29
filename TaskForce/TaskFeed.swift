@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 
 class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -16,6 +17,8 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let taskArray = ["Get eggs", "Paint fence", "Wash dishes", "Pick up dry cleaning"]
     let locArray = ["Schnucks", "Beta", "Beta", "Dry Cleaners"]
     let moneyArray = [1, 10, 4, 2]
+    
+    //let dataRef = FIRDatabase.database().reference(withPath: "tasks")
     
     @IBOutlet weak var feedTable: UITableView!
     
