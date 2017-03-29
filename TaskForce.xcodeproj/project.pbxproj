@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0314F2931E8C3FB9001BC3ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */; };
 		033BC2A91E8968ED00A2C5F9 /* TaskClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */; };
 		0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9F81E5DF25100B15797 /* TaskFeed.swift */; };
 		0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FA1E5DFBF900B15797 /* Profile.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskClass.swift; sourceTree = "<group>"; };
 		0353F9F81E5DF25100B15797 /* TaskFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeed.swift; sourceTree = "<group>"; };
 		0353F9FA1E5DFBF900B15797 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		03F1A4CA1E55204F0094262A /* TaskForce */ = {
 			isa = PBXGroup;
 			children = (
+				0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */,
 				03F1A4CB1E55204F0094262A /* AppDelegate.swift */,
 				03F1A4CD1E55204F0094262A /* ViewController.swift */,
 				03F1A4CF1E55204F0094262A /* Main.storyboard */,
@@ -143,13 +146,13 @@
 				03F1A4D41E55204F0094262A /* LaunchScreen.storyboard */,
 				03F1A4D71E55204F0094262A /* Info.plist */,
 				0353F9F81E5DF25100B15797 /* TaskFeed.swift */,
-				C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */,
 				0353F9FA1E5DFBF900B15797 /* Profile.swift */,
 				0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */,
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
 				0353FA001E5DFF0900B15797 /* Groups.swift */,
 				0353FA021E5DFF9F00B15797 /* Members.swift */,
 				C9EE82931E833AC5004528A2 /* GroupsCell.swift */,
+				C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */,
 				033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */,
 				2EAA733A1E89701A005B7106 /* UserClass.swift */,
 				2EAA733C1E8970A5005B7106 /* GroupClass.swift */,
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03F1A4D61E55204F0094262A /* LaunchScreen.storyboard in Resources */,
+				0314F2931E8C3FB9001BC3ED /* GoogleService-Info.plist in Resources */,
 				03F1A4D31E55204F0094262A /* Assets.xcassets in Resources */,
 				03F1A4D11E55204F0094262A /* Main.storyboard in Resources */,
 			);
