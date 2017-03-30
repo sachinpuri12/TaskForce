@@ -26,7 +26,8 @@ class TaskRequest: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func requestTask(_ sender: Any) {
+    @IBAction func requestTaskInsertDatabase(_ sender: Any) {
+        
         if ((taskTitle.text?.isEmpty)! || (location.text?.isEmpty)! || (cost.text?.isEmpty)!) {
             
             // alert for fields not filled
@@ -45,7 +46,7 @@ class TaskRequest: UIViewController {
                 "price": 0.00,
                 "tip": Double(cost.text!) as Any,
                 "status": String("requested") as Any
-            ] as [String: Any]
+                ] as [String: Any]
             // FIXME make price and tip decimal format
             
             self.db.child("tasks").childByAutoId().setValue(newTask);
