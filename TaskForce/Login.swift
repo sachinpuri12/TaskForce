@@ -16,10 +16,16 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         let loginButton = FBSDKLoginButton()
         loginButton.center = view.center
         view.addSubview(loginButton)
         loginButton.delegate = self
+        
+//        if FBSDKAccessToken.current() != nil{
+//            performSegue(withIdentifier: "loginSuccess", sender: nil)
+//        }
+        
         
     }
     
@@ -30,6 +36,7 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
             performSegue(withIdentifier: "loginSuccess", sender: nil)
             return
         }
+        
         print("An error has occured...\(error)")
         
     }

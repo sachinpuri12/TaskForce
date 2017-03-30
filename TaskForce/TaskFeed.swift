@@ -8,18 +8,18 @@
 
 import Foundation
 import UIKit
-//import Firebase
+import Firebase
 
 
 class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var feedTable: UITableView!
-    let nameArray = ["Rexi", "David", "Sachin", "Jimmy"]
-    let taskArray = ["Get eggs", "Paint fence", "Wash dishes", "Pick up dry cleaning"]
-    let locArray = ["Schnucks", "Beta", "Beta", "Dry Cleaners"]
-    let moneyArray = [1, 10, 4, 2]
-//    var db = FIRDatabase.database().reference()
-//    var tasksArray = [Task]()
+    var db: FIRDatabaseReference!
+    let nameArray = ["Rexi", "David"]
+    let taskArray = ["Get eggs", "Paint fence"]
+    let locArray = ["Schnucks", "Beta"]
+    let moneyArray = [1, 10]
+    var tasksArray = [String]()
     
     
     
@@ -27,8 +27,30 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         feedTable.delegate = self
         feedTable.dataSource = self
- //       db = FIRDatabase.database().reference()
+        db = FIRDatabase.database().reference()
+        let ref = FIRDatabase.database().reference()
+        let taskRef = ref.child("tasks")
+        
+        taskRef.observeSingleEvent(of: .value, with: { snapshot in
+            print("HelLOooooooooOOOooooOOOOOOoooo")
+            
+            for child in snapshot.children{
+                //let snap = child as! FIRDataSnapshot
+                //let name = snap["name"].value
+                //print(name)
+                
+            }
+            
+            if snapshot.hasChild("-KgQs-SuwobapIwuelXw"){
+                print("we got kids fam")
+            }
+            else{
+                print("das a no")
+            }
+        })
+        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -37,27 +59,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidAppear(_ animated: Bool) {
         feedTable.reloadData()
         super.viewDidLoad()
-  //      db = FIRDatabase.database().reference()
     }
-//    func loadData(){
-//        let snap = db.observeSingleEventOfType(.value, withBlock: { snapshot in
-//            
-//            if !snapshot.exists() { return }
-//            
-//            //print(snapshot)
-//            
-//            if let userName = snapshot.value["full_name"] as? String {
-//                print(userName)
-//            }
-//            if let email = snapshot.value["email"] as? String {
-//                print(email)
-//            }
-//            
-//            // can also use
-//            // snapshot.childSnapshotForPath("full_name").value as! String
-//        })
-//    }
-
     //loading the table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
