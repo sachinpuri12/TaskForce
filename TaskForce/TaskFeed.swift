@@ -8,22 +8,49 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 
 class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let nameArray = ["Rexi", "David", "Sachin", "Jimmy"]
-    let taskArray = ["Get eggs", "Paint fence", "Wash dishes", "Pick up dry cleaning"]
-    let locArray = ["Schnucks", "Beta", "Beta", "Dry Cleaners"]
-    let moneyArray = [1, 10, 4, 2]
-    
     @IBOutlet weak var feedTable: UITableView!
+    var db: FIRDatabaseReference!
+    let nameArray = ["Rexi", "David"]
+    let taskArray = ["Get eggs", "Paint fence"]
+    let locArray = ["Schnucks", "Beta"]
+    let moneyArray = [1, 10]
+    var tasksArray = [String]()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         feedTable.delegate = self
         feedTable.dataSource = self
+        db = FIRDatabase.database().reference()
+        let ref = FIRDatabase.database().reference()
+        let taskRef = ref.child("tasks")
+        
+        taskRef.observeSingleEvent(of: .value, with: { snapshot in
+            print("HelLOooooooooOOOooooOOOOOOoooo")
+            
+            for child in snapshot.children{
+                //let snap = child as! FIRDataSnapshot
+                //let name = snap["name"].value
+                //print(name)
+                
+            }
+            
+            if snapshot.hasChild("-KgQs-SuwobapIwuelXw"){
+                print("we got kids fam")
+            }
+            else{
+                print("das a no")
+            }
+        })
+        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -31,8 +58,8 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidAppear(_ animated: Bool) {
         feedTable.reloadData()
+        super.viewDidLoad()
     }
-    
     //loading the table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
