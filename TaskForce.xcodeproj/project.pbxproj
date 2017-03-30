@@ -24,6 +24,11 @@
 		03F1A4EC1E55204F0094262A /* TaskForceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4EB1E55204F0094262A /* TaskForceUITests.swift */; };
 		2EAA733B1E89701A005B7106 /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA733A1E89701A005B7106 /* UserClass.swift */; };
 		2EAA733D1E8970A5005B7106 /* GroupClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA733C1E8970A5005B7106 /* GroupClass.swift */; };
+		2EDE717B1E8C850500A0C6DD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE71771E8C850500A0C6DD /* Bolts.framework */; };
+		2EDE717C1E8C850500A0C6DD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE71781E8C850500A0C6DD /* FBSDKCoreKit.framework */; };
+		2EDE717D1E8C850500A0C6DD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE71791E8C850500A0C6DD /* FBSDKLoginKit.framework */; };
+		2EDE717E1E8C850500A0C6DD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE717A1E8C850500A0C6DD /* FBSDKShareKit.framework */; };
+		2EDE71801E8C8ECE00A0C6DD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE717F1E8C8ECE00A0C6DD /* Login.swift */; };
 		427663CB1A7FB8318E150A26 /* Pods_TaskForce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7AC091088FEC834D208B2EC /* Pods_TaskForce.framework */; };
 		4D3B9E37B3E51414F1FE1C1A /* Pods_TaskForceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DC8A5372C3392640BF89F6 /* Pods_TaskForceUITests.framework */; };
 		C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */; };
@@ -75,6 +80,11 @@
 		29815C860F3E51020A7B1B88 /* Pods-TaskForceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForceTests/Pods-TaskForceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2EAA733A1E89701A005B7106 /* UserClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		2EAA733C1E8970A5005B7106 /* GroupClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupClass.swift; sourceTree = "<group>"; };
+		2EDE71771E8C850500A0C6DD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "FacebookSDKs-iOS-4.20.2/Bolts.framework"; sourceTree = "<group>"; };
+		2EDE71781E8C850500A0C6DD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-4.20.2/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		2EDE71791E8C850500A0C6DD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-4.20.2/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		2EDE717A1E8C850500A0C6DD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-4.20.2/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		2EDE717F1E8C8ECE00A0C6DD /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		58DC8A5372C3392640BF89F6 /* Pods_TaskForceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskForceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A9471E7D41D6963B89067B4 /* Pods-TaskForce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForce/Pods-TaskForce.debug.xcconfig"; sourceTree = "<group>"; };
 		7B90DF889E18F1335E6C7EA3 /* Pods-TaskForce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForce.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForce/Pods-TaskForce.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +101,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				427663CB1A7FB8318E150A26 /* Pods_TaskForce.framework in Frameworks */,
+				2EDE717C1E8C850500A0C6DD /* FBSDKCoreKit.framework in Frameworks */,
+				2EDE717E1E8C850500A0C6DD /* FBSDKShareKit.framework in Frameworks */,
+				2EDE717D1E8C850500A0C6DD /* FBSDKLoginKit.framework in Frameworks */,
+				2EDE717B1E8C850500A0C6DD /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +170,7 @@
 				033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */,
 				2EAA733A1E89701A005B7106 /* UserClass.swift */,
 				2EAA733C1E8970A5005B7106 /* GroupClass.swift */,
+				2EDE717F1E8C8ECE00A0C6DD /* Login.swift */,
 			);
 			path = TaskForce;
 			sourceTree = "<group>";
@@ -181,8 +196,12 @@
 		2B19A0F9A0214FF597A73B4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C7AC091088FEC834D208B2EC /* Pods_TaskForce.framework */,
+				2EDE71771E8C850500A0C6DD /* Bolts.framework */,
+				2EDE71781E8C850500A0C6DD /* FBSDKCoreKit.framework */,
+				2EDE71791E8C850500A0C6DD /* FBSDKLoginKit.framework */,
+				2EDE717A1E8C850500A0C6DD /* FBSDKShareKit.framework */,
 				18F2DACA7B9CAB09C034BBF8 /* Pods_TaskForceTests.framework */,
+				C7AC091088FEC834D208B2EC /* Pods_TaskForce.framework */,
 				58DC8A5372C3392640BF89F6 /* Pods_TaskForceUITests.framework */,
 			);
 			name = Frameworks;
@@ -490,6 +509,7 @@
 				0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */,
 				C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */,
 				03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */,
+				2EDE71801E8C8ECE00A0C6DD /* Login.swift in Sources */,
 				2EAA733D1E8970A5005B7106 /* GroupClass.swift in Sources */,
 				033BC2A91E8968ED00A2C5F9 /* TaskClass.swift in Sources */,
 				0353FA031E5DFF9F00B15797 /* Members.swift in Sources */,
@@ -648,6 +668,10 @@
 			baseConfigurationReference = 5A9471E7D41D6963B89067B4 /* Pods-TaskForce.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
+				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
@@ -661,6 +685,27 @@
 			baseConfigurationReference = 7B90DF889E18F1335E6C7EA3 /* Pods-TaskForce.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"~/Documents/cse437/TaskForce/FacebookSDKs-iOS-4\nFRAMEWORK_SEARCH_PATHS[arch=*]",
+					"=",
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Protobuf\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseCore/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseMessaging/Frameworks\"\n\n//:completeSettings",
+					"=",
+					"none
+",
+				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Firebase
+//import Firebase
 
 
 class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -18,8 +18,8 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let taskArray = ["Get eggs", "Paint fence", "Wash dishes", "Pick up dry cleaning"]
     let locArray = ["Schnucks", "Beta", "Beta", "Dry Cleaners"]
     let moneyArray = [1, 10, 4, 2]
-    var db = FIRDatabase.database().reference()
-    var tasksArray = [Task]()
+//    var db = FIRDatabase.database().reference()
+//    var tasksArray = [Task]()
     
     
     
@@ -27,7 +27,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         feedTable.delegate = self
         feedTable.dataSource = self
-        db = FIRDatabase.database().reference()
+ //       db = FIRDatabase.database().reference()
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,7 +37,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidAppear(_ animated: Bool) {
         feedTable.reloadData()
         super.viewDidLoad()
-        db = FIRDatabase.database().reference()
+  //      db = FIRDatabase.database().reference()
     }
 //    func loadData(){
 //        let snap = db.observeSingleEventOfType(.value, withBlock: { snapshot in
