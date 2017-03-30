@@ -15,10 +15,10 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var feedTable: UITableView!
     var db: FIRDatabaseReference!
-    let nameArray = ["Rexi", "David"]
-    let taskArray = ["Get eggs", "Paint fence"]
-    let locArray = ["Schnucks", "Beta"]
-    let moneyArray = [1, 10]
+    var nameArray = ["Rexi", "David"]
+    var taskArray = ["Get eggs", "Paint fence"]
+    var locArray = ["Schnucks", "Beta"]
+    var moneyArray = [1, 0]
     var tasksArray = [String]()
     var taskKeys = [String]()
     
@@ -44,6 +44,13 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     // Get user value
                     let value = snapshot.value as? NSDictionary
                     let name = value?["name"] as? String ?? ""
+                    let task = value?["description"] as? String ?? ""
+                    let place = value?["location"] as? String ?? ""
+                    let price = value?["price"] as? String ?? ""
+                    self.nameArray.append(name)
+                    self.moneyArray.append(0)
+                    self.locArray.append(place)
+                    self.taskArray.append(task)
                     print(name)
                     
                     // ...
