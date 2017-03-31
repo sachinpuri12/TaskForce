@@ -33,23 +33,14 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
         loginButton.center = view.center
         view.addSubview(loginButton)
         loginButton.delegate = self
-        
-//        if FBSDKAccessToken.current() != nil{
-//            performSegue(withIdentifier: "loginSuccess", sender: nil)
-//        }
-        
-        
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         
         if error == nil {
             print("Login successful")
+            
             getFacebookUserInfo()
-            
-            print("2." + self.username)
-            //insert user into database
-            
             
             performSegue(withIdentifier: "loginSuccess", sender: nil)
             return
@@ -76,28 +67,24 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
                 self.imageURL = "https://graph.facebook.com/\(self.FBId)/picture?type=large&return_ssl_resources=1"
                 print("1." + self.username)
                 
-                let userExists = self.checkUser()
+                self.checkUser()
                 
-//                if !(userExists){
-//                    self.createUser()
-//                }
-                self.createUser()
+
             })
             connection.start()
         }
     }
     
-    func checkUser() -> Bool {
-        var check = false
-        self.db.child("Users").childByAutoId().queryOrdered(byChild: "FBId").queryEqual(toValue: self.FBId).observeSingleEvent(of: .value, with: { (snapshot) in
-            if (snapshot.exists()) {
-                print("snapshot exists")
-                check = true
-            }else{
-                print("snapshot doesnt exist")
-            }
-        })
-        return check
+    func checkUser() {
+        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
+        
+        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(self.FBId)")
+            .observeSingleEvent(of: .value, with: { snapshot in
+                if ( snapshot.value is NSNull ) {
+                    self.createUser() //didnt find it, ok to proceed
+                    
+                }
+            })
     }
 
 
