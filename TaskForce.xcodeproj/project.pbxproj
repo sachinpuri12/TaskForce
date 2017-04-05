@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03134E921E95518700BB6D67 /* MyRunningTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03134E911E95518700BB6D67 /* MyRunningTasks.swift */; };
 		0314F2931E8C3FB9001BC3ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */; };
 		033BC2A91E8968ED00A2C5F9 /* TaskClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */; };
 		0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9F81E5DF25100B15797 /* TaskFeed.swift */; };
-		0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FA1E5DFBF900B15797 /* Profile.swift */; };
+		0353F9FB1E5DFBF900B15797 /* MyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FA1E5DFBF900B15797 /* MyTasks.swift */; };
 		0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */; };
 		0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FE1E5DFDC700B15797 /* Request.swift */; };
 		0353FA011E5DFF0900B15797 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353FA001E5DFF0900B15797 /* Groups.swift */; };
@@ -54,10 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03134E911E95518700BB6D67 /* MyRunningTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRunningTasks.swift; sourceTree = "<group>"; };
 		0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskClass.swift; sourceTree = "<group>"; };
 		0353F9F81E5DF25100B15797 /* TaskFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeed.swift; sourceTree = "<group>"; };
-		0353F9FA1E5DFBF900B15797 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		0353F9FA1E5DFBF900B15797 /* MyTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTasks.swift; sourceTree = "<group>"; };
 		0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
 		0353F9FE1E5DFDC700B15797 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		0353FA001E5DFF0900B15797 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
@@ -160,7 +162,7 @@
 				03F1A4D41E55204F0094262A /* LaunchScreen.storyboard */,
 				03F1A4D71E55204F0094262A /* Info.plist */,
 				0353F9F81E5DF25100B15797 /* TaskFeed.swift */,
-				0353F9FA1E5DFBF900B15797 /* Profile.swift */,
+				0353F9FA1E5DFBF900B15797 /* MyTasks.swift */,
 				0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */,
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
 				0353FA001E5DFF0900B15797 /* Groups.swift */,
@@ -171,6 +173,7 @@
 				2EAA733A1E89701A005B7106 /* UserClass.swift */,
 				2EAA733C1E8970A5005B7106 /* GroupClass.swift */,
 				2EDE717F1E8C8ECE00A0C6DD /* Login.swift */,
+				03134E911E95518700BB6D67 /* MyRunningTasks.swift */,
 			);
 			path = TaskForce;
 			sourceTree = "<group>";
@@ -502,11 +505,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03134E921E95518700BB6D67 /* MyRunningTasks.swift in Sources */,
 				C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */,
 				0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */,
 				0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */,
 				0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */,
-				0353F9FB1E5DFBF900B15797 /* Profile.swift in Sources */,
+				0353F9FB1E5DFBF900B15797 /* MyTasks.swift in Sources */,
 				C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */,
 				03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */,
 				2EDE71801E8C8ECE00A0C6DD /* Login.swift in Sources */,
