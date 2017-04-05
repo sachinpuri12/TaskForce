@@ -20,7 +20,6 @@ class TaskFeedCell: UITableViewCell {
     }
     
     func setInfo(money: Int, name: String, task: String, loc: String){
-        
         moneyLabel.text = "$" + String(money)
         nameLabel.text = "Name: " + name
         taskLabel.text = "Task: " + task
