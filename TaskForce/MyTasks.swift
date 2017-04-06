@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class Profile: UIViewController {
+class MyTasks: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
