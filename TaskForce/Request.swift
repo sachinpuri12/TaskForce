@@ -40,7 +40,8 @@ class TaskRequest: UIViewController {
             
             // push new task to database
             let newTask = [
-                "name": taskTitle.text as Any,
+                "name": globalUser as Any,
+                "title": taskTitle.text as Any,
                 "description": taskDescription.text as Any,
                 "location": location.text as Any,
                 "price": 0.00,

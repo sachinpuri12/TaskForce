@@ -11,6 +11,7 @@ import UIKit
 import FBSDKLoginKit
 import Firebase
 
+var globalUser: String = ""
 class Login: UIViewController, FBSDKLoginButtonDelegate{
     
     var db: FIRDatabaseReference!
@@ -68,7 +69,7 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
                 print("1." + self.username)
                 
                 self.checkUser()
-                
+                globalUser = self.username
 
             })
             connection.start()

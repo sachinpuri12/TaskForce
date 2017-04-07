@@ -10,15 +10,17 @@ import Foundation
 import UIKit
 import Firebase
 
-
+var selectedTask: String = ""
 class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var feedTable: UITableView!
     var db: FIRDatabaseReference!
-    var nameArray = ["Rexi", "David"]
-    var taskArray = ["Get eggs", "Paint fence"]
-    var locArray = ["Schnucks", "Beta"]
-    var moneyArray = [1, 0]
+    var idArray = [String]()
+    var nameArray = [String]()
+    var titleArray = [String]()
+    var taskArray = [String]()
+    var locArray = [String]()
+    var moneyArray = [Int]()
     var tasksArray = [String]()
     var taskKeys = [String]()
     
@@ -42,11 +44,17 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
             for item in self.taskKeys{
                 ref.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
+                    
+                    print(snapshot.key)
                     let value = snapshot.value as? NSDictionary
+                    
                     let name = value?["name"] as? String ?? ""
+                    let title = value?["title"] as? String ?? ""
                     let task = value?["description"] as? String ?? ""
                     let place = value?["location"] as? String ?? ""
-                    let price = value?["price"] as? String ?? ""
+                    _ = value?["price"] as? String ?? ""
+                    self.idArray.append(snapshot.key)
+                    self.titleArray.append(title)
                     self.nameArray.append(name)
                     self.moneyArray.append(0)
                     self.locArray.append(place)
