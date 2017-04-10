@@ -63,7 +63,7 @@ class Members: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let myCell = self.groupsTable.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
+        let myCell = self.memberTable.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
         
         myCell.setMemberName(name: memberArray[indexPath.row])
         return myCell

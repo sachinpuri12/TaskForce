@@ -136,8 +136,8 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //pushing to next screen when something is clicked
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedGroupName = self.groupArray[indexPath.row]
-        selectedGroupKey = self.keyArray[indexPath.row]
+//        selectedGroupName = self.groupArray[indexPath.row]
+//        selectedGroupKey = self.keyArray[indexPath.row]
         // Segue to the second view controller
         self.performSegue(withIdentifier: "memberView", sender: self)
     }
