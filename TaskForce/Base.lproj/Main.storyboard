@@ -178,7 +178,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="groupName" destination="8wu-6U-eYE" id="Ild-U3-YU5"/>
-                                            <segue destination="lMd-dW-5eP" kind="show" id="qhO-Vi-bBH"/>
+                                            <segue destination="lMd-dW-5eP" kind="show" identifier="memberView" id="qhO-Vi-bBH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -247,6 +247,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="o4d-zm-3vk"/>
+                    <connections>
+                        <outlet property="memberTable" destination="IxF-8Z-rZT" id="sBe-ZA-6nI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enF-VO-r8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

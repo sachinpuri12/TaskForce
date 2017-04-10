@@ -84,7 +84,6 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
         groupsTable.dataSource = self
         db = FIRDatabase.database().reference()
         fillGroupTable()
-        //self.groupsTable.reloadData()
     }
     
     func fillGroupTable(){
@@ -133,6 +132,26 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }
+    
+    //pushing to next screen when something is clicked
+    // method to run when table view cell is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedGroupName = self.groupArray[indexPath.row]
+        selectedGroupKey = self.keyArray[indexPath.row]
+        // Segue to the second view controller
+        self.performSegue(withIdentifier: "memberView", sender: self)
+    }
+    
+    // This function is called before the segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = self.groupsTable.indexPathForSelectedRow {
+            let nav = segue.destination as! UINavigationController
+            let members = nav.topViewController as! Members
+            members.groupName = groupArray[indexPath.row]
+            members.groupKey = keyArray[indexPath.row]
+        }
+    }
+    
     
 }
 

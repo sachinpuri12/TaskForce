@@ -13,6 +13,7 @@ class GroupsCell: UITableViewCell {
    
     @IBOutlet weak var groupName: UILabel!
     var groupKey: String = ""
+    var groupTitle: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,6 +21,7 @@ class GroupsCell: UITableViewCell {
     
     func setGroupName(name: String){
         groupName.text = name
+        self.groupTitle = name
     }
     
     func setGroupKey(key: String){
