@@ -99,11 +99,20 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
             "taskerRating": self.taskerRating,
             "totalTasks": self.totalTasks,
             "address": self.address,
-            "phone": self.phone
+            "phone": self.phone,
+            "groups": []
             ] as [String: Any]
         // FIXME make price and tip decimal format
         
-        self.db.child("users").childByAutoId().setValue(newUser);
+        let ref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
+        
+        let newUserRef = ref.childByAutoId()
+        newUserRef.setValue(newUser)
+        
+        let newUserID = newUserRef.key
+        
+        UserDefaults.standard.setValue(newUserID, forKey: "user_id_taskforce")
+        
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
