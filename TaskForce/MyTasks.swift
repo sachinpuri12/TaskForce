@@ -41,7 +41,6 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        self.view.endEditing(true)
         return runSort[row]
     }
     
@@ -51,12 +50,12 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == self.runningTaskSortText{
-            self.runningTaskSortPicker.isHidden = true
-            textField.endEditing(true)
-        }
-    }
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if textField == self.runningTaskSortText{
+//            self.runningTaskSortPicker.isHidden = true
+//            textField.endEditing(true)
+//        }
+//    }
     
     
 }
