@@ -33,10 +33,11 @@ class TaskInfo: UIViewController {
             let title = value?["title"] as? String ?? ""
             let task = value?["description"] as? String ?? ""
             let place = value?["location"] as? String ?? ""
+            let price = value?["tip"] as? String ?? ""
             
             self.Requester.text = name
             self.Description.text = task
-            
+            self.paymentText.text = price
             
             
         })

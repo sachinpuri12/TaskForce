@@ -94,5 +94,9 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = UIColor.clear
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = taskKeys[indexPath.row]
+    }
+    
 }
 
