@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var runningTaskSortText: UITextField!
     @IBOutlet weak var runningTaskSortPicker: UIPickerView!
@@ -24,6 +24,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         runningTaskSortPicker.delegate = self
         runningTaskSortPicker.dataSource = self
         runningTaskSortText.inputView = runningTaskSortPicker
+        runningTaskSortText.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,6 +49,13 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         runningTaskSortText.text = runSort[row]
         self.runningTaskSortPicker.isHidden = true
         
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == self.runningTaskSortText{
+            self.runningTaskSortPicker.isHidden = true
+            textField.endEditing(true)
+        }
     }
     
     
