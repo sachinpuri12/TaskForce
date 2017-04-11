@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class Members: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Members: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     var groupName: String = ""
     var groupKey: String = ""
@@ -18,11 +18,18 @@ class Members: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var memberArray = [String]()
     @IBOutlet weak var memberTable: UITableView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar){
+        self.performSegue(withIdentifier: "searchSegue", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         memberTable.delegate = self
         memberTable.dataSource = self
+        searchBar.delegate = self
         db = FIRDatabase.database().reference()
         fillMemberTable()
     }
@@ -73,6 +80,12 @@ class Members: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = UIColor.clear
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "searchSegue" {
+//            let DestViewController = segue.destination as! SearchResultController
+//            DestViewController.userInputRequest = userInput
+        }
+    }
     
 }
 
