@@ -29,15 +29,22 @@ class TaskInfo: UIViewController {
             let value = snapshot.value as? NSDictionary
             
             let name = value?["name"] as? String ?? ""
+            ref.child("users/\(name)").observeSingleEvent(of: .value, with: { (snapshot) in
+                let innerValue = snapshot.value as? NSDictionary
+                
+            })
             
+                
             let title = value?["title"] as? String ?? ""
             let task = value?["description"] as? String ?? ""
             let place = value?["location"] as? String ?? ""
-            let price = value?["tip"] as? String ?? ""
+            let price = value?["tip"] as? Double ?? 0.0
             
             self.Requester.text = name
             self.Description.text = task
-            self.paymentText.text = price
+            
+            self.paymentText.text = String(format: "%.2f", price)
+            self.paymentText.text = "$" + String (Double (price))
             
             
         })
