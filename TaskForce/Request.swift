@@ -41,6 +41,7 @@ class TaskRequest: UIViewController {
             // push new task to database
             let newTask = [
                 "name": globalUser as Any,
+                "id": globalId as Any,
                 "title": taskTitle.text as Any,
                 "description": taskDescription.text as Any,
                 "location": location.text as Any,
@@ -50,7 +51,7 @@ class TaskRequest: UIViewController {
                 ] as [String: Any]
             // FIXME make price and tip decimal format
             
-            self.db.child("tasks").childByAutoId().setValue(newTask);
+            self.db.child("tasks").childByAutoId().setValue(newTask)
             
             // alert for SUCCESS
             let alert = UIAlertController(title: "Task Posted!", message: "You will be notified when a user accepts.", preferredStyle: UIAlertControllerStyle.alert)

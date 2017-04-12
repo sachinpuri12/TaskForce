@@ -12,6 +12,7 @@ import FBSDKLoginKit
 import Firebase
 
 var globalUser: String = ""
+var globalId: String = ""
 class Login: UIViewController, FBSDKLoginButtonDelegate{
     
     var db: FIRDatabaseReference!
@@ -65,6 +66,7 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
                 
                 self.username = (data["first_name"]! as! String) + "-" + (data["last_name"]! as! String)
                 self.FBId = data["id"]! as! String
+                globalId = self.FBId
                 self.imageURL = "https://graph.facebook.com/\(self.FBId)/picture?type=large&return_ssl_resources=1"
                 print("1." + self.username)
                 

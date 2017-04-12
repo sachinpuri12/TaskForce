@@ -33,14 +33,14 @@ class TaskInfo: UIViewController {
             
             let value = snapshot.value as? NSDictionary
             
-            let name = value?["name"] as? String ?? ""
-            ref.child("users/\(name)").observeSingleEvent(of: .value, with: { (snapshot) in
+            let id = value?["id"] as? String ?? ""
+            ref.child("users/\(id)").observeSingleEvent(of: .value, with: { (snapshot) in
                 let innerValue = snapshot.value as? NSDictionary
-                
+                self.ratingText.text = innerValue?["posterRating"] as? String ?? ""
                 
             })
             
-                
+            let name = value?["name"] as? String ?? ""
             let title = value?["title"] as? String ?? ""
             let task = value?["description"] as? String ?? ""
             let place = value?["location"] as? String ?? ""
