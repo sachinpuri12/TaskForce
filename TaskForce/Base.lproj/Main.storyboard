@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iQm-gS-HQk">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iQm-gS-HQk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -131,7 +131,7 @@
             </objects>
             <point key="canvasLocation" x="-2609" y="-1085"/>
         </scene>
-        <!--Groups-->
+        <!--Your Groups-->
         <scene sceneID="BWJ-oH-GZb">
             <objects>
                 <tableViewController id="vQa-lx-2AY" customClass="Groups" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
@@ -166,7 +166,7 @@
                             <outlet property="delegate" destination="vQa-lx-2AY" id="qp0-MH-tV1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4TS-Wk-iLs">
+                    <navigationItem key="navigationItem" title="Your Groups" id="4TS-Wk-iLs">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="BTs-y0-apo">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53f-S1-r3R">
                                 <rect key="frame" x="285" y="7" width="74" height="30"/>
@@ -249,7 +249,7 @@
             </objects>
             <point key="canvasLocation" x="1144.8" y="-42.728635682158924"/>
         </scene>
-        <!--Search Members-->
+        <!--Add New Members-->
         <scene sceneID="vgA-Gp-vE0">
             <objects>
                 <tableViewController id="FQf-Gw-YqZ" customClass="SearchMembers" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
@@ -271,12 +271,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WV-j2-Him">
-                                            <rect key="frame" x="8" y="11" width="359" height="21"/>
+                                            <rect key="frame" x="8" y="11" width="262" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAd-Pb-X44">
+                                            <rect key="frame" x="327" y="7" width="40" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Add">
+                                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -289,7 +296,7 @@
                             <outlet property="delegate" destination="FQf-Gw-YqZ" id="lCg-w4-CI4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Vfy-6v-eKo"/>
+                    <navigationItem key="navigationItem" title="Add New Members" id="Vfy-6v-eKo"/>
                     <connections>
                         <outlet property="searchTable" destination="WZO-6y-zg1" id="N9l-aK-NVw"/>
                     </connections>
@@ -326,7 +333,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Biw-fD-PWe" id="1X9-oE-Qbe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -355,7 +362,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fbr-QZ-qTP" id="Pz0-uV-Tsd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -731,7 +738,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sQw-00-vkU"/>
+        <segue reference="bae-q7-L2q"/>
         <segue reference="ajN-E3-b3I"/>
     </inferredMetricsTieBreakers>
 </document>
