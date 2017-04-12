@@ -11,17 +11,17 @@ import UIKit
 import Firebase
 
 
-class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Groups: UITableViewController {
     
     var groupArray = [String]()
     var keyArray = [String]()
     var db: FIRDatabaseReference!
     var currentUsername = ""
     
-    @IBOutlet weak var groupsTable: UITableView!
+    @IBOutlet var groupsTable: UITableView!
+    
     
     @IBAction func addNewGroup(_ sender: Any) {
-        
         let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
         let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(userId)")
         newref.child("username").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -53,8 +53,8 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }))
         
         self.present(alert, animated: true, completion: nil)
-    }
-    
+
+    }    
     
     func addNewGroupToDB(newGroupName: String, userID: String){
         let newGroup = [
@@ -78,10 +78,12 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
         FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(userID)/groups").child(newGroupID).setValue(newGroupName)
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        groupsTable.delegate = self
-        groupsTable.dataSource = self
+        //groupsTable.delegate = self
+        //groupsTable.dataSource = self
         db = FIRDatabase.database().reference()
         fillGroupTable()
     }
@@ -117,11 +119,11 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //loading the table
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groupArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = self.groupsTable.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupsCell
         
         myCell.setGroupName(name: groupArray[indexPath.row])
@@ -129,13 +131,13 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return myCell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }
     
     //pushing to next screen when something is clicked
     // method to run when table view cell is tapped
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        selectedGroupName = self.groupArray[indexPath.row]
 //        selectedGroupKey = self.keyArray[indexPath.row]
         // Segue to the second view controller
@@ -145,8 +147,13 @@ class Groups: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = self.groupsTable.indexPathForSelectedRow {
-            let nav = segue.destination as! UINavigationController
-            let members = nav.topViewController as! Members
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+            
+            //let nav = segue.destination as! UINavigationController
+            let members = segue.destination as! Members
+            
             members.groupName = groupArray[indexPath.row]
             members.groupKey = keyArray[indexPath.row]
         }
