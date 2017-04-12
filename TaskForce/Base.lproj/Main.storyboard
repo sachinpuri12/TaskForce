@@ -131,7 +131,7 @@
             </objects>
             <point key="canvasLocation" x="-2609" y="-1085"/>
         </scene>
-        <!--Groups-->
+        <!--Your Groups-->
         <scene sceneID="BWJ-oH-GZb">
             <objects>
                 <tableViewController id="vQa-lx-2AY" customClass="Groups" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
@@ -166,7 +166,7 @@
                             <outlet property="delegate" destination="vQa-lx-2AY" id="qp0-MH-tV1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4TS-Wk-iLs">
+                    <navigationItem key="navigationItem" title="Your Groups" id="4TS-Wk-iLs">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="BTs-y0-apo">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="53f-S1-r3R">
                                 <rect key="frame" x="285" y="7" width="74" height="30"/>
@@ -249,7 +249,7 @@
             </objects>
             <point key="canvasLocation" x="1144.8" y="-42.728635682158924"/>
         </scene>
-        <!--Search Members-->
+        <!--Add New Members-->
         <scene sceneID="vgA-Gp-vE0">
             <objects>
                 <tableViewController id="FQf-Gw-YqZ" customClass="SearchMembers" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
@@ -289,7 +289,7 @@
                             <outlet property="delegate" destination="FQf-Gw-YqZ" id="lCg-w4-CI4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Vfy-6v-eKo"/>
+                    <navigationItem key="navigationItem" title="Add New Members" id="Vfy-6v-eKo"/>
                     <connections>
                         <outlet property="searchTable" destination="WZO-6y-zg1" id="N9l-aK-NVw"/>
                     </connections>
@@ -719,7 +719,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sQw-00-vkU"/>
+        <segue reference="bae-q7-L2q"/>
         <segue reference="ajN-E3-b3I"/>
     </inferredMetricsTieBreakers>
 </document>
