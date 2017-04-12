@@ -30,11 +30,17 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        db = FIRDatabase.database().reference()
-        let loginButton = FBSDKLoginButton()
-        loginButton.center = view.center
-        view.addSubview(loginButton)
-        loginButton.delegate = self
+  //      if (FBSDKAccessToken.current() != nil) {
+  //          getFacebookUserInfo()
+  //          performSegue(withIdentifier: "loginSuccess", sender: nil)
+  //      } else {
+            db = FIRDatabase.database().reference()
+            let loginButton = FBSDKLoginButton()
+            loginButton.center = view.center
+            view.addSubview(loginButton)
+            loginButton.delegate = self
+  //      }
+    
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
