@@ -57,11 +57,13 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         if pickerView == runPicker {
             self.runText.text = self.runSort[row]
             self.runPicker.isHidden = true
+            self.runText.endEditing(true)
         }
             
         else if pickerView == requestPicker{
             self.requestText.text = self.requestSort[row]
             self.requestPicker.isHidden = true
+            self.requestText.endEditing(true)
             
         }
     }
