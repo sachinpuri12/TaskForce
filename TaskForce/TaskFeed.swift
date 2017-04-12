@@ -52,11 +52,11 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     let title = value?["title"] as? String ?? ""
                     let task = value?["description"] as? String ?? ""
                     let place = value?["location"] as? String ?? ""
-                    _ = value?["price"] as? String ?? ""
+                    let price = value?["tip"] as? Int ?? 0
                     self.idArray.append(snapshot.key)
                     self.titleArray.append(title)
                     self.nameArray.append(name)
-                    self.moneyArray.append(0)
+                    self.moneyArray.append(price)
                     self.locArray.append(place)
                     self.taskArray.append(task)
                     print(name)

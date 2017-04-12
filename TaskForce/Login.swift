@@ -72,12 +72,13 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
                 
                 self.username = (data["first_name"]! as! String) + "-" + (data["last_name"]! as! String)
                 self.FBId = data["id"]! as! String
-                globalId = self.FBId
+                
                 self.imageURL = "https://graph.facebook.com/\(self.FBId)/picture?type=large&return_ssl_resources=1"
                 print("1." + self.username)
                 
                 self.checkUser()
                 globalUser = self.username
+                globalId = self.FBId
 
             })
             connection.start()
@@ -116,8 +117,10 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
         
         let newUserRef = ref.childByAutoId()
         newUserRef.setValue(newUser)
-        
+       
         let newUserID = newUserRef.key
+     
+       
         
         UserDefaults.standard.setValue(newUserID, forKey: "user_id_taskforce")
         
