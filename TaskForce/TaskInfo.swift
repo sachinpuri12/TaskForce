@@ -16,6 +16,11 @@ class TaskInfo: UIViewController {
     @IBOutlet weak var Description: UILabel!
     @IBOutlet weak var paymentText: UILabel!
 
+    @IBOutlet weak var titleText: UILabel!
+    
+    @IBOutlet weak var locationText: UILabel!
+    
+    @IBOutlet weak var ratingText: UILabel!
     var requestRating: String = ""
     var location: String = ""
     
@@ -31,6 +36,7 @@ class TaskInfo: UIViewController {
             let name = value?["name"] as? String ?? ""
             ref.child("users/\(name)").observeSingleEvent(of: .value, with: { (snapshot) in
                 let innerValue = snapshot.value as? NSDictionary
+                
                 
             })
             
