@@ -79,6 +79,20 @@ class Members: UITableViewController {
         self.performSegue(withIdentifier: "searchSegue", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+            
+            //let nav = segue.destination as! UINavigationController
+            let searchMember = segue.destination as! SearchMembers
+            
+            searchMember.groupKey = groupKey
+        
+    }
+
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }

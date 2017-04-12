@@ -277,16 +277,20 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAd-Pb-X44">
-                                            <rect key="frame" x="327" y="7" width="40" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Add">
-                                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAd-Pb-X44">
+                                            <rect key="frame" x="298" y="7" width="60" height="30"/>
+                                            <state key="normal" title="  Add  ">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="qAd-Pb-X44" firstAttribute="centerY" secondItem="H5a-PI-e6L" secondAttribute="centerY" id="JYR-wM-ivc"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="qAd-Pb-X44" secondAttribute="trailing" id="ZEN-eF-pRs"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="addRemoveButton" destination="qAd-Pb-X44" id="O7O-Ch-hIQ"/>
                                     <outlet property="memberName" destination="1WV-j2-Him" id="zsr-Ud-e0j"/>
                                 </connections>
                             </tableViewCell>

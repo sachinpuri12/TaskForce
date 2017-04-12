@@ -12,6 +12,9 @@ class SearchMemberCell: UITableViewCell {
     var name: String = ""
     var key: String = ""
     var inGroup: Bool = false
+    var groupKey: String = ""
+    
+    @IBOutlet weak var addRemoveButton: UIButton!
     
     @IBOutlet weak var memberName: UILabel!
     
@@ -19,15 +22,26 @@ class SearchMemberCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func setInfo(name: String, key: String, inGroup: Bool){
+    func setInfo(name: String, key: String, groupKey: String, inGroup: Bool){
         self.name = name
         self.key = key
         self.inGroup = inGroup
+        self.groupKey = groupKey
+        
+        if (self.inGroup) {
+            addRemoveButton.backgroundColor = UIColor.red
+            addRemoveButton.layer.cornerRadius = 5
+            addRemoveButton.setTitle("  Remove  ", for: UIControlState.normal)
+        }
+        else{
+            addRemoveButton.backgroundColor = UIColor.green
+            addRemoveButton.layer.cornerRadius = 5
+            addRemoveButton.setTitle("  Add  ", for: UIControlState.normal)
+        }
     }
     
     func setLabels(){
         memberName.text = self.name
-        
     }
     
 }
