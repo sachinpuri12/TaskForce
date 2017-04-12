@@ -10,28 +10,27 @@ import Foundation
 import UIKit
 import Firebase
 
-class Members: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class Members: UITableViewController {
     
     var groupName: String = ""
     var groupKey: String = ""
     var db: FIRDatabaseReference!
     var memberArray = [String]()
-    @IBOutlet weak var memberTable: UITableView!
-    
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar){
-        self.performSegue(withIdentifier: "searchSegue", sender: self)
-    }
+
+    @IBOutlet var memberTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         memberTable.delegate = self
         memberTable.dataSource = self
-        searchBar.delegate = self
         db = FIRDatabase.database().reference()
         fillMemberTable()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = nil
+        navigationItem.hidesBackButton = false
+        
     }
     
     func fillMemberTable(){
@@ -65,27 +64,25 @@ class Members: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     //loading the table
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memberArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = self.memberTable.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
         
         myCell.setMemberName(name: memberArray[indexPath.row])
         return myCell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    @IBAction func addMember(_ sender: Any) {
+        self.performSegue(withIdentifier: "searchSegue", sender: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "searchSegue" {
-//            let DestViewController = segue.destination as! SearchResultController
-//            DestViewController.userInputRequest = userInput
-        }
-    }
     
 }
 

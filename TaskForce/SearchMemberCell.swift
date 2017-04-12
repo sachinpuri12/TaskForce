@@ -9,14 +9,24 @@
 import UIKit
 class SearchMemberCell: UITableViewCell {
     
+    var name: String = ""
+    var key: String = ""
+    var inGroup: Bool = false
+    
     @IBOutlet weak var memberName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func setMemberName(name: String){
-        memberName.text = name
+    func setInfo(name: String, key: String, inGroup: Bool){
+        self.name = name
+        self.key = key
+        self.inGroup = inGroup
+    }
+    
+    func setLabels(){
+        memberName.text = self.name
         
     }
     

@@ -9,10 +9,8 @@
 import UIKit
 
 class MemberCell: UITableViewCell {
-    
-    
-    @IBOutlet weak var memberName: UILabel!
 
+    @IBOutlet weak var memberName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
