@@ -34,11 +34,7 @@ class TaskInfo: UIViewController {
             let value = snapshot.value as? NSDictionary
             
             let id = value?["id"] as? String ?? ""
-            ref.child("users/\(id)").observeSingleEvent(of: .value, with: { (snapshot) in
-                let innerValue = snapshot.value as? NSDictionary
-                self.ratingText.text = innerValue?["posterRating"] as? String ?? ""
-                
-            })
+            self.changeRating(id: id)
             
             let name = value?["name"] as? String ?? ""
             let title = value?["title"] as? String ?? ""
@@ -56,6 +52,38 @@ class TaskInfo: UIViewController {
         })
         
     }
+    
+    func changeRating(id: String) {
+        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
+ 
+        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(id)")
+            .observeSingleEvent(of: .value, with: { snapshot in
+                
+                let innerValue = snapshot.value as? NSDictionary
+                let userId = (innerValue?.allKeys[0] as! String)
+                self.getRating(userId: userId)
+                
+                
+            
+    
+        })
+    
+        
+    }
+    
+    func getRating(userId: String){
+        let ref = FIRDatabase.database().reference()
+        ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? NSDictionary
+            self.ratingText.text = String(value?["posterRating"] as? Int ?? 1) + "/5"
+            
+
+        })
+    }
+    
+            
+  
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
