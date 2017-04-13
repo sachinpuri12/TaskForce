@@ -33,6 +33,7 @@ class Members: UITableViewController {
         self.fillMemberTable()
         navigationItem.title = nil
         navigationItem.hidesBackButton = false
+        self.title = self.groupName
         
     }
     

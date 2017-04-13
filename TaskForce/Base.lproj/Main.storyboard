@@ -229,9 +229,9 @@
                     <navigationItem key="navigationItem" id="6Yb-O2-5HM">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="qKD-Iq-fgy">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t80-Ii-mMt">
-                                <rect key="frame" x="263" y="7" width="96" height="30"/>
+                                <rect key="frame" x="264" y="7" width="95" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Members"/>
+                                <state key="normal" title="Edit Members"/>
                                 <connections>
                                     <action selector="addMember:" destination="JXn-ld-155" eventType="touchUpInside" id="AfW-eJ-wck"/>
                                 </connections>
@@ -249,7 +249,7 @@
             </objects>
             <point key="canvasLocation" x="1144.8" y="-42.728635682158924"/>
         </scene>
-        <!--Add New Members-->
+        <!--Edit Group Members-->
         <scene sceneID="vgA-Gp-vE0">
             <objects>
                 <tableViewController id="FQf-Gw-YqZ" customClass="SearchMembers" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
@@ -303,7 +303,7 @@
                             <outlet property="delegate" destination="FQf-Gw-YqZ" id="lCg-w4-CI4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add New Members" id="Vfy-6v-eKo"/>
+                    <navigationItem key="navigationItem" title="Edit Group Members" id="Vfy-6v-eKo"/>
                     <connections>
                         <outlet property="searchTable" destination="WZO-6y-zg1" id="N9l-aK-NVw"/>
                     </connections>

@@ -35,7 +35,6 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
         db = FIRDatabase.database().reference()
         getUsernamesKeys()
         userKey = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
-        print(self.groupName)
     }
     
     func configureSearchController() {
@@ -99,7 +98,6 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
                     if (rest.key == "username"){
                         self.usernameArray.append(rest.value as! String)
-                        print(rest.value!)
                     }
                     if (rest.key == "groups"){
                         hasGroups = true

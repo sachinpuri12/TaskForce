@@ -136,6 +136,7 @@ class Groups: UITableViewController {
         
         myCell.setGroupName(name: groupArray[indexPath.row])
         myCell.setGroupKey(key: keyArray[indexPath.row])
+        myCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
         return myCell
     }
     
