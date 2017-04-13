@@ -23,6 +23,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
     var filteredInGroup = [Bool]()
     var shouldShowResults: Bool = false
     var searchController: UISearchController!
+    var groupName: String = ""
     
     @IBOutlet var searchTable: UITableView!
     
@@ -34,6 +35,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
         db = FIRDatabase.database().reference()
         getUsernamesKeys()
         userKey = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+        print(self.groupName)
     }
     
     func configureSearchController() {
@@ -141,11 +143,11 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
         let myCell = self.searchTable.dequeueReusableCell(withIdentifier: "SearchMemberCell", for: indexPath) as! SearchMemberCell
         
         if shouldShowResults {
-            myCell.setInfo(name: filteredUsername[indexPath.row], key: filteredKey[indexPath.row], groupKey: groupKey, inGroup: filteredInGroup[indexPath.row])
+            myCell.setInfo(name: filteredUsername[indexPath.row], key: filteredKey[indexPath.row], groupKey: groupKey, inGroup: filteredInGroup[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
         }
         else {
-            myCell.setInfo(name: usernameArray[indexPath.row], key: keyArray[indexPath.row], groupKey: groupKey, inGroup: inGroupArray[indexPath.row])
+            myCell.setInfo(name: usernameArray[indexPath.row], key: keyArray[indexPath.row], groupKey: groupKey, inGroup: inGroupArray[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
         }
         

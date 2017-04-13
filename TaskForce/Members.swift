@@ -24,10 +24,13 @@ class Members: UITableViewController {
         memberTable.delegate = self
         memberTable.dataSource = self
         db = FIRDatabase.database().reference()
-        fillMemberTable()
+        //fillMemberTable()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.memberArray.removeAll()
+        self.fillMemberTable()
         navigationItem.title = nil
         navigationItem.hidesBackButton = false
         
@@ -62,6 +65,8 @@ class Members: UITableViewController {
         memberTable.reloadData()
     }
     
+    
+    
     //loading the table
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,14 +86,16 @@ class Members: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-            let backItem = UIBarButtonItem()
-            backItem.title = "Back"
-            navigationItem.backBarButtonItem = backItem
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
+        
+        //let nav = segue.destination as!UINavigationController
+        let searchMember = segue.destination as! SearchMembers
             
-            //let nav = segue.destination as! UINavigationController
-            let searchMember = segue.destination as! SearchMembers
-            
-            searchMember.groupKey = groupKey
+        searchMember.groupKey = groupKey
+        
+        searchMember.groupName = groupName
         
     }
 
