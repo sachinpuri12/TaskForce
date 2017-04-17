@@ -40,6 +40,9 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let userID = (child as AnyObject).key!
                 self.taskKeys.append(userID)
             }
+            let id = self.getId()
+            let groups = self.getGroups
+            
             
             for item in self.taskKeys{
                 ref.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -67,6 +70,31 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         })
         
+    }
+    func getId() -> String {
+        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
+        var userId = ""
+        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(globalId)")
+            .observeSingleEvent(of: .value, with: { snapshot in
+                
+                let innerValue = snapshot.value as? NSDictionary
+                userId = (innerValue?.allKeys[0] as! String)
+                
+                
+            })
+        return userId
+    }
+    
+    func getGroups(userId: String){
+        let ref = FIRDatabase.database().reference()
+        ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? NSDictionary
+            let groups = (value?["groups"] as? [String] ?? [""])
+            print(groups)
+            
+            
+        })
     }
     
     
