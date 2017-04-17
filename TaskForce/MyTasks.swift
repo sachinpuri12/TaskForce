@@ -17,8 +17,8 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     @IBOutlet weak var requestText: UITextField!
     @IBOutlet weak var requestPicker: UIPickerView!
     
-    var runSort = ["Accepted", "Completed"]
-    var requestSort = ["Requested", "Requested and Accepted", "Requested and Completed"]
+    var runSort = ["All","Accepted", "Completed"]
+    var requestSort = ["All", "Requested", "Requested and Accepted", "Requested and Completed"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -50,19 +50,19 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         
         return ""
     }
-    
+
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == runPicker {
             self.runText.text = self.runSort[row]
-            self.runPicker.isHidden = true
+            //self.runPicker.isHidden = true
             self.runText.endEditing(true)
         }
             
         else if pickerView == requestPicker{
             self.requestText.text = self.requestSort[row]
-            self.requestPicker.isHidden = true
+//            self.requestPicker.isHidden = true
             self.requestText.endEditing(true)
             
         }
@@ -81,14 +81,28 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if (textField == self.runText){
+            self.runPicker.isHidden = false
+            
+        }
+        else if (textField == self.requestText){
+            self.requestPicker.isHidden = false
+            
+        }
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.runPicker.delegate = self
         self.runPicker.dataSource = self
         self.runPicker.reloadAllComponents()
+        self.runText.inputView = runPicker
         self.requestPicker.delegate = self
         self.requestPicker.dataSource = self
         self.requestPicker.reloadAllComponents()
+        self.requestText.inputView = requestPicker
         // Do any additional setup after loading the view, typically from a nib.
     }
     

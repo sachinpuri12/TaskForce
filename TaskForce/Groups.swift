@@ -85,7 +85,7 @@ class Groups: UITableViewController {
         //groupsTable.delegate = self
         //groupsTable.dataSource = self
         db = FIRDatabase.database().reference()
-        fillGroupTable()
+        //fillGroupTable()
     }
     
     func fillGroupTable(){
@@ -117,6 +117,14 @@ class Groups: UITableViewController {
         groupsTable.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        fillGroupTable()
+        groupsTable.reloadData()
+    }
+
+    
     //loading the table
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,6 +136,7 @@ class Groups: UITableViewController {
         
         myCell.setGroupName(name: groupArray[indexPath.row])
         myCell.setGroupKey(key: keyArray[indexPath.row])
+        myCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
         return myCell
     }
     
@@ -156,6 +165,7 @@ class Groups: UITableViewController {
             
             members.groupName = groupArray[indexPath.row]
             members.groupKey = keyArray[indexPath.row]
+            print("groups:" + members.groupName)
         }
     }
     

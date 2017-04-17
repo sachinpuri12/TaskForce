@@ -12,13 +12,18 @@ import Firebase
 
 class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
+    var groupKey: String = ""
+    var userKey: String = ""
     var usernameArray = [String]()
     var keyArray = [String]()
+    var inGroupArray = [Bool]()
     var db: FIRDatabaseReference!
     var filteredUsername = [String]()
     var filteredKey = [String]()
-    var shouldShowResults = false
+    var filteredInGroup = [Bool]()
+    var shouldShowResults: Bool = false
     var searchController: UISearchController!
+    var groupName: String = ""
     
     @IBOutlet var searchTable: UITableView!
     
@@ -29,6 +34,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
         configureSearchController()
         db = FIRDatabase.database().reference()
         getUsernamesKeys()
+        userKey = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
     }
     
     func configureSearchController() {
@@ -62,6 +68,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
     func updateSearchResults(for searchController: UISearchController){
         filteredUsername.removeAll()
         filteredKey.removeAll()
+        filteredInGroup.removeAll()
         
         let searchString = searchController.searchBar.text
         
@@ -71,6 +78,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
             if ((userText.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound){
                 filteredUsername.append(usernameArray[index])
                 filteredKey.append(keyArray[index])
+                filteredInGroup.append(inGroupArray[index])
             }
         }
         // Reload the tableview.
@@ -86,10 +94,25 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
             } else {
                 self.keyArray.append(snapshot.key)
                 let enumerator = snapshot.children
+                var hasGroups = false
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
                     if (rest.key == "username"){
                         self.usernameArray.append(rest.value as! String)
                     }
+                    if (rest.key == "groups"){
+                        hasGroups = true
+                        let enumerator2 = rest.children
+                        var inGroup = false
+                        while let groups = enumerator2.nextObject() as? FIRDataSnapshot{
+                            if(groups.key == self.groupKey){
+                                inGroup = true
+                            }
+                        }
+                        self.inGroupArray.append(inGroup)
+                    }
+                }
+                if !hasGroups{
+                    self.inGroupArray.append(false)
                 }
                 self.searchTable.reloadData()
             }
@@ -118,11 +141,11 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
         let myCell = self.searchTable.dequeueReusableCell(withIdentifier: "SearchMemberCell", for: indexPath) as! SearchMemberCell
         
         if shouldShowResults {
-            myCell.setInfo(name: filteredUsername[indexPath.row], key: filteredKey[indexPath.row], inGroup: false)
+            myCell.setInfo(name: filteredUsername[indexPath.row], key: filteredKey[indexPath.row], groupKey: groupKey, inGroup: filteredInGroup[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
         }
         else {
-            myCell.setInfo(name: usernameArray[indexPath.row], key: keyArray[indexPath.row], inGroup: false)
+            myCell.setInfo(name: usernameArray[indexPath.row], key: keyArray[indexPath.row], groupKey: groupKey, inGroup: inGroupArray[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
         }
         
