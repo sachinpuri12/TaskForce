@@ -12,10 +12,12 @@ import UIKit
 
 class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
+    @IBOutlet weak var runTable: UITableView!
     @IBOutlet weak var runText: UITextField!
     @IBOutlet weak var runPicker: UIPickerView!
     @IBOutlet weak var requestText: UITextField!
     @IBOutlet weak var requestPicker: UIPickerView!
+    @IBOutlet weak var requestTable: UITableView!
     
     var runSort = ["All","Accepted", "Completed"]
     var requestSort = ["All", "Requested", "Requested and Accepted", "Requested and Completed"]
@@ -24,13 +26,13 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        var countrows: Int = runSort.count
+        var countRows: Int = runSort.count
         if pickerView == requestPicker {
             
-            countrows = self.requestSort.count
+            countRows = self.requestSort.count
         }
         
-        return countrows
+        return countRows
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -66,6 +68,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             self.requestText.endEditing(true)
             
         }
+    
     }
     
     
@@ -111,6 +114,25 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         // Dispose of any resources that can be recreated.
     }
     
+    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return nameArray.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
+//        myCell.setInfo(money: moneyArray[indexPath.row], name: nameArray[indexPath.row], task: taskArray[indexPath.row], loc: locArray[indexPath.row])
+//        return myCell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cell.backgroundColor = UIColor.clear
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        selectedTask = taskKeys[indexPath.row]
+//    }
+
     
 }
 

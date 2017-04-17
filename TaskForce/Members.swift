@@ -16,6 +16,7 @@ class Members: UITableViewController {
     var groupKey: String = ""
     var db: FIRDatabaseReference!
     var memberArray = [String]()
+    var imageArray = [UIImage]()
 
     @IBOutlet var memberTable: UITableView!
     
@@ -24,7 +25,6 @@ class Members: UITableViewController {
         memberTable.delegate = self
         memberTable.dataSource = self
         db = FIRDatabase.database().reference()
-        //fillMemberTable()
     }
     
     override func viewWillAppear(_ animated: Bool) {
