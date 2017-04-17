@@ -24,6 +24,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
     var shouldShowResults: Bool = false
     var searchController: UISearchController!
     var groupName: String = ""
+    var imageCache = [String:UIImage]()
     
     @IBOutlet var searchTable: UITableView!
     
@@ -143,13 +144,65 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
         if shouldShowResults {
             myCell.setInfo(name: filteredUsername[indexPath.row], key: filteredKey[indexPath.row], groupKey: groupKey, inGroup: filteredInGroup[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
+            self.addPicture(key: filteredKey, indexPath: indexPath.row, myCell: myCell)
         }
         else {
             myCell.setInfo(name: usernameArray[indexPath.row], key: keyArray[indexPath.row], groupKey: groupKey, inGroup: inGroupArray[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
+            self.addPicture(key: keyArray, indexPath: indexPath.row, myCell: myCell)
         }
         
         return myCell
+    }
+    
+    func addPicture(key: [String], indexPath: Int, myCell: SearchMemberCell){
+        var urlString: String = ""
+        let ref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(key[indexPath])")
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                let enumerator = snapshot.children
+                while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                    if (rest.key == "imageURL"){
+                        urlString = rest.value! as! String
+                        print(urlString)
+                        let url = NSURL(string: urlString)
+                        
+                        //myCell.setImage(profile: UIImage(named: "blank")!)
+                        
+                        // If this image is already cached, don't re-download
+                        if let img = self.imageCache[urlString] {
+                            myCell.setImage(profile: img)
+                        }
+                            
+                        else {
+                            // The image isn't cached, download the img data
+                            // We should perform this in a background thread
+                            let session = URLSession.shared
+                            let request = NSURLRequest(url: url! as URL)
+                            let dataTask = session.dataTask(with: request as URLRequest) { (data:Data?, response:URLResponse?, error:Error?) -> Void in
+                                if error == nil {
+                                    // Convert the downloaded data in to a UIImage object
+                                    let image = UIImage(data: data!)
+                                    // Store the image in to our cache
+                                    self.imageCache[urlString] = image
+                                    // Update the cell
+                                    DispatchQueue.main.async(execute: {
+                                        myCell.setImage(profile: image!)
+                                    })
+                                }
+                                else {
+                                    print("Error: \(String(describing: error?.localizedDescription))")
+                                }
+                            }
+                            dataTask.resume()
+                        }
+                    }
+                }
+            }
+        });
+
     }
 //
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
