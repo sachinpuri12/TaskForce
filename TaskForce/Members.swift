@@ -17,7 +17,6 @@ class Members: UITableViewController {
     var db: FIRDatabaseReference!
     var memberArray = [String]()
     var memberKeyArray = [String]()
-    var imageArray = [String]()
     var imageCache = [String: UIImage]()
     var admin: String = ""
 
@@ -35,17 +34,17 @@ class Members: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.memberArray.removeAll()
+        self.memberKeyArray.removeAll()
         self.fillMemberTable()
         navigationItem.title = nil
         navigationItem.hidesBackButton = false
         self.title = self.groupName
-        
-        
-        
+        memberButton.title = "edit"
     }
     
     func fillMemberTable(){
         self.memberArray.removeAll()
+        self.memberKeyArray.removeAll()
         
         let groupID = groupKey
         let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(groupID)")
@@ -79,19 +78,8 @@ class Members: UITableViewController {
                     }
                 }
             }
-//            let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
-//            
-//            let barButton = self.memberButton
-            
-//            print("id: " + userId)
-//            print("admin " + self.admin)
-//            if (userId == self.admin){
-//                barButton?.title = "Edit Members"
-//                self.navigationItem.rightBarButtonItem = barButton
-//            }
 
         })
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -134,7 +122,6 @@ class Members: UITableViewController {
                 while let rest = enumerator.nextObject() as? FIRDataSnapshot {
                     if (rest.key == "imageURL"){
                         urlString = rest.value! as! String
-                        print(urlString)
                         let url = NSURL(string: urlString)
                         
                         //myCell.setImage(profile: UIImage(named: "blank")!)

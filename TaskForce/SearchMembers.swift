@@ -141,7 +141,9 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = self.searchTable.dequeueReusableCell(withIdentifier: "SearchMemberCell", for: indexPath) as! SearchMemberCell
-        
+        if (isAdmin){
+            myCell.currUserIsAdmin()
+        }
         if shouldShowResults {
             myCell.setInfo(name: filteredUsername[indexPath.row], key: filteredKey[indexPath.row], groupKey: groupKey, inGroup: filteredInGroup[indexPath.row], groupName: self.groupName)
             myCell.setLabels()
@@ -152,11 +154,6 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
             myCell.setLabels()
             self.addPicture(key: keyArray, indexPath: indexPath.row, myCell: myCell)
         }
-        
-        if (isAdmin){
-            myCell.currUserIsAdmin()
-        }
-
         return myCell
     }
     

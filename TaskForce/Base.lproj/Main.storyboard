@@ -311,11 +311,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="6Yb-O2-5HM">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="qKD-Iq-fgy">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="qKD-Iq-fgy">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t80-Ii-mMt">
-                                <rect key="frame" x="264" y="7" width="95" height="30"/>
+                                <rect key="frame" x="263" y="7" width="96" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit Members"/>
+                                <state key="normal" title="Add Members"/>
                                 <connections>
                                     <action selector="addMember:" destination="JXn-ld-155" eventType="touchUpInside" id="AfW-eJ-wck"/>
                                 </connections>

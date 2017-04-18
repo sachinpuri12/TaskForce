@@ -80,28 +80,24 @@ class SearchMemberCell: UITableViewCell {
             if (self.inGroup){
                 self.inGroup = false
                 removeMember()
+                changeButton()
             }
             else{
                 self.inGroup = true
                 addMember()
-                
+                changeButton()
             }
-            
-            changeButton()
         }
         else{
             self.inGroup = true
             addMember()
             changeButton()
         }
-        
-        
     }
     
     func addMember(){
         FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(self.key)/groups").child(self.groupKey).setValue(self.groupName)
         FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(self.groupKey)/members").child(self.key).setValue(self.name)
-        
     }
     
     func removeMember(){
