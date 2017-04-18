@@ -64,7 +64,8 @@ class Groups: UITableViewController {
         let newGroup = [
             "name": newGroupName,
             "members": [
-                (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String): self.currentUsername] as [String: Any]
+                (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String): self.currentUsername] as [String: Any],
+            "admin": (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String)
             ] as [String: Any]
 
         //adding to the group database
@@ -171,8 +172,38 @@ class Groups: UITableViewController {
             
             members.groupName = groupArray[indexPath.row]
             members.groupKey = keyArray[indexPath.row]
-            print("groups:" + members.groupName)
+            
+            let isAdmin = getAdmin(groupId: keyArray[indexPath.row])
+            
+            if (isAdmin){
+                print("got here")
+                let barButton = members.memberButton
+                barButton?.title = "Edit Members"
+                self.navigationItem.rightBarButtonItem = barButton
+            }
         }
+    }
+    
+    func getAdmin(groupId: String) -> Bool{
+        let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(groupId)")
+        var admin = false
+        newref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    if (rest.key == "admin"){
+                        let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+                        if (rest.value! as! String == userId){
+                            admin = true
+                        }
+                    }
+                }
+            }
+        })
+        
+        return admin
+        
     }
     
     
