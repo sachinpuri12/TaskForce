@@ -16,14 +16,14 @@ class Members: UITableViewController {
     var groupKey: String = ""
     var db: FIRDatabaseReference!
     var memberArray = [String]()
-    var imageArray = [UIImage]()
+    var memberKeyArray = [String]()
+    var imageArray = [String]()
+    var imageCache = [String: UIImage]()
 
     @IBOutlet var memberTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        memberTable.delegate = self
-        memberTable.dataSource = self
         db = FIRDatabase.database().reference()
     }
     
@@ -48,12 +48,14 @@ class Members: UITableViewController {
             } else {
                 for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     self.memberArray.append(rest.value! as! String)
-                    //self.keyArray.append(rest.key)
+                    self.memberKeyArray.append(rest.key)
                 }
-                self.memberTable.reloadData()
+                //self.fillImageArray()
+                //self.memberTable.reloadData()
             }
             
         })
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,9 +77,59 @@ class Members: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let myCell = self.memberTable.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
         
         myCell.setMemberName(name: memberArray[indexPath.row])
+        
+        var urlString: String = ""
+        let ref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(memberKeyArray[indexPath.row])")
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                let enumerator = snapshot.children
+                while let rest = enumerator.nextObject() as? FIRDataSnapshot {
+                    if (rest.key == "imageURL"){
+                        urlString = rest.value! as! String
+                        print(urlString)
+                        let url = NSURL(string: urlString)
+                        
+                        //myCell.setImage(profile: UIImage(named: "blank")!)
+                        
+                        // If this image is already cached, don't re-download
+                        if let img = self.imageCache[urlString] {
+                            myCell.setImage(profile: img)
+                        }
+                            
+                        else {
+                            // The image isn't cached, download the img data
+                            // We should perform this in a background thread
+                            let session = URLSession.shared
+                            let request = NSURLRequest(url: url! as URL)
+                            let dataTask = session.dataTask(with: request as URLRequest) { (data:Data?, response:URLResponse?, error:Error?) -> Void in
+                                if error == nil {
+                                    // Convert the downloaded data in to a UIImage object
+                                    let image = UIImage(data: data!)
+                                    // Store the image in to our cache
+                                    self.imageCache[urlString] = image
+                                    // Update the cell
+                                    DispatchQueue.main.async(execute: {
+                                        myCell.setImage(profile: image!)
+                                    })
+                                }
+                                else {
+                                    print("Error: \(String(describing: error?.localizedDescription))")
+                                }
+                            }
+                            dataTask.resume()
+                        }
+                    }
+                }
+            }
+        });
+
+        
         return myCell
     }
     
