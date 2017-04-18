@@ -11,6 +11,7 @@ import UIKit
 import Firebase
 
 var selectedTask: String = ""
+var groupNames = [String]()
 class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var feedTable: UITableView!
@@ -27,71 +28,68 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         feedTable.delegate = self
         feedTable.dataSource = self
+        //let id = self.getId()
         db = FIRDatabase.database().reference()
         let ref = FIRDatabase.database().reference()
         let taskRef = ref.child("tasks")
         
         taskRef.observeSingleEvent(of: .value, with: { snapshot in
-            print("HelLOooooooooOOOooooOOOOOOoooo")
+            
             
             for child in snapshot.children{
                 let userID = (child as AnyObject).key!
                 self.taskKeys.append(userID)
             }
-            let id = self.getId()
-            let groups = self.getGroups
+            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+            print(id)
+            self.getGroups(userId: id)
             
             
             for item in self.taskKeys{
                 ref.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
                     
-                    print(snapshot.key)
-                    let value = snapshot.value as? NSDictionary
                     
-                    let name = value?["name"] as? String ?? ""
-                    let title = value?["title"] as? String ?? ""
-                    let task = value?["description"] as? String ?? ""
-                    let place = value?["location"] as? String ?? ""
-                    let price = value?["tip"] as? Int ?? 0
-                    self.idArray.append(snapshot.key)
-                    self.titleArray.append(title)
-                    self.nameArray.append(name)
-                    self.moneyArray.append(price)
-                    self.locArray.append(place)
-                    self.taskArray.append(task)
-                    print(name)
+                    let value = snapshot.value as? NSDictionary
+                    let group = value?["group"] as? String ?? ""
+                    if groupNames.contains(group){
+                        let name = value?["name"] as? String ?? ""
+                        let title = value?["title"] as? String ?? ""
+                        let task = value?["description"] as? String ?? ""
+                        let place = value?["location"] as? String ?? ""
+                        let price = value?["tip"] as? Int ?? 0
+                        self.idArray.append(snapshot.key)
+                        self.titleArray.append(title)
+                        self.nameArray.append(name)
+                        self.moneyArray.append(price)
+                        self.locArray.append(place)
+                        self.taskArray.append(task)
+                    }
                     
                     // ...
                 })
             }
             
+            
         })
         
     }
-    func getId() -> String {
-        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
-        var userId = ""
-        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(globalId)")
-            .observeSingleEvent(of: .value, with: { snapshot in
-                
-                let innerValue = snapshot.value as? NSDictionary
-                userId = (innerValue?.allKeys[0] as! String)
-                
-                
-            })
-        return userId
-    }
+    
     
     func getGroups(userId: String){
+        print(userId)
         let ref = FIRDatabase.database().reference()
         ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
-            let groups = (value?["groups"] as? [String] ?? [""])
-            print(groups)
+            
+            let groups = (value?["groups"] as? NSDictionary)
+            groupNames = groups?.allKeys as! [String]
+            
+            
             
             
         })
@@ -104,7 +102,8 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidAppear(_ animated: Bool) {
         feedTable.reloadData()
-        super.viewDidLoad()
+        
+        self.viewDidLoad()
     }
     //loading the table
     
