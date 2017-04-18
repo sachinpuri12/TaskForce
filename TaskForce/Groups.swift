@@ -64,7 +64,8 @@ class Groups: UITableViewController {
         let newGroup = [
             "name": newGroupName,
             "members": [
-                (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String): self.currentUsername] as [String: Any]
+                (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String): self.currentUsername] as [String: Any],
+            "admin": (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String)
             ] as [String: Any]
 
         //adding to the group database

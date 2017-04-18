@@ -25,6 +25,7 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
     var searchController: UISearchController!
     var groupName: String = ""
     var imageCache = [String:UIImage]()
+    var isAdmin: Bool = false
     
     @IBOutlet var searchTable: UITableView!
     
@@ -152,6 +153,10 @@ class SearchMembers: UITableViewController, UISearchResultsUpdating, UISearchBar
             self.addPicture(key: keyArray, indexPath: indexPath.row, myCell: myCell)
         }
         
+        if (isAdmin){
+            myCell.currUserIsAdmin()
+        }
+
         return myCell
     }
     

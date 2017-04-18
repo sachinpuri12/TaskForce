@@ -19,12 +19,17 @@ class Members: UITableViewController {
     var memberKeyArray = [String]()
     var imageArray = [String]()
     var imageCache = [String: UIImage]()
+    var admin: String = ""
 
     @IBOutlet var memberTable: UITableView!
+    @IBOutlet weak var memberButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = FIRDatabase.database().reference()
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +39,8 @@ class Members: UITableViewController {
         navigationItem.title = nil
         navigationItem.hidesBackButton = false
         self.title = self.groupName
+        
+        
         
     }
     
@@ -50,12 +57,41 @@ class Members: UITableViewController {
                     self.memberArray.append(rest.value! as! String)
                     self.memberKeyArray.append(rest.key)
                 }
-                //self.fillImageArray()
-                //self.memberTable.reloadData()
             }
+            self.getAdmin()
             
         })
         
+        
+        
+    }
+    
+    func getAdmin(){
+        let groupID = groupKey
+        let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(groupID)")
+        newref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    if (rest.key == "admin"){
+                        self.admin = rest.value! as! String
+                    }
+                }
+            }
+//            let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+//            
+//            let barButton = self.memberButton
+            
+//            print("id: " + userId)
+//            print("admin " + self.admin)
+//            if (userId == self.admin){
+//                barButton?.title = "Edit Members"
+//                self.navigationItem.rightBarButtonItem = barButton
+//            }
+
+        })
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,7 +116,13 @@ class Members: UITableViewController {
         
         let myCell = self.memberTable.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
         
-        myCell.setMemberName(name: memberArray[indexPath.row])
+        if (memberKeyArray[indexPath.row] == self.admin){
+            myCell.setMemberName(name: (memberArray[indexPath.row] + " 👑"))
+        }
+        else{
+            myCell.setMemberName(name: memberArray[indexPath.row])
+        }
+        
         
         var urlString: String = ""
         let ref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(memberKeyArray[indexPath.row])")
@@ -150,6 +192,10 @@ class Members: UITableViewController {
         
         searchMember.groupName = groupName
         
+        let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+        if (userId == admin){
+            searchMember.isAdmin = true
+        }
     }
 
     

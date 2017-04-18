@@ -326,6 +326,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="memberButton" destination="qKD-Iq-fgy" id="ovo-u2-Y5t"/>
                         <outlet property="memberTable" destination="dz0-de-9nC" id="sks-vZ-JHs"/>
                     </connections>
                 </tableViewController>
