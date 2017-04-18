@@ -24,6 +24,13 @@ class TaskInfo: UIViewController {
     var requestRating: String = ""
     var location: String = ""
     
+    @IBAction func AcceptTask(_ sender: Any) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("tasks/\(selectedTask)").setValue(["status": "accepted"])
+        ref.child("tasks/\(selectedTask)").setValue(["acceptor": globalUser])
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,6 +50,7 @@ class TaskInfo: UIViewController {
             let place = value?["location"] as? String ?? ""
             let price = value?["tip"] as? Double ?? 0.0
             
+            self.titleText.text = title
             self.Requester.text = name
             self.Description.text = task
             self.locationText.text = place
@@ -66,7 +74,7 @@ class TaskInfo: UIViewController {
         })
     }
     
-            
+
   
     
     override func didReceiveMemoryWarning() {

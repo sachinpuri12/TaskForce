@@ -28,10 +28,23 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         feedTable.delegate = self
         feedTable.dataSource = self
-        //let id = self.getId()
+
+    }
+    
+    func loadTables(){
+        
+        self.idArray.removeAll()
+        self.nameArray.removeAll()
+        self.titleArray.removeAll()
+        self.taskArray.removeAll()
+        self.locArray.removeAll()
+        self.moneyArray.removeAll()
+        self.tasksArray.removeAll()
+        self.taskKeys.removeAll()
+        self.feedTable.reloadData()
+        
         db = FIRDatabase.database().reference()
         let ref = FIRDatabase.database().reference()
         let taskRef = ref.child("tasks")
@@ -43,9 +56,9 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let userID = (child as AnyObject).key!
                 self.taskKeys.append(userID)
             }
-            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-            print(id)
-            self.getGroups(userId: id)
+           
+            
+            
             
             
             for item in self.taskKeys{
@@ -55,7 +68,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                     let value = snapshot.value as? NSDictionary
                     let group = value?["group"] as? String ?? ""
-                    print(group)
+                   
                     if groupNames.contains(group){
                         let name = value?["name"] as? String ?? ""
                         let title = value?["title"] as? String ?? ""
@@ -71,14 +84,14 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     }
                     
                     // ...
+                    self.feedTable.reloadData()
                 })
+                
             }
             
             
         })
-        
     }
-    
     
     func getGroups(userId: String){
         print(userId)
@@ -90,7 +103,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let groups = (value?["groups"] as? NSDictionary)
             
             groupNames = groups?.allValues as! [String]
-            print(groupNames)
+            
             
             
         })
@@ -101,11 +114,16 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        feedTable.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+         let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+        self.getGroups(userId: id)
+        loadTables()
         
-        self.viewDidLoad()
+        
+        
     }
+    
+
     //loading the table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -113,9 +131,10 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
         myCell.setInfo(money: moneyArray[indexPath.row], name: nameArray[indexPath.row], task: taskArray[indexPath.row], loc: locArray[indexPath.row])
-        return myCell
+                return myCell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
