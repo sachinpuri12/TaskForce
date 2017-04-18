@@ -17,12 +17,16 @@ class SearchMemberCell: UITableViewCell {
     var groupKey: String = ""
     var groupName: String = ""
     var db: FIRDatabaseReference!
+    var isAdmin: Bool = false
     
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var addRemoveButton: UIButton!
-    
     @IBOutlet weak var memberName: UILabel!
     
     override func awakeFromNib() {
+        profileImage.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
+        self.profileImage.clipsToBounds = true
         super.awakeFromNib()
     }
     
@@ -32,43 +36,68 @@ class SearchMemberCell: UITableViewCell {
         self.inGroup = inGroup
         self.groupKey = groupKey
         self.groupName = groupName
+        
         db = FIRDatabase.database().reference()
         
         changeButton()
     }
     
+    func currUserIsAdmin(){
+        self.isAdmin = true
+    }
+    
     func changeButton(){
-        if (self.inGroup) {
-            addRemoveButton.backgroundColor = UIColor.red
-            addRemoveButton.layer.cornerRadius = 5
-            addRemoveButton.setTitle("  Remove  ", for: UIControlState.normal)
+        if (self.isAdmin){
+            if (self.inGroup) {
+                addRemoveButton.backgroundColor = UIColor.red
+                addRemoveButton.layer.cornerRadius = 5
+                addRemoveButton.setTitle("  Remove  ", for: UIControlState.normal)
+            }
+            else{
+                addRemoveButton.backgroundColor = UIColor.green
+                addRemoveButton.layer.cornerRadius = 5
+                addRemoveButton.setTitle("  Add  ", for: UIControlState.normal)
+            }
+
         }
         else{
-            addRemoveButton.backgroundColor = UIColor.green
-            addRemoveButton.layer.cornerRadius = 5
-            addRemoveButton.setTitle("  Add  ", for: UIControlState.normal)
+            if (self.inGroup) {
+                addRemoveButton.backgroundColor = UIColor.blue
+                addRemoveButton.layer.cornerRadius = 5
+                addRemoveButton.setTitle("  Added  ", for: UIControlState.normal)
+            }
+            else{
+                addRemoveButton.backgroundColor = UIColor.green
+                addRemoveButton.layer.cornerRadius = 5
+                addRemoveButton.setTitle("  Add  ", for: UIControlState.normal)
+            }
+
         }
     }
     
     @IBAction func addRemoveMember(_ sender: Any) {
-        if (self.inGroup){
-            self.inGroup = false
-            removeMember()
+        if(self.isAdmin){
+            if (self.inGroup){
+                self.inGroup = false
+                removeMember()
+                changeButton()
+            }
+            else{
+                self.inGroup = true
+                addMember()
+                changeButton()
+            }
         }
         else{
             self.inGroup = true
             addMember()
-
+            changeButton()
         }
-        
-        changeButton()
-        
     }
     
     func addMember(){
         FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(self.key)/groups").child(self.groupKey).setValue(self.groupName)
         FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(self.groupKey)/members").child(self.key).setValue(self.name)
-        
     }
     
     func removeMember(){
@@ -79,5 +108,29 @@ class SearchMemberCell: UITableViewCell {
     func setLabels(){
         memberName.text = self.name
     }
+    
+    func setImage(profile: UIImage){
+        
+        let newImage = resizeImage(image: profile, toTheSize: CGSize(width: 60, height: 60))
+        profileImage.image = newImage
+        
+    }
+    
+    func resizeImage(image:UIImage, toTheSize size:CGSize)->UIImage{
+        
+        
+        let scale = CGFloat(max(size.width/image.size.width, size.height/image.size.height))
+        let width:CGFloat  = image.size.width * scale
+        let height:CGFloat = image.size.height * scale
+        
+        let rr:CGRect = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0);
+        image.draw(in: rr)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+
     
 }

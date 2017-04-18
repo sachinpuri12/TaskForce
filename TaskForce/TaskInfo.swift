@@ -33,8 +33,9 @@ class TaskInfo: UIViewController {
             
             let value = snapshot.value as? NSDictionary
             
-            let id = value?["id"] as? String ?? ""
-            self.changeRating(id: id)
+            
+            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+            self.getRating(userId: id)
             
             let name = value?["name"] as? String ?? ""
             let title = value?["title"] as? String ?? ""
@@ -44,32 +45,15 @@ class TaskInfo: UIViewController {
             
             self.Requester.text = name
             self.Description.text = task
+            self.locationText.text = place
             
-            self.paymentText.text = String(format: "%.2f", price)
-            self.paymentText.text = "$" + String (Double (price))
+            self.paymentText.text = "$" + String(format: "%.2f", price)
             
             
         })
         
     }
     
-    func changeRating(id: String) {
-        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
- 
-        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(id)")
-            .observeSingleEvent(of: .value, with: { snapshot in
-                
-                let innerValue = snapshot.value as? NSDictionary
-                let userId = (innerValue?.allKeys[0] as! String)
-                self.getRating(userId: userId)
-                
-                
-            
-    
-        })
-    
-        
-    }
     
     func getRating(userId: String){
         let ref = FIRDatabase.database().reference()

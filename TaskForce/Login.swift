@@ -62,7 +62,7 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
         if(FBSDKAccessToken.current() != nil)
         {
             //print permissions, such as public_profile
-            print(FBSDKAccessToken.current().permissions)
+            //print(FBSDKAccessToken.current().permissions)
             let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, first_name, last_name, email"])
             let connection = FBSDKGraphRequestConnection()
             
@@ -74,7 +74,7 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
                 self.FBId = data["id"]! as! String
                 
                 self.imageURL = "https://graph.facebook.com/\(self.FBId)/picture?type=large&return_ssl_resources=1"
-                print("1." + self.username)
+                
                 
                 self.checkUser()
                 globalUser = self.username

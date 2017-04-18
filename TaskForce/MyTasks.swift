@@ -25,35 +25,26 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var countRows: Int = runSort.count
         if pickerView == requestPicker {
-            
             countRows = self.requestSort.count
         }
-        
         return countRows
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == runPicker {
-            
             let titleRow = runSort[row]
-            
             return titleRow
-            
         }
-            
         else if pickerView == requestPicker{
             let titleRow = requestSort[row]
-            
             return titleRow
         }
-        
         return ""
     }
-
-    
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == runPicker {
@@ -68,18 +59,14 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             self.requestText.endEditing(true)
             
         }
-    
     }
-    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == self.runText){
             self.runPicker.isHidden = false
-            
         }
         else if (textField == self.requestText){
             self.requestPicker.isHidden = false
-            
         }
         
     }

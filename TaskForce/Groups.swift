@@ -22,11 +22,13 @@ class Groups: UITableViewController {
     
     
     @IBAction func addNewGroup(_ sender: Any) {
-        let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
-        let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(userId)")
-        newref.child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-            self.currentUsername = snapshot.value! as! String
-        })
+        if (UserDefaults.standard.object(forKey: "user_id_taskforce") != nil){
+            let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+            let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(userId)")
+            newref.child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+                self.currentUsername = snapshot.value! as! String
+            })
+        }
         
         let alert = UIAlertController(title: "Add new group", message: nil, preferredStyle: .alert)
         
@@ -45,10 +47,12 @@ class Groups: UITableViewController {
                 self.present(alert2, animated: true, completion: nil)
             }
             else{
-                let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
-                self.addNewGroupToDB(newGroupName: newGroupName!, userID: userId)
-                self.fillGroupTable()
-                self.groupsTable.reloadData()
+                if (UserDefaults.standard.object(forKey: "user_id_taskforce") != nil){
+                    let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+                    self.addNewGroupToDB(newGroupName: newGroupName!, userID: userId)
+                    self.fillGroupTable()
+                    self.groupsTable.reloadData()
+                }
             }
         }))
         
@@ -60,7 +64,8 @@ class Groups: UITableViewController {
         let newGroup = [
             "name": newGroupName,
             "members": [
-                (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String): self.currentUsername] as [String: Any]
+                (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String): self.currentUsername] as [String: Any],
+            "admin": (UserDefaults.standard.value(forKey: "user_id_taskforce")! as! String)
             ] as [String: Any]
 
         //adding to the group database
@@ -91,20 +96,22 @@ class Groups: UITableViewController {
     func fillGroupTable(){
         self.groupArray.removeAll()
         self.keyArray.removeAll()
-        let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
-        let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(userId)")
-        newref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
-            if let _ = snapshot.value as? NSNull {
-                return
-            } else {
-                for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                    self.groupArray.append(rest.value! as! String)
-                    self.keyArray.append(rest.key)
+        if (UserDefaults.standard.object(forKey: "user_id_taskforce") != nil){
+            let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+            let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users/\(userId)")
+            newref.child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
+                if let _ = snapshot.value as? NSNull {
+                    return
+                } else {
+                    for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                        self.groupArray.append(rest.value! as! String)
+                        self.keyArray.append(rest.key)
+                    }
+                    self.groupsTable.reloadData()
                 }
-                self.groupsTable.reloadData()
-            }
-            
-        })
+                
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -165,8 +172,38 @@ class Groups: UITableViewController {
             
             members.groupName = groupArray[indexPath.row]
             members.groupKey = keyArray[indexPath.row]
-            print("groups:" + members.groupName)
+            
+            let isAdmin = getAdmin(groupId: keyArray[indexPath.row])
+            
+            if (isAdmin){
+                print("got here")
+                let barButton = members.memberButton
+                barButton?.title = "Edit Members"
+                self.navigationItem.rightBarButtonItem = barButton
+            }
         }
+    }
+    
+    func getAdmin(groupId: String) -> Bool{
+        let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(groupId)")
+        var admin = false
+        newref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    if (rest.key == "admin"){
+                        let userId = (UserDefaults.standard.value(forKey: "user_id_taskforce")) as! String
+                        if (rest.value! as! String == userId){
+                            admin = true
+                        }
+                    }
+                }
+            }
+        })
+        
+        return admin
+        
     }
     
     
