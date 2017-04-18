@@ -26,35 +26,19 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     
     var db: FIRDatabaseReference!
     var taskTypes = ["Grocery", "Home-Based", "Shopping", "Other"]
+    var groupNamesPicker = [String]()
     
-    var groupIDs = [String]()
+//    var groupIDs = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         db = FIRDatabase.database().reference()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
-        let groupsRef = db.child("groups")
-        groupsRef.observeSingleEvent(of: .value, with: { snapshot in
+ 
+            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+            print(id)
+            self.getGroups(userId: id)
             
-            for child in snapshot.children {
-                let groupID = (child as AnyObject).key!
-                self.groupIDs.append(groupID)
-            }
-            self.displayArray(name: self.groupIDs) //print out groupIDS array
-      
-            for item in self.groupIDs{
-                self.db.child("groups/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
-                    if let value = snapshot.value as? NSDictionary {
-                        let groupName = value["name"] as? String ?? ""
-                        groups.append(groupName)
-                        self.setDelegateDataSource()
-                    }
-                })
-            }
-            self.displayArray(name: groups) //print out groups array
-        })
     }
 
     func setDelegateDataSource(){
@@ -68,12 +52,22 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         
     }
     
-    func displayArray(name: [String]) {
-        for i in name{
-            print(i)
-        }
-        print(name.count)
+    func getGroups(userId: String){
+        print(userId)
+        let ref = FIRDatabase.database().reference()
+        ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? NSDictionary
+            
+            let groups = (value?["groups"] as? NSDictionary)
+            
+            self.groupNamesPicker = groups?.allValues as! [String]
+            print(self.groupNamesPicker)
+            self.setDelegateDataSource()
+            
+        })
     }
+
     
     @IBAction func requestTaskInsertDatabase(_ sender: Any) {
         
@@ -118,7 +112,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var countRows: Int = self.taskTypes.count
         if pickerView == groupPicker {
-            countRows = groups.count
+            countRows = groupNamesPicker.count
         }
         return countRows
     }
@@ -127,7 +121,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         
       
         if pickerView == groupPicker {
-            let titleRow = groups[row]
+            let titleRow = groupNamesPicker[row]
             return titleRow
         }
         else if pickerView == taskTypePicker{
@@ -139,7 +133,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == groupPicker {
-            self.group.text = groups[row]
+            self.group.text = groupNamesPicker[row]
             //self.runPicker.isHidden = true
             self.group.endEditing(true)
         }
