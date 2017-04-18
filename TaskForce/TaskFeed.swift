@@ -55,6 +55,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                     let value = snapshot.value as? NSDictionary
                     let group = value?["group"] as? String ?? ""
+                    print(group)
                     if groupNames.contains(group){
                         let name = value?["name"] as? String ?? ""
                         let title = value?["title"] as? String ?? ""
@@ -87,9 +88,9 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let value = snapshot.value as? NSDictionary
             
             let groups = (value?["groups"] as? NSDictionary)
-            groupNames = groups?.allKeys as! [String]
             
-            
+            groupNames = groups?.allValues as! [String]
+            print(groupNames)
             
             
         })
