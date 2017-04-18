@@ -44,9 +44,9 @@ class TaskInfo: UIViewController {
             
             self.Requester.text = name
             self.Description.text = task
+            self.locationText.text = place
             
-            self.paymentText.text = String(format: "%.2f", price)
-            self.paymentText.text = "$" + String (Double (price))
+            self.paymentText.text = "$" + String(format: "%.2f", price)
             
             
         })
@@ -62,8 +62,6 @@ class TaskInfo: UIViewController {
                 let innerValue = snapshot.value as? NSDictionary
                 let userId = (innerValue?.allKeys[0] as! String)
                 self.getRating(userId: userId)
-                
-                
             
     
         })
