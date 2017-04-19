@@ -12,9 +12,10 @@ import Firebase
 
 var selectedTask: String = ""
 var groupNames = [String]()
-class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskFeed: UITableViewController {
     
-    @IBOutlet weak var feedTable: UITableView!
+    
+    @IBOutlet var feedTable: UITableView!
     var db: FIRDatabaseReference!
     var idArray = [String]()
     var nameArray = [String]()
@@ -28,10 +29,20 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func loadTables(){
         
-        feedTable.delegate = self
-        feedTable.dataSource = self
-        //let id = self.getId()
+        self.idArray.removeAll()
+        self.nameArray.removeAll()
+        self.titleArray.removeAll()
+        self.taskArray.removeAll()
+        self.locArray.removeAll()
+        self.moneyArray.removeAll()
+        self.tasksArray.removeAll()
+        self.taskKeys.removeAll()
+        self.feedTable.reloadData()
+        
         db = FIRDatabase.database().reference()
         let ref = FIRDatabase.database().reference()
         let taskRef = ref.child("tasks")
@@ -43,9 +54,9 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let userID = (child as AnyObject).key!
                 self.taskKeys.append(userID)
             }
-            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-            print(id)
-            self.getGroups(userId: id)
+            
+            
+            
             
             
             for item in self.taskKeys{
@@ -55,30 +66,32 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     
                     let value = snapshot.value as? NSDictionary
                     let group = value?["group"] as? String ?? ""
-                    print(group)
+                    
                     if groupNames.contains(group){
-                        let name = value?["name"] as? String ?? ""
-                        let title = value?["title"] as? String ?? ""
-                        let task = value?["description"] as? String ?? ""
-                        let place = value?["location"] as? String ?? ""
-                        let price = value?["tip"] as? Int ?? 0
-                        self.idArray.append(snapshot.key)
-                        self.titleArray.append(title)
-                        self.nameArray.append(name)
-                        self.moneyArray.append(price)
-                        self.locArray.append(place)
-                        self.taskArray.append(task)
+                        if(value?["status"] as? String == "requested") {
+                            let name = value?["name"] as? String ?? ""
+                            let title = value?["title"] as? String ?? ""
+                            let task = value?["description"] as? String ?? ""
+                            let place = value?["location"] as? String ?? ""
+                            let price = value?["tip"] as? Int ?? 0
+                            self.idArray.append(snapshot.key)
+                            self.titleArray.append(title)
+                            self.nameArray.append(name)
+                            self.moneyArray.append(price)
+                            self.locArray.append(place)
+                            self.taskArray.append(task)
+                        }
                     }
                     
                     // ...
+                    self.feedTable.reloadData()
                 })
+                
             }
             
             
         })
-        
     }
-    
     
     func getGroups(userId: String){
         print(userId)
@@ -90,7 +103,7 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let groups = (value?["groups"] as? NSDictionary)
             
             groupNames = groups?.allValues as! [String]
-            print(groupNames)
+            
             
             
         })
@@ -101,29 +114,61 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        feedTable.reloadData()
-        
-        self.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+        self.getGroups(userId: id)
+        loadTables()
     }
+    
+    
     //loading the table
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return nameArray.count
+//    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return nameArray.count
     }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cellSpacingHeight: CGFloat = 10
+        return cellSpacingHeight
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
-        myCell.setInfo(money: moneyArray[indexPath.row], name: nameArray[indexPath.row], task: taskArray[indexPath.row], loc: locArray[indexPath.row])
+        myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
+        
+        print("indexpath " + String(indexPath.section))
+    
+//        myCell.backgroundColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1)
+//        myCell.layer.borderWidth = 1
+//        myCell.layer.masksToBounds = false
+//        myCell.layer.borderColor = (UIColor.clear).cgColor
+//        myCell.layer.borderWidth = 1
+        
         return myCell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
+//        cell.layer.shadowColor = (UIColor(colorLiteralRed: 0.22, green: 0.23, blue: 0.26, alpha: 1)).cgColor
+//        cell.layer.shadowOpacity = 0.3
+//        cell.layer.shadowRadius = 2
+//        cell.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = taskKeys[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = taskKeys[indexPath.section]
     }
     
 }
