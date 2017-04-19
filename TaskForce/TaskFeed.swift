@@ -12,9 +12,10 @@ import Firebase
 
 var selectedTask: String = ""
 var groupNames = [String]()
-class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskFeed: UITableViewController {
     
-    @IBOutlet weak var feedTable: UITableView!
+    
+    @IBOutlet var feedTable: UITableView!
     var db: FIRDatabaseReference!
     var idArray = [String]()
     var nameArray = [String]()
@@ -28,9 +29,6 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        feedTable.delegate = self
-        feedTable.dataSource = self
-        
     }
     
     func loadTables(){
@@ -120,31 +118,57 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
         self.getGroups(userId: id)
         loadTables()
-        
-        
-        
     }
     
     
     //loading the table
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return nameArray.count
+//    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return nameArray.count
     }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cellSpacingHeight: CGFloat = 10
+        return cellSpacingHeight
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
-        myCell.setInfo(money: moneyArray[indexPath.row], name: nameArray[indexPath.row], task: taskArray[indexPath.row], loc: locArray[indexPath.row])
+        myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
+        
+        print("indexpath " + String(indexPath.section))
+    
+//        myCell.backgroundColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1)
+//        myCell.layer.borderWidth = 1
+//        myCell.layer.masksToBounds = false
+//        myCell.layer.borderColor = (UIColor.clear).cgColor
+//        myCell.layer.borderWidth = 1
+        
         return myCell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
+//        cell.layer.shadowColor = (UIColor(colorLiteralRed: 0.22, green: 0.23, blue: 0.26, alpha: 1)).cgColor
+//        cell.layer.shadowOpacity = 0.3
+//        cell.layer.shadowRadius = 2
+//        cell.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = taskKeys[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = taskKeys[indexPath.section]
     }
     
 }
