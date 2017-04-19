@@ -15,6 +15,8 @@ class TaskFeedCell: UITableViewCell {
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var locLabel: UILabel!
     
+    var selectedTaskStatus = String()
+    
     @IBOutlet weak var cellView: UIView!
     override func awakeFromNib() {
         moneyLabel.frame = CGRect(x: 0, y: 0, width: 60, height: 60)

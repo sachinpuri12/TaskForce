@@ -23,6 +23,7 @@ class TaskFeed: UITableViewController {
     var taskArray = [String]()
     var locArray = [String]()
     var moneyArray = [Int]()
+    var taskStatusArray = [String]()
     var tasksArray = [String]()
     var taskKeys = [String]()
     
@@ -74,12 +75,14 @@ class TaskFeed: UITableViewController {
                             let task = value?["description"] as? String ?? ""
                             let place = value?["location"] as? String ?? ""
                             let price = value?["tip"] as? Int ?? 0
+                            let taskStatus = value?["status"] as? String ?? ""
                             self.idArray.append(snapshot.key)
                             self.titleArray.append(title)
                             self.nameArray.append(name)
                             self.moneyArray.append(price)
                             self.locArray.append(place)
                             self.taskArray.append(task)
+                            self.taskStatusArray.append(taskStatus)
                         }
                     }
                     
@@ -147,6 +150,7 @@ class TaskFeed: UITableViewController {
         
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
         myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
+        myCell.selectedTaskStatus = taskStatusArray[indexPath.section]
         
         print("indexpath " + String(indexPath.section))
     

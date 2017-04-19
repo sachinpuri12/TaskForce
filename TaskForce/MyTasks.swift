@@ -36,12 +36,15 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     var runTaskArray = [String]()
     var runLocArray = [String]()
     var runMoneyArray = [Int]()
+    var runTaskStatusArray = [String]()
     
     var requestNameArray = [String]()
     var requestTitleArray = [String]()
     var requestTaskArray = [String]()
     var requestLocArray = [String]()
     var requestMoneyArray = [Int]()
+    var requestTaskStatusArray = [String]()
+    
     var setDelegateCount = Int()
     
     var taskKeys = [String]()
@@ -159,13 +162,14 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         self.runTaskArray.removeAll()
         self.runLocArray.removeAll()
         self.runMoneyArray.removeAll()
+        self.runTaskStatusArray.removeAll()
         
         self.requestNameArray.removeAll()
         self.requestTitleArray.removeAll()
         self.requestTaskArray.removeAll()
         self.requestLocArray.removeAll()
         self.requestMoneyArray.removeAll()
-        
+        self.requestTaskStatusArray.removeAll()
         
     }
     
@@ -234,6 +238,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                 self.runMoneyArray.append(price)
                                 self.runLocArray.append(place)
                                 self.runTaskArray.append(task)
+                                self.runTaskStatusArray.append(taskStatus)
 
                             }
                             else if status == "Accepted"{
@@ -244,6 +249,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.runMoneyArray.append(price)
                                     self.runLocArray.append(place)
                                     self.runTaskArray.append(task)
+                                    self.runTaskStatusArray.append(taskStatus)
 
                                 }
                             }
@@ -255,6 +261,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.runMoneyArray.append(price)
                                     self.runLocArray.append(place)
                                     self.runTaskArray.append(task)
+                                    self.runTaskStatusArray.append(taskStatus)
  
                                 }
                             }
@@ -275,6 +282,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                 self.requestMoneyArray.append(price)
                                 self.requestLocArray.append(place)
                                 self.requestTaskArray.append(task)
+                                self.requestTaskStatusArray.append(taskStatus)
 
                             }
                             else if status == "Requested"{
@@ -285,6 +293,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestMoneyArray.append(price)
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
+                                    self.requestTaskStatusArray.append(taskStatus)
  
                                 }
                             }
@@ -296,6 +305,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestMoneyArray.append(price)
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
+                                    self.requestTaskStatusArray.append(taskStatus)
 
                                 }
                                 
@@ -308,6 +318,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestMoneyArray.append(price)
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
+                                    self.requestTaskStatusArray.append(taskStatus)
   
                                 }
                             }
@@ -352,6 +363,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             print(self.runTaskArray[indexPath.row])
             
             myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTaskArray[indexPath.row], loc: runLocArray[indexPath.row])
+            myCell.selectedTaskStatus = runTaskStatusArray[indexPath.row]
             return myCell
         }
         else{
@@ -365,6 +377,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             print("DESCRIPTION:")
             print(requestTaskArray[indexPath.row])
             myCell.setInfo(money: requestMoneyArray[indexPath.row], name: requestNameArray[indexPath.row], task: requestTaskArray[indexPath.row], loc: requestLocArray[indexPath.row])
+            myCell.selectedTaskStatus = requestTaskStatusArray[indexPath.row]
             return myCell
         }
     }
@@ -374,7 +387,14 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = taskKeys[indexPath.row]
+        if tableView.tag == 1{
+            let status = self.runTaskStatusArray[indexPath.row]
+            print(status)
+        }
+        else{
+            let status = self.requestTaskStatusArray[indexPath.row]
+            print(status)
+        }
     }
 
 
