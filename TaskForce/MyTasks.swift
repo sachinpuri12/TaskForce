@@ -75,7 +75,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         if pickerView == runPicker {
             self.runText.text = self.runSort[row]
             self.pullData(status: runText.text!, pickerTag: 1)
-            //self.runPicker.isHidden = true
+//            self.runPicker.isHidden = true
             self.runText.endEditing(true)
         }
             
@@ -119,7 +119,6 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         super.viewDidLoad()
         getUsername()
         clearArrays()
-        
         self.runPicker.delegate = self
         self.runPicker.dataSource = self
         self.runPicker.reloadAllComponents()
@@ -137,12 +136,9 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        runTable.reloadData()
-//        requestTable.reloadData()
-//        self.viewDidLoad()
-//        self.setTableDelegateDataSource()
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.viewDidLoad()
+    }
     
     func setTableDelegateDataSource(){
         
