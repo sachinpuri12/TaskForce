@@ -27,7 +27,7 @@ class TaskInfo: UIViewController {
     @IBAction func AcceptTask(_ sender: Any) {
         let ref = FIRDatabase.database().reference()
         ref.child("tasks/\(selectedTask)").updateChildValues(["status": "accepted"])
-        ref.child("tasks/\(selectedTask)").updateChildValues(["accepter": globalUser])
+        ref.child("tasks/\(selectedTask)").updateChildValues(["acceptor": globalUser])
     }
     
     
