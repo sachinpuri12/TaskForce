@@ -24,7 +24,7 @@ class TaskFeedCell: UITableViewCell {
         
         
         //self.contentView.backgroundColor = UIColor.black
-        let test = UIView(frame: CGRect(x: 10, y: 10, width: self.contentView.layer.bounds.width+15, height: self.contentView.layer.bounds.height-10))
+        let test = UIView(frame: CGRect(x: 10, y: 10, width: self.contentView.layer.bounds.width+15, height: self.contentView.layer.bounds.height-15))
 //        print(self.cellView.layer.bounds.width)
 //        print(self.cellView.layer.bounds.height)
         test.backgroundColor = UIColor(colorLiteralRed: 0.98, green: 0.98, blue: 0.99, alpha: 1)
@@ -34,6 +34,8 @@ class TaskFeedCell: UITableViewCell {
         test.layer.shadowOffset = CGSize(width: 2, height: 3)
         test.layer.shadowOpacity = 0.5
         test.layer.shadowPath = shadowPath.cgPath
+        
+        
             
         self.cellView.insertSubview(test, at: 0)
         self.backgroundColor = UIColor.gray

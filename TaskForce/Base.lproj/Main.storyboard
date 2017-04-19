@@ -821,23 +821,23 @@
         <scene sceneID="hd8-TF-uqE">
             <objects>
                 <tableViewController id="S9B-lF-fFc" customClass="TaskFeed" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="118" sectionHeaderHeight="28" sectionFooterHeight="28" id="TDl-JL-C2P">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="113" sectionHeaderHeight="28" sectionFooterHeight="28" id="TDl-JL-C2P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="118" id="bR7-q9-o1M" customClass="TaskFeedCell" customModule="TaskForce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="118"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="113" id="bR7-q9-o1M" customClass="TaskFeedCell" customModule="TaskForce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="113"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bR7-q9-o1M" id="SCf-f7-idZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="112.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QD3-Ut-CNa">
-                                            <rect key="frame" x="0.0" y="-5" width="375" height="113"/>
+                                            <rect key="frame" x="0.0" y="-5" width="375" height="108"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qC8-3V-PJ9">
-                                                    <rect key="frame" x="99" y="28.5" width="250" height="58.5"/>
+                                                    <rect key="frame" x="116" y="27" width="250" height="58.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8w-MK-yHa">
                                                             <rect key="frame" x="0.0" y="0.0" width="250" height="19.5"/>
@@ -863,7 +863,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="YUl-3z-v3a">
-                                                    <rect key="frame" x="31" y="27.5" width="60" height="59"/>
+                                                    <rect key="frame" x="37" y="28" width="60" height="59"/>
                                                     <color key="backgroundColor" red="0.065447325728411054" green="0.48066907051282048" blue="0.11969068263297841" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="8YO-uU-IfX"/>
@@ -875,10 +875,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="YUl-3z-v3a" firstAttribute="centerY" secondItem="QD3-Ut-CNa" secondAttribute="centerY" constant="0.5" id="Dzz-1F-kaK"/>
-                                                <constraint firstItem="YUl-3z-v3a" firstAttribute="leading" secondItem="QD3-Ut-CNa" secondAttribute="leading" constant="31" id="FBu-9u-8tm"/>
-                                                <constraint firstItem="YUl-3z-v3a" firstAttribute="centerY" secondItem="QD3-Ut-CNa" secondAttribute="centerY" constant="0.5" id="VhW-le-XTf"/>
-                                                <constraint firstItem="qC8-3V-PJ9" firstAttribute="leading" secondItem="YUl-3z-v3a" secondAttribute="trailing" constant="8" id="aNV-0D-in4"/>
+                                                <constraint firstItem="YUl-3z-v3a" firstAttribute="centerY" secondItem="QD3-Ut-CNa" secondAttribute="centerY" constant="3.5" id="Dzz-1F-kaK"/>
+                                                <constraint firstItem="YUl-3z-v3a" firstAttribute="leading" secondItem="QD3-Ut-CNa" secondAttribute="leading" constant="37" id="FBu-9u-8tm"/>
+                                                <constraint firstItem="YUl-3z-v3a" firstAttribute="centerY" secondItem="QD3-Ut-CNa" secondAttribute="centerY" constant="3.5" id="VhW-le-XTf"/>
+                                                <constraint firstItem="qC8-3V-PJ9" firstAttribute="leading" secondItem="YUl-3z-v3a" secondAttribute="trailing" constant="19" id="aNV-0D-in4"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -888,7 +888,7 @@
                                         <constraint firstItem="QD3-Ut-CNa" firstAttribute="centerX" secondItem="SCf-f7-idZ" secondAttribute="centerX" id="ZIg-Lz-fXk"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="QD3-Ut-CNa" secondAttribute="trailing" constant="-8" id="a2u-H5-kfi"/>
                                         <constraint firstItem="QD3-Ut-CNa" firstAttribute="centerY" secondItem="SCf-f7-idZ" secondAttribute="centerY" constant="-7.25" id="enh-PT-thj"/>
-                                        <constraint firstItem="qC8-3V-PJ9" firstAttribute="centerY" secondItem="SCf-f7-idZ" secondAttribute="centerY" constant="-6" id="waM-BZ-Gif"/>
+                                        <constraint firstItem="qC8-3V-PJ9" firstAttribute="centerY" secondItem="SCf-f7-idZ" secondAttribute="centerY" constant="-5" id="waM-BZ-Gif"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
