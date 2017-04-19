@@ -117,6 +117,7 @@ class TaskFeed: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
         self.getGroups(userId: id)
+        feedTable.separatorStyle = .none
         loadTables()
     }
     
@@ -133,7 +134,7 @@ class TaskFeed: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let cellSpacingHeight: CGFloat = 10
+        let cellSpacingHeight: CGFloat = 2
         return cellSpacingHeight
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

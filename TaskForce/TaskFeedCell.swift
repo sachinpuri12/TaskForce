@@ -16,25 +16,32 @@ class TaskFeedCell: UITableViewCell {
     @IBOutlet weak var locLabel: UILabel!
     
     @IBOutlet weak var cellView: UIView!
-    
     override func awakeFromNib() {
         moneyLabel.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         moneyLabel.layer.cornerRadius = moneyLabel.frame.size.width/2
         moneyLabel.layer.masksToBounds = true
-        cellView.layer.masksToBounds = true
-        cellView.backgroundColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1)
-        cellView.layer.masksToBounds = false
-        cellView.clipsToBounds = false
-        cellView.layer.borderColor = (UIColor.clear).cgColor
-        cellView.backgroundColor = UIColor(colorLiteralRed: 0.98, green: 0.98, blue: 0.98, alpha: 1)
-        cellView.layer.shadowColor = (UIColor(colorLiteralRed: 0.22, green: 0.23, blue: 0.26, alpha: 1)).cgColor
-        cellView.layer.shadowOpacity = 0.3
-        cellView.layer.shadowRadius = 2
-        cellView.layer.shadowOffset = CGSize(width: 1, height: 1)
-
         super.awakeFromNib()
         
+        
+        //self.contentView.backgroundColor = UIColor.black
+        let test = UIView(frame: CGRect(x: 10, y: 10, width: self.contentView.layer.bounds.width+15, height: self.contentView.layer.bounds.height-10))
+//        print(self.cellView.layer.bounds.width)
+//        print(self.cellView.layer.bounds.height)
+        test.backgroundColor = UIColor(colorLiteralRed: 0.98, green: 0.98, blue: 0.99, alpha: 1)
+        let shadowPath = UIBezierPath(rect: CGRect(x: 1, y: 1, width: test.layer.bounds.width, height: test.layer.bounds.height))
+        test.layer.masksToBounds = false
+        test.layer.shadowColor = UIColor.darkGray.cgColor
+        test.layer.shadowOffset = CGSize(width: 2, height: 3)
+        test.layer.shadowOpacity = 0.5
+        test.layer.shadowPath = shadowPath.cgPath
+            
+        self.cellView.insertSubview(test, at: 0)
+        self.backgroundColor = UIColor.gray
+
+        
+        
     }
+
     
     func setInfo(money: Int, name: String, task: String, loc: String){
         moneyLabel.text = "$" + String(money)
