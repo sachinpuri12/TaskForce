@@ -42,6 +42,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     var requestTaskArray = [String]()
     var requestLocArray = [String]()
     var requestMoneyArray = [Int]()
+    var setDelegateCount = Int()
     
     var taskKeys = [String]()
     
@@ -118,8 +119,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         super.viewDidLoad()
         getUsername()
         clearArrays()
-        self.pullData(status: self.runText.text!, pickerTag: 1)
-        self.pullData(status: self.requestText.text!, pickerTag: 2)
+        
         self.runPicker.delegate = self
         self.runPicker.dataSource = self
         self.runPicker.reloadAllComponents()
@@ -130,17 +130,19 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         self.requestPicker.reloadAllComponents()
         self.requestText.inputView = requestPicker
         self.requestText.text = "All"
+        self.pullData(status: self.runText.text!, pickerTag: 1)
+        self.pullData(status: self.requestText.text!, pickerTag: 2)
         
         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        runTable.reloadData()
-        requestTable.reloadData()
-        self.viewDidLoad()
-        self.setTableDelegateDataSource()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        runTable.reloadData()
+//        requestTable.reloadData()
+//        self.viewDidLoad()
+//        self.setTableDelegateDataSource()
+//    }
     
     func setTableDelegateDataSource(){
         
@@ -150,8 +152,8 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         self.requestTable.delegate = self
         self.requestTable.dataSource = self
         self.requestTable.tag = 2
-        self.runTable.reloadData()
-        self.requestTable.reloadData()
+        self.setDelegateCount = self.setDelegateCount + 1
+       
 
     }
     
@@ -198,15 +200,17 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     
     
     func pullData(status: String, pickerTag: Int){
-        clearArrays()
         //get all task keys
         let taskRef = db.child("tasks")
         taskRef.observeSingleEvent(of: .value, with: { snapshot in
+            self.taskKeys.removeAll()
             for child in snapshot.children{
                 let taskID = (child as AnyObject).key!
                 self.taskKeys.append(taskID)
             }
+            print(self.taskKeys)
         })
+        self.clearArrays()
             for item in self.taskKeys{
                 self.db.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
@@ -234,7 +238,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                 self.runMoneyArray.append(price)
                                 self.runLocArray.append(place)
                                 self.runTaskArray.append(task)
-                                self.setTableDelegateDataSource()
+
                             }
                             else if status == "Accepted"{
                                 print("STATUS: Accepted")
@@ -244,7 +248,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.runMoneyArray.append(price)
                                     self.runLocArray.append(place)
                                     self.runTaskArray.append(task)
-                                    self.setTableDelegateDataSource()
+
                                 }
                             }
                             else if status == "Completed"{
@@ -255,7 +259,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.runMoneyArray.append(price)
                                     self.runLocArray.append(place)
                                     self.runTaskArray.append(task)
-                                    self.setTableDelegateDataSource()
+ 
                                 }
                             }
                             print(self.runTitleArray)
@@ -275,7 +279,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                 self.requestMoneyArray.append(price)
                                 self.requestLocArray.append(place)
                                 self.requestTaskArray.append(task)
-                                self.setTableDelegateDataSource()
+
                             }
                             else if status == "Requested"{
                                 print("STATUS: Requested")
@@ -285,7 +289,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestMoneyArray.append(price)
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
-                                    self.setTableDelegateDataSource()
+ 
                                 }
                             }
                             else if status == "Accepted"{
@@ -296,7 +300,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestMoneyArray.append(price)
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
-                                    self.setTableDelegateDataSource()
+
                                 }
                                 
                             }
@@ -308,25 +312,33 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestMoneyArray.append(price)
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
-                                    self.setTableDelegateDataSource()
+  
                                 }
                             }
                             print(self.requestTitleArray)
+                            
                         }
                     }
+                    self.setTableDelegateDataSource()
+                    if pickerTag == 1{
+                        self.runTable.reloadData()
+                    }
+                    else {
+                        self.requestTable.reloadData()  
+                    }
                 })
+                
                 print("*****************")
             }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 1{
-            // runTable array count
-            return runNameArray.count
+            return self.runTitleArray.count
         }
         else{
-            // requestTable array count
-            return requestNameArray.count
+            return self.requestTitleArray.count
         }
     }
     
@@ -334,11 +346,28 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         setTableDelegateDataSource()
         if tableView.tag == 1{
             let myCell = self.runTable.dequeueReusableCell(withIdentifier: "runCell", for: indexPath) as! TaskFeedCell
+            print("PRICE:")
+            print(self.runMoneyArray[indexPath.row])
+            print("POSTER:")
+            print(self.runNameArray[indexPath.row])
+            print("LOCATION:")
+            print(self.runLocArray[indexPath.row])
+            print("DESCRIPTION:")
+            print(self.runTaskArray[indexPath.row])
+            
             myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTaskArray[indexPath.row], loc: runLocArray[indexPath.row])
             return myCell
         }
         else{
             let myCell = self.requestTable.dequeueReusableCell(withIdentifier: "requestCell", for: indexPath) as! TaskFeedCell
+            print("PRICE:")
+            print(requestMoneyArray[indexPath.row])
+            print("POSTER:")
+            print(requestNameArray[indexPath.row])
+            print("LOCATION:")
+            print(requestLocArray[indexPath.row])
+            print("DESCRIPTION:")
+            print(requestTaskArray[indexPath.row])
             myCell.setInfo(money: requestMoneyArray[indexPath.row], name: requestNameArray[indexPath.row], task: requestTaskArray[indexPath.row], loc: requestLocArray[indexPath.row])
             return myCell
         }
