@@ -29,6 +29,9 @@ class TaskFeed: UITableViewController {
     
     
     override func viewDidLoad() {
+        self.tabBarController?.tabBar.tintColor = UIColor.white
+        self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
+        self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
         super.viewDidLoad()
     }
     
@@ -152,23 +155,11 @@ class TaskFeed: UITableViewController {
         myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
         myCell.selectedTaskStatus = taskStatusArray[indexPath.section]
         
-        print("indexpath " + String(indexPath.section))
-    
-//        myCell.backgroundColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1)
-//        myCell.layer.borderWidth = 1
-//        myCell.layer.masksToBounds = false
-//        myCell.layer.borderColor = (UIColor.clear).cgColor
-//        myCell.layer.borderWidth = 1
-        
         return myCell
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
-//        cell.layer.shadowColor = (UIColor(colorLiteralRed: 0.22, green: 0.23, blue: 0.26, alpha: 1)).cgColor
-//        cell.layer.shadowOpacity = 0.3
-//        cell.layer.shadowRadius = 2
-//        cell.layer.shadowOffset = CGSize(width: 1, height: 1)
         
     }
     
