@@ -35,9 +35,12 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         db = FIRDatabase.database().reference()
         // Do any additional setup after loading the view, typically from a nib.
  
-            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+        let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
             print(id)
-            self.getGroups(userId: id)
+        self.getGroups(userId: id)
+        self.tabBarController?.tabBar.tintColor = UIColor.white
+        self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
+        self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
             
     }
 
@@ -91,7 +94,8 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
                 "price": 0.00,
                 "tip": Double(cost.text!) as Any,
                 "status": String("requested") as Any,
-                "group": group.text as Any
+                "group": group.text as Any,
+                "acceptor": String("null") as Any
                 ] as [String: Any]
             // FIXME make price and tip decimal format
             

@@ -15,15 +15,41 @@ class TaskFeedCell: UITableViewCell {
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var locLabel: UILabel!
     
+    var selectedTaskStatus = String()
+    var selectedTaskKey = String()
+    
+    @IBOutlet weak var cellView: UIView!
     override func awakeFromNib() {
+        moneyLabel.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        moneyLabel.layer.cornerRadius = moneyLabel.frame.size.width/2
+        moneyLabel.layer.masksToBounds = true
         super.awakeFromNib()
+    
+        let test = UIView(frame: CGRect(x: 10, y: 10, width: self.contentView.layer.bounds.width+15, height: self.contentView.layer.bounds.height-15))
+        test.backgroundColor = UIColor(colorLiteralRed: 0.96, green: 0.96, blue: 0.96, alpha: 1)
+        let shadowPath = UIBezierPath(rect: CGRect(x: 1, y: 1, width: test.layer.bounds.width, height: test.layer.bounds.height))
+        test.layer.masksToBounds = false
+        test.layer.shadowColor = UIColor.darkGray.cgColor
+        test.layer.shadowOffset = CGSize(width: 2, height: 3)
+        test.layer.shadowOpacity = 0.5
+        test.layer.shadowPath = shadowPath.cgPath
+        
+        
+            
+        self.cellView.insertSubview(test, at: 0)
+        self.backgroundColor = UIColor.gray
+
+        
+        
     }
+
     
     func setInfo(money: Int, name: String, task: String, loc: String){
         moneyLabel.text = "$" + String(money)
-        nameLabel.text = "Name: " + name
+        nameLabel.text = name
         taskLabel.text = "Task: " + task
         locLabel.text = "Location: " + loc
+        
     }
     
 }

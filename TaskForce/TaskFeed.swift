@@ -12,9 +12,10 @@ import Firebase
 
 var selectedTask: String = ""
 var groupNames = [String]()
-class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskFeed: UITableViewController {
     
-    @IBOutlet weak var feedTable: UITableView!
+    
+    @IBOutlet var feedTable: UITableView!
     var db: FIRDatabaseReference!
     var idArray = [String]()
     var nameArray = [String]()
@@ -22,15 +23,16 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var taskArray = [String]()
     var locArray = [String]()
     var moneyArray = [Int]()
+    var taskStatusArray = [String]()
     var tasksArray = [String]()
     var taskKeys = [String]()
     
     
     override func viewDidLoad() {
+        self.tabBarController?.tabBar.tintColor = UIColor.white
+        self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
+        self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
         super.viewDidLoad()
-        feedTable.delegate = self
-        feedTable.dataSource = self
-        
     }
     
     func loadTables(){
@@ -73,12 +75,14 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             let task = value?["description"] as? String ?? ""
                             let place = value?["location"] as? String ?? ""
                             let price = value?["tip"] as? Int ?? 0
+                            let taskStatus = value?["status"] as? String ?? ""
                             self.idArray.append(snapshot.key)
                             self.titleArray.append(title)
                             self.nameArray.append(name)
                             self.moneyArray.append(price)
                             self.locArray.append(place)
                             self.taskArray.append(task)
+                            self.taskStatusArray.append(taskStatus)
                         }
                     }
                     
@@ -115,32 +119,48 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
         self.getGroups(userId: id)
+        feedTable.separatorStyle = .none
         loadTables()
-        
-        
-        
     }
     
     
     //loading the table
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return nameArray.count
+//    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return nameArray.count
     }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cellSpacingHeight: CGFloat = 2
+        return cellSpacingHeight
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
+    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
-        myCell.setInfo(money: moneyArray[indexPath.row], name: nameArray[indexPath.row], task: taskArray[indexPath.row], loc: locArray[indexPath.row])
+        myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
+        myCell.selectedTaskStatus = taskStatusArray[indexPath.section]
+        
         return myCell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
+        
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = taskKeys[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = taskKeys[indexPath.section]
     }
     
 }
