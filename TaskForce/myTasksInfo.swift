@@ -59,6 +59,37 @@ class MyTaskInfo: UIViewController{
             
         })
         
+        if pickerTag == 1{
+            
+            // running accepted
+            
+            
+            // complete task button
+            // message poster button
+            
+        }
+        
+        else if pickerTag == 2 {
+            
+            if taskStatus == "requested"{
+                    // cancel button
+                    // hide message poster button
+                    completeButton.setTitle("Cancel Task", for: .normal)
+                    messageButton.isHidden = true
+            }
+            
+            else if taskStatus == "accepted"{
+                    // hide complete button
+                    // message RUNNER button
+                    completeButton.isHidden = true
+                    messageButton.setTitle("Message TaskRunner", for: .normal)
+                
+                // ADD TASK RUNNER LABEL
+                
+            }
+            
+        }
+        
     }
     
     
@@ -79,8 +110,26 @@ class MyTaskInfo: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    
     @IBAction func completeButtonPressed(_ sender: Any) {
-        
+        if completeButton.currentTitle == "Complete Task" {
+            // ADD INVOICE RECEIPT HERE
+            let ref = FIRDatabase.database().reference()
+            ref.child("tasks/\(taskKey)").updateChildValues(["status": "completed"])
+            
+            // alert for fields not filled
+            let alert = UIAlertController(title: "Completed!", message: "Thank You! The requester will be notified! Please upload invoice!", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.taskStatus = "completed"
+            
+        }
+        else if completeButton.currentTitle == "Cancel Task"{
+            let ref = FIRDatabase.database().reference()
+            ref.child("tasks/\(taskKey)").removeValue()
+            let _ = self.navigationController?.popViewController(animated: true)
+            
+        }
     }
     
     @IBAction func messageButtonPressed(_ sender: Any) {

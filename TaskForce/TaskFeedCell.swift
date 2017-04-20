@@ -16,6 +16,7 @@ class TaskFeedCell: UITableViewCell {
     @IBOutlet weak var locLabel: UILabel!
     
     var selectedTaskStatus = String()
+    var selectedTaskKey = String()
     
     @IBOutlet weak var cellView: UIView!
     override func awakeFromNib() {
