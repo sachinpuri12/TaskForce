@@ -21,7 +21,9 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     @IBOutlet weak var requestPicker: UIPickerView!
     var runSort = ["All","Accepted", "Completed"]
     var requestSort = ["All", "Requested", "Accepted", "Completed"]
-    
+    var selectedPickerTag = Int()
+    var selectedTaskStatus = String()
+    var selectedTaskKey = String()
     
     
     
@@ -37,6 +39,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     var runLocArray = [String]()
     var runMoneyArray = [Int]()
     var runTaskStatusArray = [String]()
+    var runTaskKeys = [String]()
     
     var requestNameArray = [String]()
     var requestTitleArray = [String]()
@@ -44,6 +47,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
     var requestLocArray = [String]()
     var requestMoneyArray = [Int]()
     var requestTaskStatusArray = [String]()
+    var requestTaskKeys = [String]()
     
     var setDelegateCount = Int()
     
@@ -121,7 +125,8 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         db = FIRDatabase.database().reference()
         super.viewDidLoad()
         getUsername()
-        clearArrays()
+        clearRunArrays()
+        clearRequestArrays()
         self.runPicker.delegate = self
         self.runPicker.dataSource = self
         self.runPicker.reloadAllComponents()
@@ -156,21 +161,25 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
 
     }
     
-    func clearArrays(){
+    func clearRunArrays(){
         self.runNameArray.removeAll()
         self.runTitleArray.removeAll()
         self.runTaskArray.removeAll()
         self.runLocArray.removeAll()
         self.runMoneyArray.removeAll()
         self.runTaskStatusArray.removeAll()
+        self.runTaskKeys.removeAll()
         
+    }
+    
+    func clearRequestArrays(){
         self.requestNameArray.removeAll()
         self.requestTitleArray.removeAll()
         self.requestTaskArray.removeAll()
         self.requestLocArray.removeAll()
         self.requestMoneyArray.removeAll()
         self.requestTaskStatusArray.removeAll()
-        
+        self.requestTaskKeys.removeAll()
     }
     
     override func didReceiveMemoryWarning() {
@@ -210,7 +219,12 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             }
             print(self.taskKeys)
         })
-        self.clearArrays()
+        if pickerTag == 1{
+            self.clearRunArrays()
+        }
+        else{
+            self.clearRequestArrays()
+        }
             for item in self.taskKeys{
                 self.db.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                     let value = snapshot.value as? NSDictionary
@@ -228,6 +242,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                     // runPicker
                     
                     if pickerTag == 1{
+                        
                         print("PICKERTAG: 1 run picker")
                         print("acceptor is \(acceptor)")
                         if acceptor == self.username{
@@ -239,6 +254,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                 self.runLocArray.append(place)
                                 self.runTaskArray.append(task)
                                 self.runTaskStatusArray.append(taskStatus)
+                                self.runTaskKeys.append(item)
 
                             }
                             else if status == "Accepted"{
@@ -250,6 +266,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.runLocArray.append(place)
                                     self.runTaskArray.append(task)
                                     self.runTaskStatusArray.append(taskStatus)
+                                    self.runTaskKeys.append(item)
 
                                 }
                             }
@@ -262,6 +279,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.runLocArray.append(place)
                                     self.runTaskArray.append(task)
                                     self.runTaskStatusArray.append(taskStatus)
+                                    self.runTaskKeys.append(item)
  
                                 }
                             }
@@ -272,6 +290,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                     // request picker
                         
                     else if pickerTag == 2{
+                        
                          print("PICKERTAG: 2 request picker")
                         if poster == self.username {
                             // requester if statements
@@ -283,6 +302,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                 self.requestLocArray.append(place)
                                 self.requestTaskArray.append(task)
                                 self.requestTaskStatusArray.append(taskStatus)
+                                self.requestTaskKeys.append(item)
 
                             }
                             else if status == "Requested"{
@@ -294,6 +314,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
                                     self.requestTaskStatusArray.append(taskStatus)
+                                    self.requestTaskKeys.append(item)
  
                                 }
                             }
@@ -306,6 +327,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
                                     self.requestTaskStatusArray.append(taskStatus)
+                                    self.requestTaskKeys.append(item)
 
                                 }
                                 
@@ -319,6 +341,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
                                     self.requestLocArray.append(place)
                                     self.requestTaskArray.append(task)
                                     self.requestTaskStatusArray.append(taskStatus)
+                                    self.requestTaskKeys.append(item)
   
                                 }
                             }
@@ -364,6 +387,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             
             myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTaskArray[indexPath.row], loc: runLocArray[indexPath.row])
             myCell.selectedTaskStatus = runTaskStatusArray[indexPath.row]
+            myCell.selectedTaskKey = runTaskKeys[indexPath.row]
             return myCell
         }
         else{
@@ -378,6 +402,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             print(requestTaskArray[indexPath.row])
             myCell.setInfo(money: requestMoneyArray[indexPath.row], name: requestNameArray[indexPath.row], task: requestTaskArray[indexPath.row], loc: requestLocArray[indexPath.row])
             myCell.selectedTaskStatus = requestTaskStatusArray[indexPath.row]
+            myCell.selectedTaskKey = requestTaskKeys[indexPath.row]
             return myCell
         }
     }
@@ -386,17 +411,54 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         cell.backgroundColor = UIColor.clear
     }
     
+  
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == 1{
-            let status = self.runTaskStatusArray[indexPath.row]
-            print(status)
+            selectedPickerTag = 1
+            selectedTaskStatus = self.runTaskStatusArray[indexPath.row]
+            selectedTaskKey = self.runTaskKeys[indexPath.row]
+            print(selectedTaskStatus)
+            if selectedTaskStatus == "completed"{
+                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
+            }
+            else if selectedTaskStatus == "accepted" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
         }
         else{
-            let status = self.requestTaskStatusArray[indexPath.row]
-            print(status)
+            selectedPickerTag = 2
+            selectedTaskStatus = self.requestTaskStatusArray[indexPath.row]
+            selectedTaskKey = self.requestTaskKeys[indexPath.row]
+            print(selectedTaskStatus)
+            if selectedTaskStatus == "completed" {
+                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
+            }
+            else if selectedTaskStatus == "accepted" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
+            else if selectedTaskStatus == "requested" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CompleteTaskInfo" {
+            let dest = segue.destination as! CompleteInfo
+            dest.pickerTag = selectedPickerTag
+            dest.taskStatus = selectedTaskStatus
+            dest.taskKey = selectedTaskKey
+
+        }
+        else if segue.identifier == "MyTaskInfo"{
+            let dest = segue.destination as! MyTaskInfo
+            dest.pickerTag = selectedPickerTag
+            dest.taskStatus = selectedTaskStatus
+            dest.taskKey = selectedTaskKey
+
+        }
+    }
 
     
 }

@@ -171,6 +171,8 @@
 				03F1A4D71E55204F0094262A /* Info.plist */,
 				0353F9F81E5DF25100B15797 /* TaskFeed.swift */,
 				0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */,
+				03EDDB361EA7F3B900C6E813 /* myTasksInfo.swift */,
+				03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */,
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
 				0353F9FA1E5DFBF900B15797 /* MyTasks.swift */,
 				0353FA001E5DFF0900B15797 /* Groups.swift */,
@@ -184,8 +186,6 @@
 				2EAA733A1E89701A005B7106 /* UserClass.swift */,
 				2EAA733C1E8970A5005B7106 /* GroupClass.swift */,
 				2EDE717F1E8C8ECE00A0C6DD /* Login.swift */,
-				03EDDB361EA7F3B900C6E813 /* myTasksInfo.swift */,
-				03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */,
 			);
 			path = TaskForce;
 			sourceTree = "<group>";

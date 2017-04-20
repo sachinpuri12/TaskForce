@@ -21,6 +21,9 @@ class CompleteInfo: UIViewController{
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var invoiceImage: UIImageView!
     
+    var taskStatus = String()
+    var pickerTag = Int()
+    var taskKey = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
