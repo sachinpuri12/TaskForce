@@ -58,9 +58,6 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
             
-            
-            
-            
             for item in self.taskKeys{
                 ref.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
@@ -90,7 +87,6 @@ class TaskFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 })
                 
             }
-            
             
         })
     }
