@@ -135,6 +135,10 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         self.pullData(status: self.runText.text!, pickerTag: 1)
         self.pullData(status: self.requestText.text!, pickerTag: 2)
         
+        self.tabBarController?.tabBar.tintColor = UIColor.white
+        self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
+        self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }

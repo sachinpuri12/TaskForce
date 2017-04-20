@@ -23,13 +23,9 @@ class TaskFeedCell: UITableViewCell {
         moneyLabel.layer.cornerRadius = moneyLabel.frame.size.width/2
         moneyLabel.layer.masksToBounds = true
         super.awakeFromNib()
-        
-        
-        //self.contentView.backgroundColor = UIColor.black
+    
         let test = UIView(frame: CGRect(x: 10, y: 10, width: self.contentView.layer.bounds.width+15, height: self.contentView.layer.bounds.height-15))
-//        print(self.cellView.layer.bounds.width)
-//        print(self.cellView.layer.bounds.height)
-        test.backgroundColor = UIColor(colorLiteralRed: 0.98, green: 0.98, blue: 0.99, alpha: 1)
+        test.backgroundColor = UIColor(colorLiteralRed: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         let shadowPath = UIBezierPath(rect: CGRect(x: 1, y: 1, width: test.layer.bounds.width, height: test.layer.bounds.height))
         test.layer.masksToBounds = false
         test.layer.shadowColor = UIColor.darkGray.cgColor
