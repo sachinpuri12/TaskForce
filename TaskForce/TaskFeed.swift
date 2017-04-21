@@ -23,13 +23,20 @@ class TaskFeed: UITableViewController {
     var taskArray = [String]()
     var locArray = [String]()
     var moneyArray = [Int]()
+    var taskStatusArray = [String]()
     var tasksArray = [String]()
     var taskKeys = [String]()
+    var userKeys = [String]()
     
     
     override func viewDidLoad() {
+        setUserKeyIfNil()
+        self.tabBarController?.tabBar.tintColor = UIColor.white
+        self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
+        self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
         super.viewDidLoad()
     }
+
     
     func loadTables(){
         
@@ -74,12 +81,14 @@ class TaskFeed: UITableViewController {
                             let task = value?["description"] as? String ?? ""
                             let place = value?["location"] as? String ?? ""
                             let price = value?["tip"] as? Int ?? 0
+                            let taskStatus = value?["status"] as? String ?? ""
                             self.idArray.append(snapshot.key)
                             self.titleArray.append(title)
                             self.nameArray.append(name)
                             self.moneyArray.append(price)
                             self.locArray.append(place)
                             self.taskArray.append(task)
+                            self.taskStatusArray.append(taskStatus)
                         }
                     }
                     
@@ -115,8 +124,11 @@ class TaskFeed: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-        self.getGroups(userId: id)
+        if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String != nil{
+            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+            self.getGroups(userId: id)
+        }
+        feedTable.separatorStyle = .none
         loadTables()
     }
     
@@ -133,7 +145,7 @@ class TaskFeed: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let cellSpacingHeight: CGFloat = 10
+        let cellSpacingHeight: CGFloat = 2
         return cellSpacingHeight
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -146,29 +158,48 @@ class TaskFeed: UITableViewController {
         
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
         myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
-        
-        print("indexpath " + String(indexPath.section))
-    
-//        myCell.backgroundColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1)
-//        myCell.layer.borderWidth = 1
-//        myCell.layer.masksToBounds = false
-//        myCell.layer.borderColor = (UIColor.clear).cgColor
-//        myCell.layer.borderWidth = 1
+        myCell.selectedTaskStatus = taskStatusArray[indexPath.section]
         
         return myCell
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
-//        cell.layer.shadowColor = (UIColor(colorLiteralRed: 0.22, green: 0.23, blue: 0.26, alpha: 1)).cgColor
-//        cell.layer.shadowOpacity = 0.3
-//        cell.layer.shadowRadius = 2
-//        cell.layer.shadowOffset = CGSize(width: 1, height: 1)
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTask = taskKeys[indexPath.section]
+    }
+    
+    func setUserKeyIfNil(){
+        
+        if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String == nil{
+            let ref = FIRDatabase.database().reference()
+            let usersRef = ref.child("users")
+            usersRef.observeSingleEvent(of: .value, with: { snapshot in
+                self.userKeys.removeAll()
+                for child in snapshot.children{
+                    let userID = (child as AnyObject).key!
+                    self.userKeys.append(userID)
+                }
+                print(self.userKeys)
+                for item in self.userKeys{
+                    ref.child("users/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let username = value?["username"] as? String ?? ""
+                        print(globalUser)
+                        print(globalId)
+                        if username == globalUser {
+                            print(username)
+                            print(item)
+                            UserDefaults.standard.set(item, forKey: "user_id_taskforce")
+                        }
+                        self.feedTable.reloadData()
+                    })
+                }
+            })
+        }
     }
     
 }
