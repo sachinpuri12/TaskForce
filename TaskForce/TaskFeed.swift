@@ -77,19 +77,22 @@ class TaskFeed: UITableViewController {
                     
                     if groupNames.contains(group){
                         if(value?["status"] as? String == "requested") {
+                            
                             let name = value?["name"] as? String ?? ""
-                            let title = value?["title"] as? String ?? ""
-                            let task = value?["description"] as? String ?? ""
-                            let place = value?["location"] as? String ?? ""
-                            let price = value?["tip"] as? Int ?? 0
-                            let taskStatus = value?["status"] as? String ?? ""
-                            self.idArray.append(snapshot.key)
-                            self.titleArray.append(title)
-                            self.nameArray.append(name)
-                            self.moneyArray.append(price)
-                            self.locArray.append(place)
-                            self.taskArray.append(task)
-                            self.taskStatusArray.append(taskStatus)
+                            if(name != globalUser){
+                                let title = value?["title"] as? String ?? ""
+                                let task = value?["description"] as? String ?? ""
+                                let place = value?["location"] as? String ?? ""
+                                let price = value?["tip"] as? Int ?? 0
+                                let taskStatus = value?["status"] as? String ?? ""
+                                self.idArray.append(snapshot.key)
+                                self.titleArray.append(title)
+                                self.nameArray.append(name)
+                                self.moneyArray.append(price)
+                                self.locArray.append(place)
+                                self.taskArray.append(task)
+                                self.taskStatusArray.append(taskStatus)
+                            }
                         }
                     }
                     
@@ -174,7 +177,8 @@ class TaskFeed: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = taskKeys[indexPath.section]
+        selectedTask = idArray[indexPath.section]
+      
     }
     
    
