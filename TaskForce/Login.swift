@@ -79,6 +79,8 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
                 self.checkUser()
                 globalUser = self.username
                 globalId = self.FBId
+                
+                setUserKeyIfNil()
 
             })
             connection.start()

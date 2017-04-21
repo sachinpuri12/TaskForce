@@ -312,7 +312,7 @@
 				TargetAttributes = {
 					03F1A4C71E55204F0094262A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = YYH7UXGAA8;
+						DevelopmentTeam = 56CZU6XFN7;
 						ProvisioningStyle = Automatic;
 					};
 					03F1A4DB1E55204F0094262A = {
@@ -690,17 +690,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = YYH7UXGAA8;
+				DEVELOPMENT_TEAM = 56CZU6XFN7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
+				PRODUCT_BUNDLE_IDENTIFIER = CSE.TaskForce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -710,7 +712,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = YYH7UXGAA8;
+				DEVELOPMENT_TEAM = 56CZU6XFN7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
@@ -733,11 +735,13 @@
 ",
 				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
+				PRODUCT_BUNDLE_IDENTIFIER = CSE.TaskForce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
