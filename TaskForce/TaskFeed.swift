@@ -12,6 +12,7 @@ import Firebase
 
 var selectedTask: String = ""
 var groupNames = [String]()
+var userKeys = [String]()
 class TaskFeed: UITableViewController {
     
     
@@ -28,12 +29,18 @@ class TaskFeed: UITableViewController {
     var taskKeys = [String]()
     
     
+    
     override func viewDidLoad() {
+        setUserKeyIfNil()
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
         super.viewDidLoad()
+        
+        print("Global user is \(globalUser)")
+        
     }
+
     
     func loadTables(){
         
@@ -103,9 +110,14 @@ class TaskFeed: UITableViewController {
             let value = snapshot.value as? NSDictionary
             
             let groups = (value?["groups"] as? NSDictionary)
-            
-            groupNames = groups?.allValues as! [String]
-            
+            if groups == nil{
+                let alert = UIAlertController(title: "No Groups!", message: "Please add groups!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else{
+                groupNames = groups?.allValues as! [String]
+            }
             
             
         })
@@ -117,8 +129,10 @@ class TaskFeed: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-        self.getGroups(userId: id)
+        if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String != nil{
+            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+            self.getGroups(userId: id)
+        }
         feedTable.separatorStyle = .none
         loadTables()
     }
@@ -163,5 +177,37 @@ class TaskFeed: UITableViewController {
         selectedTask = taskKeys[indexPath.section]
     }
     
+   
+    
 }
 
+func setUserKeyIfNil(){
+    
+    if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String == nil{
+        userKeys.removeAll()
+        let ref = FIRDatabase.database().reference()
+        let usersRef = ref.child("users")
+        usersRef.observeSingleEvent(of: .value, with: { snapshot in
+            userKeys.removeAll()
+            for child in snapshot.children{
+                let userID = (child as AnyObject).key!
+                userKeys.append(userID)
+            }
+            print(userKeys)
+            for item in userKeys{
+                ref.child("users/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? NSDictionary
+                    let username = value?["username"] as? String ?? ""
+                    print(username)
+                    print(globalId)
+                    if username == globalUser {
+                        print(username)
+                        print(item)
+                        UserDefaults.standard.set(item, forKey: "user_id_taskforce")
+                        print(UserDefaults.standard.object(forKey: "user_id_taskforce") as! String)
+                    }
+                })
+            }
+        })
+    }
+}
