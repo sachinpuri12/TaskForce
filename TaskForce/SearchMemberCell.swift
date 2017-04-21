@@ -49,12 +49,12 @@ class SearchMemberCell: UITableViewCell {
     func changeButton(){
         if (self.isAdmin){
             if (self.inGroup) {
-                addRemoveButton.backgroundColor = UIColor.red
+                addRemoveButton.backgroundColor = UIColor(colorLiteralRed: 0.81, green: 0.41, blue: 0.38, alpha: 1)
                 addRemoveButton.layer.cornerRadius = 5
                 addRemoveButton.setTitle("  Remove  ", for: UIControlState.normal)
             }
             else{
-                addRemoveButton.backgroundColor = UIColor.green
+                addRemoveButton.backgroundColor = UIColor(colorLiteralRed: 0.38, green: 0.67, blue: 0.54, alpha: 1)
                 addRemoveButton.layer.cornerRadius = 5
                 addRemoveButton.setTitle("  Add  ", for: UIControlState.normal)
             }
@@ -62,12 +62,12 @@ class SearchMemberCell: UITableViewCell {
         }
         else{
             if (self.inGroup) {
-                addRemoveButton.backgroundColor = UIColor.blue
+                addRemoveButton.backgroundColor = UIColor(colorLiteralRed: 0.31, green: 0.36, blue: 0.40, alpha: 1)
                 addRemoveButton.layer.cornerRadius = 5
                 addRemoveButton.setTitle("  Added  ", for: UIControlState.normal)
             }
             else{
-                addRemoveButton.backgroundColor = UIColor.green
+                addRemoveButton.backgroundColor = UIColor(colorLiteralRed: 0.38, green: 0.67, blue: 0.54, alpha: 1)
                 addRemoveButton.layer.cornerRadius = 5
                 addRemoveButton.setTitle("  Add  ", for: UIControlState.normal)
             }
