@@ -30,16 +30,17 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-  //      if (FBSDKAccessToken.current() != nil) {
-  //          getFacebookUserInfo()
-  //          performSegue(withIdentifier: "loginSuccess", sender: nil)
-  //      } else {
+//        if (FBSDKAccessToken.current() != nil) {
+//            print("ALREADY LOGGED IN")
+//            getFacebookUserInfo()
+//        } else {
+            print("NOT LOGGED IN")
             db = FIRDatabase.database().reference()
             let loginButton = FBSDKLoginButton()
             loginButton.center = view.center
             view.addSubview(loginButton)
             loginButton.delegate = self
-  //      }
+//        }
     
     }
     
