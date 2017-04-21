@@ -27,6 +27,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     var db: FIRDatabaseReference!
     var taskTypes = ["Grocery", "Home-Based", "Shopping", "Other"]
     var groupNamesPicker = [String]()
+    var userKeys = [String]()
     
 //    var groupIDs = [String]()
     
@@ -34,7 +35,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         super.viewDidLoad()
         db = FIRDatabase.database().reference()
         // Do any additional setup after loading the view, typically from a nib.
- 
+        setUserKeyIfNil()
         let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
             print(id)
         self.getGroups(userId: id)
@@ -42,6 +43,11 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
             
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+        self.getGroups(userId: id)
     }
 
     func setDelegateDataSource(){
@@ -63,8 +69,15 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
             let value = snapshot.value as? NSDictionary
             
             let groups = (value?["groups"] as? NSDictionary)
-            
-            self.groupNamesPicker = groups?.allValues as! [String]
+            if (groups == nil){
+                let alert = UIAlertController(title: "No Groups!", message: "You must have groups to request a task!", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+                self.groupNamesPicker = [""]
+                self.present(alert, animated: true, completion: nil)
+            }
+            else{
+                self.groupNamesPicker = groups?.allValues as! [String]
+            }
             print(self.groupNamesPicker)
             self.setDelegateDataSource()
             
@@ -78,6 +91,12 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
             
             // alert for fields not filled
             let alert = UIAlertController(title: "Error", message: "Please make sure all fields are filled!", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        else if (self.groupNamesPicker == [""]){
+            let alert = UIAlertController(title: "Error", message: "You are not in any groups! Please add groups from the Groups Tab before requesting a task.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -165,6 +184,35 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setUserKeyIfNil(){
+        
+        if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String == nil{
+            let ref = FIRDatabase.database().reference()
+            let usersRef = ref.child("users")
+            usersRef.observeSingleEvent(of: .value, with: { snapshot in
+                self.userKeys.removeAll()
+                for child in snapshot.children{
+                    let userID = (child as AnyObject).key!
+                    self.userKeys.append(userID)
+                }
+                print(self.userKeys)
+                for item in self.userKeys{
+                    ref.child("users/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let username = value?["username"] as? String ?? ""
+                        print(globalUser)
+                        print(globalId)
+                        if username == globalUser {
+                            print(username)
+                            print(item)
+                            UserDefaults.standard.set(item, forKey: "user_id_taskforce")
+                        }
+                    })
+                }
+            })
+        }
     }
     
     

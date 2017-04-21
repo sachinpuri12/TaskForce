@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 import Firebase
+import MessageUI
 
-class MyTaskInfo: UIViewController{
+class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
     
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var Description: UILabel!
@@ -133,5 +134,19 @@ class MyTaskInfo: UIViewController{
     }
     
     @IBAction func messageButtonPressed(_ sender: Any) {
+        let messageVC = MFMessageComposeViewController()
+        messageVC.messageComposeDelegate = self
+        
+        messageVC.recipients = ["6267103370"]
+        messageVC.body = "What's good"
+        
     }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController,
+                                      didFinishWith result: MessageComposeResult) {
+        // Check the result or perform other tasks.
+        
+        
+        // Dismiss the message compose view controller.
+        controller.dismiss(animated: true, completion: nil)}
 }
