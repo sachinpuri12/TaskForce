@@ -26,14 +26,17 @@ class TaskFeed: UITableViewController {
     var taskStatusArray = [String]()
     var tasksArray = [String]()
     var taskKeys = [String]()
+    var userKeys = [String]()
     
     
     override func viewDidLoad() {
+        setUserKeyIfNil()
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
         super.viewDidLoad()
     }
+
     
     func loadTables(){
         
@@ -121,8 +124,10 @@ class TaskFeed: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-        self.getGroups(userId: id)
+        if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String != nil{
+            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+            self.getGroups(userId: id)
+        }
         feedTable.separatorStyle = .none
         loadTables()
     }
@@ -165,6 +170,36 @@ class TaskFeed: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedTask = taskKeys[indexPath.section]
+    }
+    
+    func setUserKeyIfNil(){
+        
+        if UserDefaults.standard.object(forKey: "user_id_taskforce") as? String == nil{
+            let ref = FIRDatabase.database().reference()
+            let usersRef = ref.child("users")
+            usersRef.observeSingleEvent(of: .value, with: { snapshot in
+                self.userKeys.removeAll()
+                for child in snapshot.children{
+                    let userID = (child as AnyObject).key!
+                    self.userKeys.append(userID)
+                }
+                print(self.userKeys)
+                for item in self.userKeys{
+                    ref.child("users/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let username = value?["username"] as? String ?? ""
+                        print(globalUser)
+                        print(globalId)
+                        if username == globalUser {
+                            print(username)
+                            print(item)
+                            UserDefaults.standard.set(item, forKey: "user_id_taskforce")
+                        }
+                        self.feedTable.reloadData()
+                    })
+                }
+            })
+        }
     }
     
 }

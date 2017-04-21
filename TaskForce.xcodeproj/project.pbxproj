@@ -15,7 +15,7 @@
 		0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FE1E5DFDC700B15797 /* Request.swift */; };
 		0353FA011E5DFF0900B15797 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353FA001E5DFF0900B15797 /* Groups.swift */; };
 		0353FA031E5DFF9F00B15797 /* Members.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353FA021E5DFF9F00B15797 /* Members.swift */; };
-		03EDDB371EA7F3B900C6E813 /* myTasksInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EDDB361EA7F3B900C6E813 /* myTasksInfo.swift */; };
+		03EDDB371EA7F3B900C6E813 /* MyTaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EDDB361EA7F3B900C6E813 /* MyTaskInfo.swift */; };
 		03EDDB391EA7F7E000C6E813 /* CompleteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */; };
 		03F1A4CC1E55204F0094262A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4CB1E55204F0094262A /* AppDelegate.swift */; };
 		03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F1A4CD1E55204F0094262A /* ViewController.swift */; };
@@ -67,7 +67,7 @@
 		0353F9FE1E5DFDC700B15797 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		0353FA001E5DFF0900B15797 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		0353FA021E5DFF9F00B15797 /* Members.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Members.swift; sourceTree = "<group>"; };
-		03EDDB361EA7F3B900C6E813 /* myTasksInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTasksInfo.swift; sourceTree = "<group>"; };
+		03EDDB361EA7F3B900C6E813 /* MyTaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaskInfo.swift; sourceTree = "<group>"; };
 		03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteInfo.swift; sourceTree = "<group>"; };
 		03F1A4C81E55204F0094262A /* TaskForce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskForce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03F1A4CB1E55204F0094262A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 				03F1A4D71E55204F0094262A /* Info.plist */,
 				0353F9F81E5DF25100B15797 /* TaskFeed.swift */,
 				0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */,
-				03EDDB361EA7F3B900C6E813 /* myTasksInfo.swift */,
+				03EDDB361EA7F3B900C6E813 /* MyTaskInfo.swift */,
 				03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */,
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
 				0353F9FA1E5DFBF900B15797 /* MyTasks.swift */,
@@ -312,6 +312,7 @@
 				TargetAttributes = {
 					03F1A4C71E55204F0094262A = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = YYH7UXGAA8;
 						ProvisioningStyle = Automatic;
 					};
 					03F1A4DB1E55204F0094262A = {
@@ -520,7 +521,7 @@
 				03EDDB391EA7F7E000C6E813 /* CompleteInfo.swift in Sources */,
 				C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */,
 				0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */,
-				03EDDB371EA7F3B900C6E813 /* myTasksInfo.swift in Sources */,
+				03EDDB371EA7F3B900C6E813 /* MyTaskInfo.swift in Sources */,
 				C93A78421E9BEDA400CD3A38 /* MemberCell.swift in Sources */,
 				0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */,
 				0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */,
@@ -688,11 +689,14 @@
 			baseConfigurationReference = 5A9471E7D41D6963B89067B4 /* Pods-TaskForce.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = YYH7UXGAA8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -705,6 +709,8 @@
 			baseConfigurationReference = 7B90DF889E18F1335E6C7EA3 /* Pods-TaskForce.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = YYH7UXGAA8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
@@ -727,6 +733,7 @@
 ",
 				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
