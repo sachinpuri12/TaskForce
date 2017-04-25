@@ -423,7 +423,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
             selectedTaskStatus = self.runTaskStatusArray[indexPath.row]
             selectedTaskKey = self.runTaskKeys[indexPath.row]
             print(selectedTaskStatus)
-            if selectedTaskStatus == "completed"{
+            if selectedTaskStatus == "completed" {
                 self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
             }
             else if selectedTaskStatus == "accepted" {
@@ -447,7 +447,7 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
         }
     }
     
-
+/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CompleteTaskInfo" {
             let dest = segue.destination as! CompleteInfo
@@ -457,15 +457,16 @@ class MyTasks: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, U
 
         }
         else if segue.identifier == "MyTaskInfo"{
+            
             let dest = segue.destination as! MyTaskInfo
-            dest.pickerTag = selectedPickerTag
-            dest.taskStatus = selectedTaskStatus
-            dest.taskKey = selectedTaskKey
+            dest.pickerTag = self.selectedPickerTag
+            dest.taskStatus = self.selectedTaskStatus
+            dest.taskKey = self.selectedTaskKey
 
         }
     }
     
-    
+    */
 
     
 }
