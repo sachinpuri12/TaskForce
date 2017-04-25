@@ -47,6 +47,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     var myPicker = UIPickerView()
     
     
+    
     override func viewDidLoad() {
         //setUserKeyIfNil()
         db = FIRDatabase.database().reference()
@@ -126,7 +127,6 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func viewWillAppear(_ animated: Bool) {
         self.getUsername()
         taskTable.separatorStyle = .none
-        // loadTables()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -255,15 +255,11 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if segmentedController.selectedSegmentIndex == 0 {
             self.filterText.text = self.runSort[row]
-            //self.pullData(status: Filter.title, pickerTag: 1)
-            //            self.runPicker.isHidden = true
-            //            self.runText.endEditing(true)
+
         }
         else {
             self.filterText.text = self.requestSort[row]
-            //self.pullData(status: requestText.text!, pickerTag: 2)
-            //            self.requestPicker.isHidden = true
-            //self.requestText.endEditing(true)
+
             
         }
         self.pullData(status: self.filterText.text!)
@@ -423,19 +419,20 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CompleteTaskInfo" {
-            let dest = segue.destination as! CompleteInfo
-            
-            
-        }
-        else if segue.identifier == "MyTaskInfo"{
-            
-            let dest = segue.destination as! MyTaskInfo
-            
-            
-        }
-    }
+//    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+//        super.performSegue(withIdentifier: identifier, sender: sender)
+//        print(identifier)
+//    }
+
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "CompleteTaskInfo" {
+//            let dest = segue.destination as! CompleteInfo
+//
+//        }
+//        else if segue.identifier == "MyTaskInfo"{
+//            let dest = segue.destination as! MyTaskInfo
+//        }
+//    }
     
     
 }
