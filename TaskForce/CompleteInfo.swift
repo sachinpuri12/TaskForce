@@ -13,13 +13,14 @@ import Firebase
 
 class CompleteInfo: UIViewController{
     
-    @IBOutlet weak var ratingText: UILabel!
-    @IBOutlet weak var locationText: UILabel!
-    @IBOutlet weak var paymentText: UILabel!
     @IBOutlet weak var Requester: UILabel!
-    @IBOutlet weak var Description: UILabel!
+    @IBOutlet weak var ratingText: UILabel!
     @IBOutlet weak var titleText: UILabel!
+    @IBOutlet weak var Description: UILabel!
+    @IBOutlet weak var locationText: UILabel!
     @IBOutlet weak var invoiceImage: UIImageView!
+    @IBOutlet weak var paymentText: UILabel!
+    
     
     var taskStatus = String()
     var pickerTag = Int()

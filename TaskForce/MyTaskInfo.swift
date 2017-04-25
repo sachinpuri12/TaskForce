@@ -12,17 +12,16 @@ import Firebase
 import MessageUI
 
 class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
-    
+
+    @IBOutlet weak var Requester: UILabel!
+    @IBOutlet weak var ratingText: UILabel!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var Description: UILabel!
     @IBOutlet weak var locationText: UILabel!
-    @IBOutlet weak var ratingText: UILabel!
     @IBOutlet weak var paymentText: UILabel!
-    @IBOutlet weak var Requester: UILabel!
-    
-    
-    @IBOutlet weak var messageButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var messageButton: UIButton!
+    
     
     var requestRating: String = ""
     var location: String = ""
@@ -30,6 +29,7 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
     var taskStatus = String()
     var pickerTag = Int()
     var taskKey = String()
+    
     
     
     override func viewDidLoad() {
@@ -139,8 +139,8 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
         
         messageVC.recipients = ["6267103370"]
         messageVC.body = "What's good"
-        
     }
+
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController,
                                       didFinishWith result: MessageComposeResult) {
