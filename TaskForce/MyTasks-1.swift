@@ -192,11 +192,37 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if segmentedController.selectedSegmentIndex == 0 {
-            mySelectedTask = runTaskKeys[indexPath.row]
+            globalMyTaskKey = runTaskKeys[indexPath.section]
+            globalPickerTag = 1
+            
+            if runTaskStatusArray[indexPath.section] == "completed" {
+                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
+            }
+            else if runTaskStatusArray[indexPath.section] == "accepted" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
+            else if runTaskStatusArray[indexPath.section] == "requested" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
+            
         }
         else {
-            mySelectedTask = requestTaskKeys[indexPath.row]
+            globalMyTaskKey = requestTaskKeys[indexPath.section]
+            globalPickerTag = 2
+            
+            if requestTaskStatusArray[indexPath.section] == "completed" {
+                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
+            }
+            else if requestTaskStatusArray[indexPath.section] == "accepted" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
+            else if requestTaskStatusArray[indexPath.section] == "requested" {
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+            }
+            
         }
+
+        
         
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -391,6 +417,20 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
            // print("*****************")
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CompleteTaskInfo" {
+            let dest = segue.destination as! CompleteInfo
+
+            
+        }
+        else if segue.identifier == "MyTaskInfo"{
+            
+            let dest = segue.destination as! MyTaskInfo
+
+            
+        }
     }
 
 
