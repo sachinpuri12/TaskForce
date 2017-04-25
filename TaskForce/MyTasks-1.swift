@@ -407,14 +407,14 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                                 
                             }
                         }
-                      //  print(self.requestTitleArray)
+                      
                         
                     }
                 }
                 self.taskTable.reloadData()
             })
             
-           // print("*****************")
+           
         }
         
     }
