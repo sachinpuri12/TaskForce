@@ -936,8 +936,8 @@
                                     <outlet property="moneyLabel" destination="qCe-xl-d75" id="7vP-kA-5mH"/>
                                     <outlet property="nameLabel" destination="Pnb-eY-FAA" id="UvD-cm-o9F"/>
                                     <outlet property="taskLabel" destination="ZOA-2M-DO2" id="Ss5-py-1km"/>
-                                    <segue destination="obC-rX-O66" kind="show" trigger="accessoryAction" id="dkc-Eb-gQU"/>
-                                    <segue destination="qsn-tg-53H" kind="show" id="b7Y-qk-EnC"/>
+                                    <segue destination="obC-rX-O66" kind="show" identifier="MyTaskInfo" trigger="accessoryAction" id="dkc-Eb-gQU"/>
+                                    <segue destination="qsn-tg-53H" kind="show" identifier="CompleteTaskInfo" id="b7Y-qk-EnC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1716,9 +1716,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="All" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="LwF-dh-i8J">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="113" id="bR7-q9-o1M" customClass="TaskFeedCell" customModule="TaskForce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="113"/>
+                                <rect key="frame" x="0.0" y="58" width="375" height="113"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bR7-q9-o1M" id="SCf-f7-idZ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
@@ -1807,6 +1814,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="feedTable" destination="TDl-JL-C2P" id="Aup-vH-MpX"/>
+                        <outlet property="sortText" destination="LwF-dh-i8J" id="1Ll-On-L0B"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RkN-oG-OSO" userLabel="First Responder" sceneMemberID="firstResponder"/>
