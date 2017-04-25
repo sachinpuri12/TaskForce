@@ -10,8 +10,13 @@ import Foundation
 import UIKit
 import Firebase
 
-class MyNewTasks: UITableViewController {
+var mySelectedTask = String()
+class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+
+   
+    
+    @IBOutlet weak var filterText: UITextField!
 
     @IBOutlet var taskTable: UITableView!
     @IBOutlet weak var segmentedController: UISegmentedControl!
@@ -35,7 +40,11 @@ class MyNewTasks: UITableViewController {
     var requestTaskStatusArray = [String]()
     var requestTaskKeys = [String]()
     
+    var runSort = ["All","Accepted", "Completed"]
+    var requestSort = ["All", "Requested", "Accepted", "Completed"]
+    
     var taskKeys = [String]()
+    var myPicker = UIPickerView()
     
     
     override func viewDidLoad() {
@@ -44,6 +53,11 @@ class MyNewTasks: UITableViewController {
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
+        self.myPicker = UIPickerView()
+        self.filterText.delegate = self
+        self.filterText.inputView = self.myPicker
+        self.myPicker.delegate = self
+        self.myPicker.dataSource = self
         super.viewDidLoad()
         
         //print("Global user is \(globalUser)")
@@ -72,9 +86,12 @@ class MyNewTasks: UITableViewController {
     }
     
     @IBAction func switchTables(_ sender: Any) {
+        self.filterText.text = "All"
+        self.pullData(status: filterText.text!)
         self.loadTables()
         self.taskTable.reloadData()
     }
+    
     func loadTables(){
         
         self.clearRunArrays()
@@ -221,6 +238,202 @@ class MyNewTasks: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = taskKeys[indexPath.section]
+        if segmentedController.selectedSegmentIndex == 0 {
+            mySelectedTask = runTaskKeys[indexPath.row]
+        }
+        else {
+            mySelectedTask = requestTaskKeys[indexPath.row]
+        }
+        
     }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        var countRows: Int = runSort.count
+        if segmentedController.selectedSegmentIndex == 1 {
+            countRows = self.requestSort.count
+        }
+        return countRows
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if segmentedController.selectedSegmentIndex == 0 {
+            let titleRow = runSort[row]
+            return titleRow
+        }
+        else {
+            let titleRow = requestSort[row]
+            return titleRow
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if segmentedController.selectedSegmentIndex == 0 {
+            self.filterText.text = self.runSort[row]
+            //self.pullData(status: Filter.title, pickerTag: 1)
+            //            self.runPicker.isHidden = true
+            //            self.runText.endEditing(true)
+        }
+        else {
+            self.filterText.text = self.requestSort[row]
+            //self.pullData(status: requestText.text!, pickerTag: 2)
+            //            self.requestPicker.isHidden = true
+            //self.requestText.endEditing(true)
+        }
+        self.pullData(status: self.filterText.text!)
+        self.myPicker.isHidden = true
+        self.filterText.endEditing(true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+            self.myPicker.isHidden = false
+    }
+    
+    func pullData(status: String){
+        //get all task keys
+        let taskRef = db.child("tasks")
+        taskRef.observeSingleEvent(of: .value, with: { snapshot in
+            self.taskKeys.removeAll()
+            for child in snapshot.children{
+                let taskID = (child as AnyObject).key!
+                self.taskKeys.append(taskID)
+            }
+            print(self.taskKeys)
+        })
+        self.clearRunArrays()
+        self.clearRequestArrays()
+        for item in self.taskKeys{
+            self.db.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let poster = value?["name"] as? String ?? ""
+                let acceptor = value?["acceptor"] as? String ?? ""
+                let title = value?["title"] as? String ?? ""
+                let task = value?["description"] as? String ?? ""
+                let place = value?["location"] as? String ?? ""
+                let price = value?["tip"] as? Int ?? 0
+                let taskStatus = value?["status"] as? String ?? ""
+                print("Poster is \(poster)")
+                print("Username is \(self.username)")
+                
+                
+                // runPicker
+                
+                if self.segmentedController.selectedSegmentIndex == 0{
+                    
+                    print("PICKERTAG: 1 run picker")
+                    print("acceptor is \(acceptor)")
+                    if acceptor == self.username{
+                        if status == "All"{
+                            print("STATUS: All")
+                            self.runTitleArray.append(title)
+                            self.runNameArray.append(poster)
+                            self.runMoneyArray.append(price)
+                            self.runLocArray.append(place)
+                            self.runTaskArray.append(task)
+                            self.runTaskStatusArray.append(taskStatus)
+                            self.runTaskKeys.append(item)
+                            
+                        }
+                        else if status == "Accepted"{
+                            print("STATUS: Accepted")
+                            if taskStatus == "accepted"{
+                                self.runTitleArray.append(title)
+                                self.runNameArray.append(poster)
+                                self.runMoneyArray.append(price)
+                                self.runLocArray.append(place)
+                                self.runTaskArray.append(task)
+                                self.runTaskStatusArray.append(taskStatus)
+                                self.runTaskKeys.append(item)
+                                
+                            }
+                        }
+                        else if status == "Completed"{
+                            print("STATUS: Completed")
+                            if taskStatus == "completed"{
+                                self.runTitleArray.append(title)
+                                self.runNameArray.append(poster)
+                                self.runMoneyArray.append(price)
+                                self.runLocArray.append(place)
+                                self.runTaskArray.append(task)
+                                self.runTaskStatusArray.append(taskStatus)
+                                self.runTaskKeys.append(item)
+                                
+                            }
+                        }
+                        print(self.runTitleArray)
+                    }
+                }
+                    
+                    // request picker
+                    
+                else if self.segmentedController.selectedSegmentIndex == 1{
+                    
+                    print("PICKERTAG: 2 request picker")
+                    if poster == self.username {
+                        // requester if statements
+                        if status == "All"{
+                            print("STATUS: All")
+                            self.requestTitleArray.append(title)
+                            self.requestNameArray.append(poster)
+                            self.requestMoneyArray.append(price)
+                            self.requestLocArray.append(place)
+                            self.requestTaskArray.append(task)
+                            self.requestTaskStatusArray.append(taskStatus)
+                            self.requestTaskKeys.append(item)
+                            
+                        }
+                        else if status == "Requested"{
+                            print("STATUS: Requested")
+                            if taskStatus == "requested"{
+                                self.requestTitleArray.append(title)
+                                self.requestNameArray.append(poster)
+                                self.requestMoneyArray.append(price)
+                                self.requestLocArray.append(place)
+                                self.requestTaskArray.append(task)
+                                self.requestTaskStatusArray.append(taskStatus)
+                                self.requestTaskKeys.append(item)
+                                
+                            }
+                        }
+                        else if status == "Accepted"{
+                            print("STATUS: Accepted")
+                            if taskStatus == "accepted"{
+                                self.requestTitleArray.append(title)
+                                self.requestNameArray.append(poster)
+                                self.requestMoneyArray.append(price)
+                                self.requestLocArray.append(place)
+                                self.requestTaskArray.append(task)
+                                self.requestTaskStatusArray.append(taskStatus)
+                                self.requestTaskKeys.append(item)
+                                
+                            }
+                            
+                        }
+                        else if status == "Completed"{
+                            print("STATUS: Completed")
+                            if taskStatus == "completed"{
+                                self.requestTitleArray.append(title)
+                                self.requestNameArray.append(poster)
+                                self.requestMoneyArray.append(price)
+                                self.requestLocArray.append(place)
+                                self.requestTaskArray.append(task)
+                                self.requestTaskStatusArray.append(taskStatus)
+                                self.requestTaskKeys.append(item)
+                                
+                            }
+                        }
+                        print(self.requestTitleArray)
+                        
+                    }
+                }
+                self.taskTable.reloadData()
+            })
+            
+            print("*****************")
+        }
+        
+    }
+
+
 }
