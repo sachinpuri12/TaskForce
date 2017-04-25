@@ -13,11 +13,11 @@ import Firebase
 var mySelectedTask = String()
 class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-
+    
     var acceptorBool = true
     
     @IBOutlet weak var filterText: UITextField!
-
+    
     @IBOutlet var taskTable: UITableView!
     @IBOutlet weak var segmentedController: UISegmentedControl!
     var db: FIRDatabaseReference!
@@ -58,6 +58,9 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.filterText.inputView = self.myPicker
         self.myPicker.delegate = self
         self.myPicker.dataSource = self
+        
+        self.pullData(status: filterText.text!)
+        self.taskTable.reloadData()
         super.viewDidLoad()
         
         //print("Global user is \(globalUser)")
@@ -88,11 +91,11 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBAction func switchTables(_ sender: Any) {
         self.filterText.text = "All"
         self.pullData(status: filterText.text!)
-       // self.loadTables()
+        // self.loadTables()
         self.taskTable.reloadData()
     }
     
- 
+    
     
     func getUsername(){
         // get username
@@ -100,7 +103,9 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         let userRef = db.child("users")
         userRef.observeSingleEvent(of: .value, with: { snapshot in
+            
             for child in snapshot.children{
+                
                 let userID = (child as AnyObject).key!
                 if (id == userID) {
                     self.db.child("users/\(userID)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -108,11 +113,12 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                         self.username = value?["username"] as? String ?? ""
                     })
                 }
+                
             }
             
         })
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -121,7 +127,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func viewWillAppear(_ animated: Bool) {
         self.getUsername()
         taskTable.separatorStyle = .none
-       // loadTables()
+        // loadTables()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -163,13 +169,13 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         switch(segmentedController.selectedSegmentIndex)
         {
-        
+            
         case 0:
             
             myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTaskArray[indexPath.row], loc: runLocArray[indexPath.row])
             myCell.selectedTaskStatus = runTaskStatusArray[indexPath.row]
             myCell.selectedTaskKey = runTaskKeys[indexPath.row]
-           break
+            break
         case 1:
             
             myCell.setInfo(money: requestMoneyArray[indexPath.section], name: requestNameArray[indexPath.section], task: requestTaskArray[indexPath.section], loc: requestLocArray[indexPath.section])
@@ -183,7 +189,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         return myCell
     }
     
-
+    
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.clear
@@ -221,7 +227,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
             }
             
         }
-
+        
         
         
     }
@@ -267,45 +273,51 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-            self.myPicker.isHidden = false
+        self.myPicker.isHidden = false
     }
     
     func pullData(status: String){
         //get all task keys
         let taskRef = db.child("tasks")
         taskRef.observeSingleEvent(of: .value, with: { snapshot in
-            self.taskKeys.removeAll()
-            for child in snapshot.children{
-                let taskID = (child as AnyObject).key!
-                self.taskKeys.append(taskID)
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                
+                self.taskKeys.removeAll()
+                for child in snapshot.children{
+                    let taskID = (child as AnyObject).key!
+                    self.taskKeys.append(taskID)
+                }
             }
             
         })
+        
         self.clearRunArrays()
         self.clearRequestArrays()
         self.taskTable.reloadData()
         for item in self.taskKeys{
             self.db.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
-            
+                
                 let poster = value?["name"] as? String ?? ""
-               
+                
                 let acceptor = value?["acceptor"] as? String ?? ""
                 let title = value?["title"] as? String ?? ""
                 let task = value?["description"] as? String ?? ""
                 let place = value?["location"] as? String ?? ""
                 let price = value?["tip"] as? Int ?? 0
                 let taskStatus = value?["status"] as? String ?? ""
-               
-              
+                
+                
                 
                 if self.segmentedController.selectedSegmentIndex == 0{
                     
-
+                    
                     if acceptor == self.username{
                         if status == "All"{
-                           
-                           
+                            
+                            
                             self.runTitleArray.append(title)
                             self.runNameArray.append(poster)
                             self.runMoneyArray.append(price)
@@ -316,7 +328,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                             
                         }
                         else if status == "Accepted"{
-                          //  print("STATUS: Accepted")
+                            //  print("STATUS: Accepted")
                             if taskStatus == "accepted"{
                                 self.runTitleArray.append(title)
                                 
@@ -330,7 +342,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                             }
                         }
                         else if status == "Completed"{
-                           // print("STATUS: Completed")
+                            // print("STATUS: Completed")
                             if taskStatus == "completed"{
                                 self.runTitleArray.append(title)
                                 self.runNameArray.append(poster)
@@ -342,7 +354,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                                 
                             }
                         }
-                       // print(self.runTitleArray)
+                        // print(self.runTitleArray)
                     }
                 }
                     
@@ -350,18 +362,18 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                     
                 else if self.segmentedController.selectedSegmentIndex == 1{
                     
-                 //  print("PICKERTAG: 2 request picker")
+                    //  print("PICKERTAG: 2 request picker")
                     if poster == self.username {
                         // requester if statements
                         if status == "All"{
-                          
+                            
                             self.requestTitleArray.append(title)
                             print(poster)
                             self.requestNameArray.append(poster)
-
+                            
                             self.requestMoneyArray.append(price)
                             self.requestLocArray.append(place)
-       
+                            
                             self.requestTaskArray.append(task)
                             self.requestTaskStatusArray.append(taskStatus)
                             self.requestTaskKeys.append(item)
@@ -381,7 +393,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                             }
                         }
                         else if status == "Accepted"{
-                           print("STATUS: Accepted")
+                            print("STATUS: Accepted")
                             if taskStatus == "accepted"{
                                 self.requestTitleArray.append(title)
                                 self.requestNameArray.append(poster)
@@ -407,14 +419,14 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                                 
                             }
                         }
-                      
+                        
                         
                     }
                 }
                 self.taskTable.reloadData()
             })
             
-           
+            
         }
         
     }
@@ -422,16 +434,16 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CompleteTaskInfo" {
             let dest = segue.destination as! CompleteInfo
-
+            
             
         }
         else if segue.identifier == "MyTaskInfo"{
             
             let dest = segue.destination as! MyTaskInfo
-
+            
             
         }
     }
-
-
+    
+    
 }
