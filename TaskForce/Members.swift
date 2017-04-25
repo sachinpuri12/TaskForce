@@ -25,13 +25,19 @@ class Members: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad")
+        //print("groupName:" + groupName)
+        //print("groupKey:" + groupKey)
         db = FIRDatabase.database().reference()
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        //print("**********************")
+        print("viewWillAppear")
+        viewDidLoad()
+        viewDidAppear(true)
+        //print("memberArray: " + String(describing: memberArray))
+        //print("key array:" + String(describing: memberKeyArray))
         super.viewWillAppear(true)
         self.memberArray.removeAll()
         self.memberKeyArray.removeAll()
@@ -40,6 +46,8 @@ class Members: UITableViewController {
         navigationItem.hidesBackButton = false
         self.title = self.groupName
         memberButton.title = "edit"
+        self.memberTable.reloadData()
+
     }
     
     func fillMemberTable(){
@@ -88,7 +96,9 @@ class Members: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //fillGroupTable()
-        super.viewDidAppear(animated)
+        //super.viewDidAppear(animated)
+        print("viewDidAppear")
+        super.viewWillAppear(true)
         memberTable.reloadData()
     }
     
@@ -103,6 +113,8 @@ class Members: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let myCell = self.memberTable.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
+        
+        print("indexPath " + String(indexPath.row))
         
         if (memberKeyArray[indexPath.row] == self.admin){
             myCell.setMemberName(name: (memberArray[indexPath.row] + " 👑"))
