@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
-
+var globalGroupKey = ""
 class Members: UITableViewController {
     
     var groupName: String = ""
@@ -25,7 +25,14 @@ class Members: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad")
+        
+        if groupKey != ""{
+            globalGroupKey = groupKey
+        }
+        else {
+            groupKey = globalGroupKey
+        }
+       
         //print("groupName:" + groupName)
         //print("groupKey:" + groupKey)
         db = FIRDatabase.database().reference()
@@ -33,7 +40,7 @@ class Members: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //print("**********************")
-        print("viewWillAppear")
+        
         viewDidLoad()
         viewDidAppear(true)
         //print("memberArray: " + String(describing: memberArray))
@@ -42,18 +49,19 @@ class Members: UITableViewController {
         self.memberArray.removeAll()
         self.memberKeyArray.removeAll()
         self.fillMemberTable()
+       
         navigationItem.title = nil
         navigationItem.hidesBackButton = false
         self.title = self.groupName
         memberButton.title = "edit"
-        self.memberTable.reloadData()
+        
+        
 
     }
     
     func fillMemberTable(){
-        self.memberArray.removeAll()
-        self.memberKeyArray.removeAll()
-        
+       print("GROUP KEY:######")
+        print(groupKey)
         let groupID = groupKey
         let newref = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/groups/\(groupID)")
         newref.child("members").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -61,11 +69,15 @@ class Members: UITableViewController {
                 return
             } else {
                 for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    
                     self.memberArray.append(rest.value! as! String)
+                    
                     self.memberKeyArray.append(rest.key)
+                    
                 }
             }
             self.getAdmin()
+            self.memberTable.reloadData()
             
         })
         
@@ -95,13 +107,12 @@ class Members: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //fillGroupTable()
-        //super.viewDidAppear(animated)
-        print("viewDidAppear")
-        super.viewWillAppear(true)
-        memberTable.reloadData()
+        
+       
+        super.viewDidAppear(true)
+        
     }
-    
+ 
     
     
     //loading the table
