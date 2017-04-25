@@ -274,9 +274,9 @@ class TaskFeed: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.loadTables()
         self.sortText.text = taskTypes[row]
         self.sortText.endEditing(true)
-        clearReload()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
