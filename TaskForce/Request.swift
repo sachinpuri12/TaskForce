@@ -133,7 +133,8 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
                 "tip": Double(cost.text!) as Any,
                 "status": String("requested") as Any,
                 "group": group as Any,
-                "acceptor": String("null") as Any
+                "acceptor": String("null") as Any,
+                "type": taskType as Any
                 ] as [String: Any]
             // FIXME make price and tip decimal format
             

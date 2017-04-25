@@ -13,7 +13,7 @@ import Firebase
 var selectedTask: String = ""
 var groupNames = [String]()
 var userKeys = [String]()
-class TaskFeed: UITableViewController {
+class TaskFeed: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     
     @IBOutlet var feedTable: UITableView!
@@ -28,6 +28,11 @@ class TaskFeed: UITableViewController {
     var tasksArray = [String]()
     var taskKeys = [String]()
     
+    var taskTypes = ["All", "Grocery", "Home-Based", "Shopping", "Other"]
+
+    @IBOutlet weak var sortText: UITextField!
+    var myPicker = UIPickerView()
+    
     
     
     override func viewDidLoad() {
@@ -35,12 +40,31 @@ class TaskFeed: UITableViewController {
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
+        
+        self.myPicker = UIPickerView()
+        self.sortText.delegate = self
+        self.sortText.inputView = myPicker
+        self.myPicker.delegate = self
+        self.myPicker.dataSource = self
         super.viewDidLoad()
+        
         
         print("Global user is \(globalUser)")
         
     }
-
+    
+    func clearReload(){
+        self.idArray.removeAll()
+        self.nameArray.removeAll()
+        self.titleArray.removeAll()
+        self.taskArray.removeAll()
+        self.locArray.removeAll()
+        self.moneyArray.removeAll()
+        self.tasksArray.removeAll()
+        self.taskKeys.removeAll()
+        self.feedTable.reloadData()
+        
+    }
     
     func loadTables(){
         
@@ -70,7 +94,7 @@ class TaskFeed: UITableViewController {
             for item in self.taskKeys{
                 ref.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get user value
-                    
+
                     
                     let value = snapshot.value as? NSDictionary
                     let group = value?["group"] as? String ?? ""
@@ -79,19 +103,73 @@ class TaskFeed: UITableViewController {
                         if(value?["status"] as? String == "requested") {
                             
                             let name = value?["name"] as? String ?? ""
+                            let title = value?["title"] as? String ?? ""
+                            let task = value?["description"] as? String ?? ""
+                            let place = value?["location"] as? String ?? ""
+                            let price = value?["tip"] as? Int ?? 0
+                            let taskStatus = value?["status"] as? String ?? ""
+                            let type = value?["type"] as? String ?? ""
+                            
                             if(name != globalUser){
-                                let title = value?["title"] as? String ?? ""
-                                let task = value?["description"] as? String ?? ""
-                                let place = value?["location"] as? String ?? ""
-                                let price = value?["tip"] as? Int ?? 0
-                                let taskStatus = value?["status"] as? String ?? ""
-                                self.idArray.append(snapshot.key)
-                                self.titleArray.append(title)
-                                self.nameArray.append(name)
-                                self.moneyArray.append(price)
-                                self.locArray.append(place)
-                                self.taskArray.append(task)
-                                self.taskStatusArray.append(taskStatus)
+                                switch (self.sortText.text!){
+                                    case "All":
+                                        self.idArray.append(snapshot.key)
+                                        self.titleArray.append(title)
+                                        self.nameArray.append(name)
+                                        self.moneyArray.append(price)
+                                        self.locArray.append(place)
+                                        self.taskArray.append(task)
+                                        self.taskStatusArray.append(taskStatus)
+                                        break
+                                    case "Grocery":
+                                        if (type == "Grocery"){
+                                            self.idArray.append(snapshot.key)
+                                            self.titleArray.append(title)
+                                            self.nameArray.append(name)
+                                            self.moneyArray.append(price)
+                                            self.locArray.append(place)
+                                            self.taskArray.append(task)
+                                            self.taskStatusArray.append(taskStatus)
+                                        }
+                                        break
+                                    case "Home-Based":
+                                        if (type == "Home-Based"){
+                                            self.idArray.append(snapshot.key)
+                                            self.titleArray.append(title)
+                                            self.nameArray.append(name)
+                                            self.moneyArray.append(price)
+                                            self.locArray.append(place)
+                                            self.taskArray.append(task)
+                                            self.taskStatusArray.append(taskStatus)
+                                        }
+                                        break
+                                    case "Shopping":
+                                        if (type == "Shopping"){
+                                            self.idArray.append(snapshot.key)
+                                            self.titleArray.append(title)
+                                            self.nameArray.append(name)
+                                            self.moneyArray.append(price)
+                                            self.locArray.append(place)
+                                            self.taskArray.append(task)
+                                            self.taskStatusArray.append(taskStatus)
+                                        }
+                                        break
+                                    case "Other":
+                                        if (type == "Other"){
+                                            self.idArray.append(snapshot.key)
+                                            self.titleArray.append(title)
+                                            self.nameArray.append(name)
+                                            self.moneyArray.append(price)
+                                            self.locArray.append(place)
+                                            self.taskArray.append(task)
+                                            self.taskStatusArray.append(taskStatus)
+                                        }
+                                        break
+                                default:
+                                    self.sortText.text = "All"
+                                }
+                                
+                                
                             }
                         }
                     }
@@ -180,6 +258,32 @@ class TaskFeed: UITableViewController {
         selectedTask = idArray[indexPath.section]
       
     }
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return taskTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let titleRow = self.taskTypes[row]
+        return titleRow
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.sortText.text = taskTypes[row]
+        self.sortText.endEditing(true)
+        clearReload()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.myPicker.isHidden = false
+    }
+        
+        
     
 }
 
