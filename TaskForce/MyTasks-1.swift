@@ -172,13 +172,13 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
             
         case 0:
             
-            myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTaskArray[indexPath.row], loc: runLocArray[indexPath.row])
+            myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTitleArray[indexPath.row], loc: runLocArray[indexPath.row])
             myCell.selectedTaskStatus = runTaskStatusArray[indexPath.row]
             myCell.selectedTaskKey = runTaskKeys[indexPath.row]
             break
         case 1:
             
-            myCell.setInfo(money: requestMoneyArray[indexPath.section], name: requestNameArray[indexPath.section], task: requestTaskArray[indexPath.section], loc: requestLocArray[indexPath.section])
+            myCell.setInfo(money: requestMoneyArray[indexPath.section], name: requestNameArray[indexPath.section], task: requestTitleArray[indexPath.section], loc: requestLocArray[indexPath.section])
             myCell.selectedTaskStatus = requestTaskStatusArray[indexPath.section]
             myCell.selectedTaskKey = requestTaskKeys[indexPath.section]
             
@@ -280,6 +280,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         //get all task keys
         let taskRef = db.child("tasks")
         taskRef.observeSingleEvent(of: .value, with: { snapshot in
+
             if let _ = snapshot.value as? NSNull {
                 return
             } else {
@@ -289,145 +290,137 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
                     let taskID = (child as AnyObject).key!
                     self.taskKeys.append(taskID)
                 }
+                
+                self.clearRunArrays()
+                self.clearRequestArrays()
+                self.taskTable.reloadData()
+                for item in self.taskKeys{
+                    self.db.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let _ = snapshot.value as? NSNull {
+                            return
+                        } else {
+                            let value = snapshot.value as? NSDictionary
+                            let poster = value?["name"] as? String ?? ""
+                            let acceptor = value?["acceptor"] as? String ?? ""
+                            let title = value?["title"] as? String ?? ""
+                            let task = value?["description"] as? String ?? ""
+                            let place = value?["location"] as? String ?? ""
+                            let price = value?["tip"] as? Int ?? 0
+                            let taskStatus = value?["status"] as? String ?? ""
+ 
+                            if self.segmentedController.selectedSegmentIndex == 0{
+                                if acceptor == self.username{
+                                    if status == "All"{
+                                        self.runTitleArray.append(title)
+                                        self.runNameArray.append(poster)
+                                        self.runMoneyArray.append(price)
+                                        self.runLocArray.append(place)
+                                        self.runTaskArray.append(task)
+                                        self.runTaskStatusArray.append(taskStatus)
+                                        self.runTaskKeys.append(item)
+                                    
+                                    }
+                                    else if status == "Accepted"{
+                                        //  print("STATUS: Accepted")
+                                        if taskStatus == "accepted"{
+                                            self.runTitleArray.append(title)
+                                            self.runNameArray.append(poster)
+                                            self.runMoneyArray.append(price)
+                                            self.runLocArray.append(place)
+                                            self.runTaskArray.append(task)
+                                            self.runTaskStatusArray.append(taskStatus)
+                                            self.runTaskKeys.append(item)
+                                        }
+                                    }
+                                    else if status == "Completed"{
+                                        // print("STATUS: Completed")
+                                        if taskStatus == "completed"{
+                                            self.runTitleArray.append(title)
+                                            self.runNameArray.append(poster)
+                                            self.runMoneyArray.append(price)
+                                            self.runLocArray.append(place)
+                                            self.runTaskArray.append(task)
+                                            self.runTaskStatusArray.append(taskStatus)
+                                            self.runTaskKeys.append(item)
+                                        }
+                                    }
+                                    // print(self.runTitleArray)
+                                }
+                            }
+                            // request picker
+                            
+                            else if self.segmentedController.selectedSegmentIndex == 1{
+                            
+                                //  print("PICKERTAG: 2 request picker")
+                                if poster == self.username {
+                                // requester if statements
+                                    if status == "All"{
+                                    
+                                        self.requestTitleArray.append(title)
+                                        print(poster)
+                                        self.requestNameArray.append(poster)
+                                    
+                                        self.requestMoneyArray.append(price)
+                                        self.requestLocArray.append(place)
+                                    
+                                        self.requestTaskArray.append(task)
+                                        self.requestTaskStatusArray.append(taskStatus)
+                                        self.requestTaskKeys.append(item)
+                                    
+                                    }
+                                    else if status == "Requested"{
+                                        print("STATUS: Requested")
+                                        if taskStatus == "requested"{
+                                            self.requestTitleArray.append(title)
+                                            self.requestNameArray.append(poster)
+                                            self.requestMoneyArray.append(price)
+                                            self.requestLocArray.append(place)
+                                            self.requestTaskArray.append(task)
+                                            self.requestTaskStatusArray.append(taskStatus)
+                                            self.requestTaskKeys.append(item)
+                                        
+                                        }
+                                    }
+                                    else if status == "Accepted"{
+                                        print("STATUS: Accepted")
+                                        if taskStatus == "accepted"{
+                                            self.requestTitleArray.append(title)
+                                            self.requestNameArray.append(poster)
+                                            self.requestMoneyArray.append(price)
+                                            self.requestLocArray.append(place)
+                                            self.requestTaskArray.append(task)
+                                            self.requestTaskStatusArray.append(taskStatus)
+                                            self.requestTaskKeys.append(item)
+                                        
+                                        }
+                                    
+                                    }
+                                    else if status == "Completed"{
+                                        print("STATUS: Completed")
+                                        if taskStatus == "completed"{
+                                            self.requestTitleArray.append(title)
+                                            self.requestNameArray.append(poster)
+                                            self.requestMoneyArray.append(price)
+                                            self.requestLocArray.append(place)
+                                            self.requestTaskArray.append(task)
+                                            self.requestTaskStatusArray.append(taskStatus)
+                                            self.requestTaskKeys.append(item)
+                                        
+                                        }
+                                    }
+                                
+                                
+                                }
+                            }
+                            self.taskTable.reloadData()
+                        }
+                    })
+                    
+                }
+                
             }
             
         })
-        
-        self.clearRunArrays()
-        self.clearRequestArrays()
-        self.taskTable.reloadData()
-        for item in self.taskKeys{
-            self.db.child("tasks/\(item)").observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? NSDictionary
-                
-                let poster = value?["name"] as? String ?? ""
-                
-                let acceptor = value?["acceptor"] as? String ?? ""
-                let title = value?["title"] as? String ?? ""
-                let task = value?["description"] as? String ?? ""
-                let place = value?["location"] as? String ?? ""
-                let price = value?["tip"] as? Int ?? 0
-                let taskStatus = value?["status"] as? String ?? ""
-                
-                
-                
-                if self.segmentedController.selectedSegmentIndex == 0{
-                    
-                    
-                    if acceptor == self.username{
-                        if status == "All"{
-                            
-                            
-                            self.runTitleArray.append(title)
-                            self.runNameArray.append(poster)
-                            self.runMoneyArray.append(price)
-                            self.runLocArray.append(place)
-                            self.runTaskArray.append(task)
-                            self.runTaskStatusArray.append(taskStatus)
-                            self.runTaskKeys.append(item)
-                            
-                        }
-                        else if status == "Accepted"{
-                            //  print("STATUS: Accepted")
-                            if taskStatus == "accepted"{
-                                self.runTitleArray.append(title)
-                                
-                                self.runNameArray.append(poster)
-                                self.runMoneyArray.append(price)
-                                self.runLocArray.append(place)
-                                self.runTaskArray.append(task)
-                                self.runTaskStatusArray.append(taskStatus)
-                                self.runTaskKeys.append(item)
-                                
-                            }
-                        }
-                        else if status == "Completed"{
-                            // print("STATUS: Completed")
-                            if taskStatus == "completed"{
-                                self.runTitleArray.append(title)
-                                self.runNameArray.append(poster)
-                                self.runMoneyArray.append(price)
-                                self.runLocArray.append(place)
-                                self.runTaskArray.append(task)
-                                self.runTaskStatusArray.append(taskStatus)
-                                self.runTaskKeys.append(item)
-                                
-                            }
-                        }
-                        // print(self.runTitleArray)
-                    }
-                }
-                    
-                    // request picker
-                    
-                else if self.segmentedController.selectedSegmentIndex == 1{
-                    
-                    //  print("PICKERTAG: 2 request picker")
-                    if poster == self.username {
-                        // requester if statements
-                        if status == "All"{
-                            
-                            self.requestTitleArray.append(title)
-                            print(poster)
-                            self.requestNameArray.append(poster)
-                            
-                            self.requestMoneyArray.append(price)
-                            self.requestLocArray.append(place)
-                            
-                            self.requestTaskArray.append(task)
-                            self.requestTaskStatusArray.append(taskStatus)
-                            self.requestTaskKeys.append(item)
-                            
-                        }
-                        else if status == "Requested"{
-                            print("STATUS: Requested")
-                            if taskStatus == "requested"{
-                                self.requestTitleArray.append(title)
-                                self.requestNameArray.append(poster)
-                                self.requestMoneyArray.append(price)
-                                self.requestLocArray.append(place)
-                                self.requestTaskArray.append(task)
-                                self.requestTaskStatusArray.append(taskStatus)
-                                self.requestTaskKeys.append(item)
-                                
-                            }
-                        }
-                        else if status == "Accepted"{
-                            print("STATUS: Accepted")
-                            if taskStatus == "accepted"{
-                                self.requestTitleArray.append(title)
-                                self.requestNameArray.append(poster)
-                                self.requestMoneyArray.append(price)
-                                self.requestLocArray.append(place)
-                                self.requestTaskArray.append(task)
-                                self.requestTaskStatusArray.append(taskStatus)
-                                self.requestTaskKeys.append(item)
-                                
-                            }
-                            
-                        }
-                        else if status == "Completed"{
-                            print("STATUS: Completed")
-                            if taskStatus == "completed"{
-                                self.requestTitleArray.append(title)
-                                self.requestNameArray.append(poster)
-                                self.requestMoneyArray.append(price)
-                                self.requestLocArray.append(place)
-                                self.requestTaskArray.append(task)
-                                self.requestTaskStatusArray.append(taskStatus)
-                                self.requestTaskKeys.append(item)
-                                
-                            }
-                        }
-                        
-                        
-                    }
-                }
-                self.taskTable.reloadData()
-            })
-            
-            
-        }
         
     }
     

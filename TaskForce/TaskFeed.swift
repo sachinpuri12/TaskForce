@@ -243,7 +243,7 @@ class TaskFeed: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSou
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let myCell = self.feedTable.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskFeedCell
-        myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: taskArray[indexPath.section], loc: locArray[indexPath.section])
+        myCell.setInfo(money: moneyArray[indexPath.section], name: nameArray[indexPath.section], task: titleArray[indexPath.section], loc: locArray[indexPath.section])
         myCell.selectedTaskStatus = taskStatusArray[indexPath.section]
         
         return myCell
