@@ -59,8 +59,8 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.myPicker.delegate = self
         self.myPicker.dataSource = self
         
-        self.pullData(status: filterText.text!)
-        self.taskTable.reloadData()
+        //self.pullData(status: filterText.text!)
+        //self.taskTable.reloadData()
         super.viewDidLoad()
         
         //print("Global user is \(globalUser)")
