@@ -96,6 +96,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         self.clearRunArrays()
         self.clearRequestArrays()
+        self.taskTable.reloadData()
        
         //get all task keys
         let taskRef = db.child("tasks")
