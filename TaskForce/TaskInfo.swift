@@ -33,6 +33,10 @@ class TaskInfo: UIViewController {
         let ref = FIRDatabase.database().reference()
         ref.child("tasks/\(selectedTask)").updateChildValues(["status": "accepted"])
         ref.child("tasks/\(selectedTask)").updateChildValues(["acceptor": globalUser])
+        let alert = UIAlertController(title: "Task Accepted!", message: "Please go to the MyTasks tab to complete the task.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "acceptBack", sender: acceptButton)
     }
     override func viewWillAppear(_ animated: Bool) {
         let ref = FIRDatabase.database().reference()
