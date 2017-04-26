@@ -144,10 +144,8 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
         self.taskView.layer.shadowOffset = CGSize(width: 2, height: 3)
         self.taskView.layer.shadowOpacity = 0.5
         self.taskView.layer.shadowPath = shadowPath.cgPath
-        self.taskView.layer.masksToBounds = false
-
-        super.viewDidAppear(true)
-
+        self.taskView.layer.masksToBounds = false 
+        self.viewDidAppear(true)
     }
     
     func setImage(profileID: String){

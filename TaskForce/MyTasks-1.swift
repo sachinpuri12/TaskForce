@@ -200,22 +200,22 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("got here")
         segueShouldOccur = true
+        globalPickerTag = segmentedController.selectedSegmentIndex + 1
         if segmentedController.selectedSegmentIndex == 0 {
-            print("1")
             globalMyTaskKey = runTaskKeys[indexPath.section]
             print("my task " + runTaskKeys[indexPath.section])
             globalPickerTag = 1
             
             if runTaskStatusArray[indexPath.section] == "completed" {
-                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
+                print("Status is COMPLETED")
+                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: MyNewTasks())
             }
             else if runTaskStatusArray[indexPath.section] == "accepted" {
-                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: MyNewTasks())
             }
             else if runTaskStatusArray[indexPath.section] == "requested" {
-                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: MyNewTasks())
             }
             
         }
@@ -224,13 +224,13 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
             globalPickerTag = 2
             print("2")
             if requestTaskStatusArray[indexPath.section] == "completed" {
-                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: TaskFeedCell())
+                self.performSegue(withIdentifier: "CompleteTaskInfo", sender: MyNewTasks())
             }
             else if requestTaskStatusArray[indexPath.section] == "accepted" {
-                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: MyNewTasks())
             }
             else if requestTaskStatusArray[indexPath.section] == "requested" {
-                self.performSegue(withIdentifier: "MyTaskInfo", sender: TaskFeedCell())
+                self.performSegue(withIdentifier: "MyTaskInfo", sender: MyNewTasks())
             }
             
         }
@@ -428,8 +428,8 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MyTaskInfo"{
             let dest = segue.destination as! MyTaskInfo
-                    }
-        else if segue.identifier == "CompleteInfo"{
+        }
+        else if segue.identifier == "CompleteTaskInfo"{
             let dest = segue.destination as! CompleteInfo
         }
     }
