@@ -128,6 +128,9 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     override func viewWillAppear(_ animated: Bool) {
         self.getUsername()
+        self.pullData(status: filterText.text!)
+        // self.loadTables()
+        self.taskTable.reloadData()
         taskTable.separatorStyle = .none
     }
     
