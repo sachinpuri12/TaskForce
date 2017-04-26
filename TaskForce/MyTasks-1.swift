@@ -205,6 +205,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         if segmentedController.selectedSegmentIndex == 0 {
             print("1")
             globalMyTaskKey = runTaskKeys[indexPath.section]
+            print("my task " + runTaskKeys[indexPath.section])
             globalPickerTag = 1
             
             if runTaskStatusArray[indexPath.section] == "completed" {
@@ -427,7 +428,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MyTaskInfo"{
             let dest = segue.destination as! MyTaskInfo
-        }
+                    }
         else if segue.identifier == "CompleteInfo"{
             let dest = segue.destination as! CompleteInfo
         }
