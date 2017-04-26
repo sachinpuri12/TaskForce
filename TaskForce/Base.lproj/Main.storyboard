@@ -760,7 +760,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Hyh-1G-ODe">
-                                <rect key="frame" x="10" y="84" width="355" height="377"/>
+                                <rect key="frame" x="10" y="40" width="355" height="398"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9T-c5-Lno">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="60"/>
@@ -823,19 +823,19 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcE-9v-qJA">
-                                        <rect key="frame" x="0.0" y="148" width="355" height="229"/>
+                                        <rect key="frame" x="0.0" y="148" width="355" height="250"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Rec-dm-Uwo">
-                                                <rect key="frame" x="142" y="8" width="205" height="174"/>
+                                                <rect key="frame" x="142" y="8" width="205" height="195"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receipt:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOI-Uf-Xst">
-                                                <rect key="frame" x="8" y="8" width="115" height="174"/>
+                                                <rect key="frame" x="8" y="8" width="115" height="195"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <color key="textColor" red="0.38431372549999998" green="0.66274509800000003" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STg-Nk-eEU">
-                                                <rect key="frame" x="206" y="194" width="77" height="27"/>
+                                                <rect key="frame" x="206" y="215" width="77" height="27"/>
                                                 <color key="backgroundColor" red="0.97999999999999998" green="0.63" blue="0.11" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="77" id="TsB-2L-tEE"/>
@@ -852,6 +852,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Rec-dm-Uwo" firstAttribute="leading" secondItem="LOI-Uf-Xst" secondAttribute="trailing" constant="19" id="25I-B8-WAm"/>
+                                            <constraint firstAttribute="height" constant="250" id="I6U-KX-iis"/>
                                             <constraint firstItem="LOI-Uf-Xst" firstAttribute="top" secondItem="UcE-9v-qJA" secondAttribute="topMargin" id="OJo-r1-wof"/>
                                             <constraint firstItem="LOI-Uf-Xst" firstAttribute="bottom" secondItem="Rec-dm-Uwo" secondAttribute="bottom" id="Orz-rc-NjI"/>
                                             <constraint firstItem="STg-Nk-eEU" firstAttribute="top" secondItem="Rec-dm-Uwo" secondAttribute="bottom" constant="12" id="SaL-js-yIj"/>
@@ -870,7 +871,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYp-9l-zc9">
-                                <rect key="frame" x="110" y="508" width="155" height="38"/>
+                                <rect key="frame" x="110" y="485" width="155" height="38"/>
                                 <color key="backgroundColor" red="0.97999999999999998" green="0.63" blue="0.11" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="lJ6-8Z-PX7"/>
@@ -880,6 +881,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="sendToVenmo:" destination="zg8-rO-O2h" eventType="touchUpInside" id="xmk-Pv-gKe"/>
                                     <segue destination="UxC-Bp-l6E" kind="show" id="QlJ-OI-Z5p"/>
                                 </connections>
                             </button>
@@ -889,7 +891,6 @@
                             <constraint firstItem="WYp-9l-zc9" firstAttribute="top" secondItem="Hyh-1G-ODe" secondAttribute="bottom" constant="47" id="2BE-pL-biN"/>
                             <constraint firstItem="Hyh-1G-ODe" firstAttribute="centerX" secondItem="cCR-Sb-F1c" secondAttribute="centerX" id="W8M-h5-Mrt"/>
                             <constraint firstItem="Hyh-1G-ODe" firstAttribute="top" secondItem="eOj-uI-zPA" secondAttribute="bottom" constant="20" id="hFU-8s-TvR"/>
-                            <constraint firstItem="fmh-cE-Tqo" firstAttribute="top" secondItem="WYp-9l-zc9" secondAttribute="bottom" constant="121" id="iXx-2W-B9I"/>
                             <constraint firstItem="Hyh-1G-ODe" firstAttribute="centerX" secondItem="WYp-9l-zc9" secondAttribute="centerX" id="k4H-nx-4Xf"/>
                             <constraint firstItem="Hyh-1G-ODe" firstAttribute="leading" secondItem="cCR-Sb-F1c" secondAttribute="leadingMargin" constant="-6" id="wUr-OT-4k9"/>
                         </constraints>
