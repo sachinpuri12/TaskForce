@@ -41,7 +41,6 @@ class TaskInfo: UIViewController {
                 return
             } else {
                 let value = snapshot.value as? NSDictionary
-                
                 let requester = value?["id"] as? String ?? ""
                 self.getRating(userId: requester)
                 let name = value?["name"] as? String ?? ""
@@ -142,24 +141,35 @@ class TaskInfo: UIViewController {
     
     
     func getRating(userId: String){
-        let ref = FIRDatabase.database().reference()
-        ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            if let _ = snapshot.value as? NSNull {
-                return
-            } else {
-                let value = snapshot.value as? NSDictionary
-            // Set the color of a filled star
-                self.rating.settings.filledColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
-            // Set the border color of an empty star
-                self.rating.settings.emptyBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
-            
-            // Set the border color of a filled star
-                self.rating.settings.filledBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
-                self.rating.settings.updateOnTouch = false
-                self.rating.rating = value?["posterRating"] as! Double
-            }
-        })
+        //let ref = FIRDatabase.database().reference()
+        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
+        
+        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(userId)")
+            .observeSingleEvent(of: .value, with: { snapshot in
+                if let _ = snapshot.value as? NSNull {
+                    return
+                } else {
+                    for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                        for test in rest.value as! NSDictionary{
+                            if (String(describing: test.key) == "posterRating"){
+                                print(test.value)
+                                self.rating.settings.filledColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
+                                // Set the border color of an empty star
+                                self.rating.settings.emptyBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
+                                self.rating.settings.fillMode = .precise
+                                // Set the border color of a filled star
+                                self.rating.settings.filledBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
+                                self.rating.settings.updateOnTouch = false
+                                self.rating.rating = test.value as! Double
+                            }
+                        }
+                    }
+
+                }
+
+            })
+
+
     }
 
   
