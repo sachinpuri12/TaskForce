@@ -32,6 +32,8 @@
 		2EDE71801E8C8ECE00A0C6DD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE717F1E8C8ECE00A0C6DD /* Login.swift */; };
 		427663CB1A7FB8318E150A26 /* Pods_TaskForce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7AC091088FEC834D208B2EC /* Pods_TaskForce.framework */; };
 		4D3B9E37B3E51414F1FE1C1A /* Pods_TaskForceUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58DC8A5372C3392640BF89F6 /* Pods_TaskForceUITests.framework */; };
+		5F9D90081EB05E6400610051 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9D90071EB05E6400610051 /* FormViewController.swift */; };
+		C918FC3F1EB041B30033E2B3 /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918FC3E1EB041B30033E2B3 /* CosmosDistrib.swift */; };
 		C93A78421E9BEDA400CD3A38 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A78411E9BEDA400CD3A38 /* MemberCell.swift */; };
 		C93A78441E9BFB1B00CD3A38 /* SearchMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A78431E9BFB1B00CD3A38 /* SearchMembers.swift */; };
 		C93A78461E9C1BF000CD3A38 /* SearchMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A78451E9C1BF000CD3A38 /* SearchMemberCell.swift */; };
@@ -93,9 +95,11 @@
 		2EDE717F1E8C8ECE00A0C6DD /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		58DC8A5372C3392640BF89F6 /* Pods_TaskForceUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskForceUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A9471E7D41D6963B89067B4 /* Pods-TaskForce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForce/Pods-TaskForce.debug.xcconfig"; sourceTree = "<group>"; };
+		5F9D90071EB05E6400610051 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		7B90DF889E18F1335E6C7EA3 /* Pods-TaskForce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForce.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForce/Pods-TaskForce.release.xcconfig"; sourceTree = "<group>"; };
 		99F0A0E10F2C5E715C12AC1E /* Pods-TaskForceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForceTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForceTests/Pods-TaskForceTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7AC091088FEC834D208B2EC /* Pods_TaskForce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskForce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C918FC3E1EB041B30033E2B3 /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
 		C93A78411E9BEDA400CD3A38 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		C93A78431E9BFB1B00CD3A38 /* SearchMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchMembers.swift; sourceTree = "<group>"; };
 		C93A78451E9C1BF000CD3A38 /* SearchMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchMemberCell.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				03F1A4CB1E55204F0094262A /* AppDelegate.swift */,
 				03F1A4CD1E55204F0094262A /* ViewController.swift */,
 				03F1A4CF1E55204F0094262A /* Main.storyboard */,
+				C918FC3E1EB041B30033E2B3 /* CosmosDistrib.swift */,
 				C9905F5B1EAA693F00B59B69 /* MyTasks-1.swift */,
 				03EDDB361EA7F3B900C6E813 /* MyTaskInfo.swift */,
 				03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */,
@@ -186,6 +191,7 @@
 				2EAA733A1E89701A005B7106 /* UserClass.swift */,
 				2EAA733C1E8970A5005B7106 /* GroupClass.swift */,
 				2EDE717F1E8C8ECE00A0C6DD /* Login.swift */,
+				5F9D90071EB05E6400610051 /* FormViewController.swift */,
 			);
 			path = TaskForce;
 			sourceTree = "<group>";
@@ -521,11 +527,13 @@
 				C9905F5C1EAA693F00B59B69 /* MyTasks-1.swift in Sources */,
 				03EDDB391EA7F7E000C6E813 /* CompleteInfo.swift in Sources */,
 				C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */,
+				C918FC3F1EB041B30033E2B3 /* CosmosDistrib.swift in Sources */,
 				0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */,
 				03EDDB371EA7F3B900C6E813 /* MyTaskInfo.swift in Sources */,
 				C93A78421E9BEDA400CD3A38 /* MemberCell.swift in Sources */,
 				0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */,
 				0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */,
+				5F9D90081EB05E6400610051 /* FormViewController.swift in Sources */,
 				C93A78461E9C1BF000CD3A38 /* SearchMemberCell.swift in Sources */,
 				C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */,
 				03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */,

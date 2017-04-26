@@ -17,14 +17,15 @@ class TaskInfo: UIViewController {
     @IBOutlet weak var paymentText: UILabel!
     @IBOutlet weak var greenView: UIView!
 
+    @IBOutlet weak var rating: CosmosView!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var taskView: UIView!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var requesterImage: UIImageView!
     
+    
     @IBOutlet weak var locationText: UILabel!
     
-    @IBOutlet weak var ratingText: UILabel!
     var requestRating: String = ""
     var location: String = ""
     
@@ -40,11 +41,8 @@ class TaskInfo: UIViewController {
                 return
             } else {
                 let value = snapshot.value as? NSDictionary
-                
-                
-                let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-                self.getRating(userId: id)
                 let requester = value?["id"] as? String ?? ""
+                self.getRating(userId: requester)
                 let name = value?["name"] as? String ?? ""
                 let title = value?["title"] as? String ?? ""
                 let task = value?["description"] as? String ?? ""
@@ -70,6 +68,7 @@ class TaskInfo: UIViewController {
             
             
             let test = UIView(frame: CGRect(x: 0, y: self.greenView.layer.bounds.height-1.5, width: self.greenView.layer.bounds.width, height: 3))
+            print(self.greenView.layer.bounds.width)
             test.backgroundColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0)
             self.greenView.addSubview(test)
             
@@ -143,14 +142,36 @@ class TaskInfo: UIViewController {
     
     
     func getRating(userId: String){
-        let ref = FIRDatabase.database().reference()
-        ref.child("users/\(userId)").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let value = snapshot.value as? NSDictionary
-            self.ratingText.text = String(value?["posterRating"] as? Int ?? 1) + "/5"
-        })
+        //let ref = FIRDatabase.database().reference()
+        let usersRef = FIRDatabase.database().reference(fromURL: "https://taskforce-ad0be.firebaseio.com/users")
+        
+        usersRef.queryOrdered(byChild: "FBId").queryEqual(toValue: "\(userId)")
+            .observeSingleEvent(of: .value, with: { snapshot in
+                if let _ = snapshot.value as? NSNull {
+                    return
+                } else {
+                    for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                        for test in rest.value as! NSDictionary{
+                            if (String(describing: test.key) == "posterRating"){
+                                print(test.value)
+                                self.rating.settings.filledColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
+                                // Set the border color of an empty star
+                                self.rating.settings.emptyBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
+                                self.rating.settings.fillMode = .precise
+                                // Set the border color of a filled star
+                                self.rating.settings.filledBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
+                                self.rating.settings.updateOnTouch = false
+                                self.rating.rating = test.value as! Double
+                            }
+                        }
+                    }
+
+                }
+
+            })
+
+
     }
-    
 
   
     

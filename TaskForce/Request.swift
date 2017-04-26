@@ -107,6 +107,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     }
 
     @IBAction func taskRequested(_ sender: Any) {
+        
         if ((taskTitle.text?.isEmpty)! || (location.text?.isEmpty)! || (cost.text?.isEmpty)!) {
             
             // alert for fields not filled
