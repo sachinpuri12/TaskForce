@@ -175,9 +175,9 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
             
         case 0:
             
-            myCell.setInfo(money: runMoneyArray[indexPath.row], name: runNameArray[indexPath.row], task: runTitleArray[indexPath.row], loc: runLocArray[indexPath.row])
-            myCell.selectedTaskStatus = runTaskStatusArray[indexPath.row]
-            myCell.selectedTaskKey = runTaskKeys[indexPath.row]
+            myCell.setInfo(money: runMoneyArray[indexPath.section], name: runNameArray[indexPath.section], task: runTitleArray[indexPath.section], loc: runLocArray[indexPath.section])
+            myCell.selectedTaskStatus = runTaskStatusArray[indexPath.section]
+            myCell.selectedTaskKey = runTaskKeys[indexPath.section]
             break
         case 1:
             
