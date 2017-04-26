@@ -68,6 +68,7 @@ class TaskInfo: UIViewController {
             
             
             let test = UIView(frame: CGRect(x: 0, y: self.greenView.layer.bounds.height-1.5, width: self.greenView.layer.bounds.width, height: 3))
+            print(self.greenView.layer.bounds.width)
             test.backgroundColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0)
             self.greenView.addSubview(test)
             
