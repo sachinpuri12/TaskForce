@@ -148,8 +148,17 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         }
 
     }
-
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        self.resignFirstResponder()
+        return false
+    }
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
