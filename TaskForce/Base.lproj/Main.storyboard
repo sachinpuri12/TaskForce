@@ -347,7 +347,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAd-Pb-X44">
-                                            <rect key="frame" x="314" y="7" width="44" height="30"/>
+                                            <rect key="frame" x="311" y="26" width="44" height="30"/>
                                             <state key="normal" title="  Add  ">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -355,28 +355,29 @@
                                                 <action selector="addRemoveMember:" destination="peJ-Yx-MZi" eventType="touchUpInside" id="TlV-fj-Jek"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="23R-zX-thN">
-                                            <rect key="frame" x="8" y="7" width="60" height="60"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="lZX-DR-XPU"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WV-j2-Him">
-                                            <rect key="frame" x="76" y="30" width="262" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WV-j2-Him">
+                                            <rect key="frame" x="91" y="30" width="240" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23R-zX-thN">
+                                            <rect key="frame" x="23" y="10" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="lZX-DR-XPU"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="1WV-j2-Him" firstAttribute="centerY" secondItem="H5a-PI-e6L" secondAttribute="centerY" id="AQF-u2-jRT"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="1WV-j2-Him" secondAttribute="trailing" constant="29" id="KGl-8k-Ytf"/>
+                                        <constraint firstItem="1WV-j2-Him" firstAttribute="centerY" secondItem="H5a-PI-e6L" secondAttribute="centerY" id="WFH-A5-Wcu"/>
                                         <constraint firstItem="1WV-j2-Him" firstAttribute="leading" secondItem="23R-zX-thN" secondAttribute="trailing" constant="8" symbolic="YES" id="Xbp-x5-M4L"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="23R-zX-thN" secondAttribute="bottom" constant="5.5" id="YOn-iD-doI"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="qAd-Pb-X44" secondAttribute="trailing" constant="9" id="em1-dB-gON"/>
-                                        <constraint firstItem="23R-zX-thN" firstAttribute="top" secondItem="qAd-Pb-X44" secondAttribute="top" id="h4A-Wd-U5z"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="23R-zX-thN" secondAttribute="bottom" constant="1.5" id="YOn-iD-doI"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="qAd-Pb-X44" secondAttribute="trailing" constant="12" id="em1-dB-gON"/>
+                                        <constraint firstItem="23R-zX-thN" firstAttribute="top" secondItem="qAd-Pb-X44" secondAttribute="top" constant="-15" id="h4A-Wd-U5z"/>
                                         <constraint firstItem="23R-zX-thN" firstAttribute="leading" secondItem="H5a-PI-e6L" secondAttribute="leadingMargin" id="k6m-ar-snx"/>
-                                        <constraint firstItem="23R-zX-thN" firstAttribute="top" secondItem="H5a-PI-e6L" secondAttribute="topMargin" constant="-1" id="p6V-Y8-3AX"/>
+                                        <constraint firstItem="23R-zX-thN" firstAttribute="top" secondItem="H5a-PI-e6L" secondAttribute="topMargin" constant="3" id="p6V-Y8-3AX"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
