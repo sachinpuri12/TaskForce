@@ -11,25 +11,28 @@ import UIKit
 import Firebase
 import MessageUI
 
+var taskStatus = String()
+var globalPickerTag = Int()
+var globalMyTaskKey = String()
+
+
 class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
-    
+
+    @IBOutlet weak var Requester: UILabel!
+    @IBOutlet weak var ratingText: UILabel!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var Description: UILabel!
     @IBOutlet weak var locationText: UILabel!
-    @IBOutlet weak var ratingText: UILabel!
     @IBOutlet weak var paymentText: UILabel!
-    @IBOutlet weak var Requester: UILabel!
-    
-    
-    @IBOutlet weak var messageButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var messageButton: UIButton!
+    
     
     var requestRating: String = ""
     var location: String = ""
     
-    var taskStatus = String()
-    var pickerTag = Int()
-    var taskKey = String()
+
+    
     
     
     override func viewDidLoad() {
@@ -37,7 +40,7 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
         // Do any additional setup after loading the view, typically from a nib.
         
         let ref = FIRDatabase.database().reference()
-        ref.child("tasks/\(taskKey)").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("tasks/\(globalMyTaskKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
             
@@ -60,7 +63,7 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
             
         })
         
-        if pickerTag == 1{
+        if globalPickerTag == 1{
             
             // running accepted
             
@@ -70,7 +73,7 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
             
         }
         
-        else if pickerTag == 2 {
+        else if globalPickerTag == 2 {
             
             if taskStatus == "requested"{
                     // cancel button
@@ -116,18 +119,18 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
         if completeButton.currentTitle == "Complete Task" {
             // ADD INVOICE RECEIPT HERE
             let ref = FIRDatabase.database().reference()
-            ref.child("tasks/\(taskKey)").updateChildValues(["status": "completed"])
+            ref.child("tasks/\(globalMyTaskKey)").updateChildValues(["status": "completed"])
             
             // alert for fields not filled
             let alert = UIAlertController(title: "Completed!", message: "Thank You! The requester will be notified! Please upload invoice!", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            self.taskStatus = "completed"
+            taskStatus = "completed"
             
         }
         else if completeButton.currentTitle == "Cancel Task"{
             let ref = FIRDatabase.database().reference()
-            ref.child("tasks/\(taskKey)").removeValue()
+            ref.child("tasks/\(globalMyTaskKey)").removeValue()
             let _ = self.navigationController?.popViewController(animated: true)
             
         }
@@ -139,8 +142,8 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
         
         messageVC.recipients = ["6267103370"]
         messageVC.body = "What's good"
-        
     }
+
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController,
                                       didFinishWith result: MessageComposeResult) {

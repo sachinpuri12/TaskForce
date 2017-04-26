@@ -15,14 +15,26 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
 
     
     @IBOutlet weak var taskTitle: UITextField!
-    @IBOutlet weak var taskDescription: UITextView!
     @IBOutlet weak var location: UITextField!
     @IBOutlet weak var cost: UITextField!
 
-    @IBOutlet weak var group: UITextField!
-    @IBOutlet weak var taskType: UITextField!
+    @IBOutlet weak var taskDescription: UITextField!
     @IBOutlet weak var groupPicker: UIPickerView!
     @IBOutlet weak var taskTypePicker: UIPickerView!
+    
+    //UI Views for Interface
+    @IBOutlet weak var titleLabelView: UIView!
+    @IBOutlet weak var detailLabelView: UIView!
+    @IBOutlet weak var locLabelView: UIView!
+    @IBOutlet weak var tipLabelView: UIView!
+    @IBOutlet weak var typeLabelView: UIView!
+    @IBOutlet weak var groupLabelView: UIView!
+    
+    @IBOutlet weak var acceptButton: UIButton!
+    var viewArray = [UIView]()
+    
+    var group: String = ""
+    var taskType: String = ""
     
     var db: FIRDatabaseReference!
     var taskTypes = ["Grocery", "Home-Based", "Shopping", "Other"]
@@ -42,12 +54,22 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
-            
     }
     
     override func viewWillAppear(_ animated: Bool) {
         let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
         self.getGroups(userId: id)
+        
+        viewArray = [titleLabelView,  detailLabelView, locLabelView,  tipLabelView, typeLabelView,  groupLabelView]
+        
+        for view in viewArray{
+            view.layer.borderWidth = 1
+            view.layer.borderColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1).cgColor
+            view.layer.cornerRadius = 8
+        }
+        groupPicker.showsSelectionIndicator = false
+        
+        acceptButton.layer.cornerRadius = 8
     }
 
     func setDelegateDataSource(){
@@ -84,9 +106,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         })
     }
 
-    
-    @IBAction func requestTaskInsertDatabase(_ sender: Any) {
-        
+    @IBAction func taskRequested(_ sender: Any) {
         if ((taskTitle.text?.isEmpty)! || (location.text?.isEmpty)! || (cost.text?.isEmpty)!) {
             
             // alert for fields not filled
@@ -94,7 +114,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-        
+            
         else if (self.groupNamesPicker == [""]){
             let alert = UIAlertController(title: "Error", message: "You are not in any groups! Please add groups from the Groups Tab before requesting a task.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
@@ -102,7 +122,6 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         }
             
         else {
-            
             // push new task to database
             let newTask = [
                 "name": globalUser as Any,
@@ -113,8 +132,9 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
                 "price": 0.00,
                 "tip": Double(cost.text!) as Any,
                 "status": String("requested") as Any,
-                "group": group.text as Any,
-                "acceptor": String("null") as Any
+                "group": group as Any,
+                "acceptor": String("null") as Any,
+                "type": taskType as Any
                 ] as [String: Any]
             // FIXME make price and tip decimal format
             
@@ -127,6 +147,7 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         }
 
     }
+
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -156,15 +177,15 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == groupPicker {
-            self.group.text = groupNamesPicker[row]
+            self.group = groupNamesPicker[row]
             //self.runPicker.isHidden = true
-            self.group.endEditing(true)
+            //self.group.endEditing(true)
         }
             
         else if pickerView == taskTypePicker{
-            self.taskType.text = self.taskTypes[row]
+            self.taskType = self.taskTypes[row]
             //            self.requestPicker.isHidden = true
-            self.taskType.endEditing(true)
+            //self.taskType.endEditing(true)
             
         }
 
@@ -177,7 +198,6 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
         }
         else if (textField == self.taskTypePicker){
             self.taskTypePicker.isHidden = false
-            
         }
     }
  

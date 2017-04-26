@@ -10,7 +10,6 @@
 		0314F2931E8C3FB9001BC3ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */; };
 		033BC2A91E8968ED00A2C5F9 /* TaskClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */; };
 		0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9F81E5DF25100B15797 /* TaskFeed.swift */; };
-		0353F9FB1E5DFBF900B15797 /* MyTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FA1E5DFBF900B15797 /* MyTasks.swift */; };
 		0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */; };
 		0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353F9FE1E5DFDC700B15797 /* Request.swift */; };
 		0353FA011E5DFF0900B15797 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0353FA001E5DFF0900B15797 /* Groups.swift */; };
@@ -36,6 +35,7 @@
 		C93A78421E9BEDA400CD3A38 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A78411E9BEDA400CD3A38 /* MemberCell.swift */; };
 		C93A78441E9BFB1B00CD3A38 /* SearchMembers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A78431E9BFB1B00CD3A38 /* SearchMembers.swift */; };
 		C93A78461E9C1BF000CD3A38 /* SearchMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A78451E9C1BF000CD3A38 /* SearchMemberCell.swift */; };
+		C9905F5C1EAA693F00B59B69 /* MyTasks-1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9905F5B1EAA693F00B59B69 /* MyTasks-1.swift */; };
 		C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */; };
 		C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE82931E833AC5004528A2 /* GroupsCell.swift */; };
 		DD082B1FB7101098C2B03A6C /* Pods_TaskForceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F2DACA7B9CAB09C034BBF8 /* Pods_TaskForceTests.framework */; };
@@ -62,7 +62,6 @@
 		0314F2921E8C3FB8001BC3ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		033BC2A81E8968ED00A2C5F9 /* TaskClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskClass.swift; sourceTree = "<group>"; };
 		0353F9F81E5DF25100B15797 /* TaskFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeed.swift; sourceTree = "<group>"; };
-		0353F9FA1E5DFBF900B15797 /* MyTasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTasks.swift; sourceTree = "<group>"; };
 		0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
 		0353F9FE1E5DFDC700B15797 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		0353FA001E5DFF0900B15797 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 		C93A78411E9BEDA400CD3A38 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		C93A78431E9BFB1B00CD3A38 /* SearchMembers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchMembers.swift; sourceTree = "<group>"; };
 		C93A78451E9C1BF000CD3A38 /* SearchMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchMemberCell.swift; sourceTree = "<group>"; };
+		C9905F5B1EAA693F00B59B69 /* MyTasks-1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MyTasks-1.swift"; sourceTree = "<group>"; };
 		C9EE82901E82EF11004528A2 /* TaskFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeedCell.swift; sourceTree = "<group>"; };
 		C9EE82931E833AC5004528A2 /* GroupsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		E12E414A7DC0FAD5992B3EE1 /* Pods-TaskForceUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskForceUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskForceUITests/Pods-TaskForceUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,15 +166,15 @@
 				03F1A4CB1E55204F0094262A /* AppDelegate.swift */,
 				03F1A4CD1E55204F0094262A /* ViewController.swift */,
 				03F1A4CF1E55204F0094262A /* Main.storyboard */,
+				C9905F5B1EAA693F00B59B69 /* MyTasks-1.swift */,
+				03EDDB361EA7F3B900C6E813 /* MyTaskInfo.swift */,
+				03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */,
 				03F1A4D21E55204F0094262A /* Assets.xcassets */,
 				03F1A4D41E55204F0094262A /* LaunchScreen.storyboard */,
 				03F1A4D71E55204F0094262A /* Info.plist */,
 				0353F9F81E5DF25100B15797 /* TaskFeed.swift */,
 				0353F9FC1E5DFC2A00B15797 /* TaskInfo.swift */,
-				03EDDB361EA7F3B900C6E813 /* MyTaskInfo.swift */,
-				03EDDB381EA7F7E000C6E813 /* CompleteInfo.swift */,
 				0353F9FE1E5DFDC700B15797 /* Request.swift */,
-				0353F9FA1E5DFBF900B15797 /* MyTasks.swift */,
 				0353FA001E5DFF0900B15797 /* Groups.swift */,
 				C9EE82931E833AC5004528A2 /* GroupsCell.swift */,
 				0353FA021E5DFF9F00B15797 /* Members.swift */,
@@ -312,7 +312,7 @@
 				TargetAttributes = {
 					03F1A4C71E55204F0094262A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 56CZU6XFN7;
+						DevelopmentTeam = YYH7UXGAA8;
 						ProvisioningStyle = Automatic;
 					};
 					03F1A4DB1E55204F0094262A = {
@@ -518,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9905F5C1EAA693F00B59B69 /* MyTasks-1.swift in Sources */,
 				03EDDB391EA7F7E000C6E813 /* CompleteInfo.swift in Sources */,
 				C9EE82911E82EF11004528A2 /* TaskFeedCell.swift in Sources */,
 				0353F9FD1E5DFC2A00B15797 /* TaskInfo.swift in Sources */,
@@ -525,7 +526,6 @@
 				C93A78421E9BEDA400CD3A38 /* MemberCell.swift in Sources */,
 				0353F9F91E5DF25100B15797 /* TaskFeed.swift in Sources */,
 				0353F9FF1E5DFDC700B15797 /* Request.swift in Sources */,
-				0353F9FB1E5DFBF900B15797 /* MyTasks.swift in Sources */,
 				C93A78461E9C1BF000CD3A38 /* SearchMemberCell.swift in Sources */,
 				C9EE82941E833AC5004528A2 /* GroupsCell.swift in Sources */,
 				03F1A4CE1E55204F0094262A /* ViewController.swift in Sources */,
@@ -690,15 +690,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 56CZU6XFN7;
+				DEVELOPMENT_TEAM = YYH7UXGAA8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
 				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSE.TaskForce;
+				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -712,7 +712,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 56CZU6XFN7;
+				DEVELOPMENT_TEAM = YYH7UXGAA8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
@@ -735,9 +735,9 @@
 ",
 				);
 				INFOPLIST_FILE = TaskForce/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSE.TaskForce;
+				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
