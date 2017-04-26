@@ -482,8 +482,6 @@
                                     <outlet property="moneyLabel" destination="qCe-xl-d75" id="7vP-kA-5mH"/>
                                     <outlet property="nameLabel" destination="Pnb-eY-FAA" id="UvD-cm-o9F"/>
                                     <outlet property="taskLabel" destination="ZOA-2M-DO2" id="Ss5-py-1km"/>
-                                    <segue destination="obC-rX-O66" kind="show" identifier="MyTaskInfo" trigger="accessoryAction" id="dkc-Eb-gQU"/>
-                                    <segue destination="qsn-tg-53H" kind="show" identifier="CompleteTaskInfo" id="b7Y-qk-EnC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -512,6 +510,8 @@
                         <outlet property="filterText" destination="rAC-1V-hPL" id="but-OQ-qIb"/>
                         <outlet property="segmentedController" destination="gQX-VV-wsS" id="xRw-b4-eqp"/>
                         <outlet property="taskTable" destination="0Eg-Uo-ujU" id="ODz-Qu-47D"/>
+                        <segue destination="obC-rX-O66" kind="show" identifier="MyTaskInfo" action="showDetailViewController:sender:" id="Nex-DK-0bt"/>
+                        <segue destination="qsn-tg-53H" kind="show" identifier="CompleteTaskInfo" action="showDetailViewController:sender:" id="1FM-gn-iWP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odX-hK-ibG" userLabel="First Responder" sceneMemberID="firstResponder"/>

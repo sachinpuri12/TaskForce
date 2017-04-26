@@ -36,55 +36,46 @@ class TaskInfo: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         let ref = FIRDatabase.database().reference()
         ref.child("tasks/\(selectedTask)").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let value = snapshot.value as? NSDictionary
-            
-            
-            let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
-            self.getRating(userId: id)
-            let requester = value?["id"] as? String ?? ""
-            let name = value?["name"] as? String ?? ""
-            let title = value?["title"] as? String ?? ""
-            let task = value?["description"] as? String ?? ""
-            let place = value?["location"] as? String ?? ""
-            let price = value?["tip"] as? Double ?? 0.0
-            
-            self.titleText.text = title
-            self.Requester.text = name
-            self.Description.text = task
-            self.locationText.text = place
-            
-            self.paymentText.text = "$" + String(format: "%.2f", price)
-            
-            
-            if !(requester==""){
-                print("got here")
-                self.setImage(profileID: requester)
+            if let _ = snapshot.value as? NSNull {
+                return
+            } else {
+                let value = snapshot.value as? NSDictionary
+                
+                
+                let id = UserDefaults.standard.object(forKey: "user_id_taskforce") as! String
+                self.getRating(userId: id)
+                let requester = value?["id"] as? String ?? ""
+                let name = value?["name"] as? String ?? ""
+                let title = value?["title"] as? String ?? ""
+                let task = value?["description"] as? String ?? ""
+                let place = value?["location"] as? String ?? ""
+                let price = value?["tip"] as? Double ?? 0.0
+                
+                self.titleText.text = title
+                self.Requester.text = name
+                self.Description.text = task
+                self.locationText.text = place
+                
+                self.paymentText.text = "$" + String(format: "%.2f", price)
+                
+                if !(requester==""){
+                    print("got here")
+                    self.setImage(profileID: requester)
+                }
             }
+
             
-            self.requesterImage.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
-            self.requesterImage.layer.cornerRadius = self.requesterImage.frame.size.width / 2
-            self.requesterImage.layer.borderColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0).cgColor
-            self.requesterImage.layer.borderWidth = 3
-            self.requesterImage.clipsToBounds = true
+            
+            
+            
             
             let test = UIView(frame: CGRect(x: 0, y: self.greenView.layer.bounds.height-1.5, width: self.greenView.layer.bounds.width, height: 3))
             test.backgroundColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0)
             self.greenView.addSubview(test)
             
             self.taskView.backgroundColor = UIColor(colorLiteralRed: 0.96, green: 0.96, blue: 0.96, alpha: 1)
-            let shadowPath = UIBezierPath(rect: CGRect(x: 1, y: 1, width: self.taskView.layer.bounds.width, height: self.taskView.layer.bounds.height))
-            self.taskView.layer.masksToBounds = false
-            self.taskView.layer.shadowColor = UIColor.darkGray.cgColor
-            self.taskView.layer.shadowOffset = CGSize(width: 2, height: 3)
-            self.taskView.layer.shadowOpacity = 0.5
-            self.taskView.layer.shadowPath = shadowPath.cgPath
-
-            self.paymentText.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
-            self.paymentText.layer.cornerRadius = self.paymentText.frame.size.width/2
-            self.paymentText.layer.masksToBounds = true
-            self.paymentText.layer.borderWidth = 3
-            self.paymentText.layer.borderColor = (UIColor(colorLiteralRed: 0.31, green: 0.36, blue: 0.4, alpha: 1)).cgColor
+            
+            
             
     
             self.acceptButton.layer.cornerRadius = 8
@@ -95,8 +86,34 @@ class TaskInfo: UIViewController {
     }
     
     
+    
     override func viewDidLoad() {
+        self.requesterImage.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        self.requesterImage.layer.cornerRadius = self.requesterImage.frame.size.width / 2
+        self.requesterImage.layer.borderColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0).cgColor
+        self.requesterImage.layer.borderWidth = 3
+        self.requesterImage.clipsToBounds = true
+        
+        
+        self.paymentText.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
+        self.paymentText.layer.cornerRadius = self.paymentText.frame.size.width/2
+        self.paymentText.layer.masksToBounds = true
+        self.paymentText.layer.borderWidth = 3
+        self.paymentText.layer.borderColor = (UIColor(colorLiteralRed: 0.31, green: 0.36, blue: 0.4, alpha: 1)).cgColor
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let shadowPath = UIBezierPath(rect: CGRect(x: 1, y: 1, width: self.taskView.layer.bounds.width, height: self.taskView.layer.bounds.height))
+        self.taskView.layer.shadowColor = UIColor.darkGray.cgColor
+        self.taskView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        self.taskView.layer.shadowOpacity = 0.5
+        self.taskView.layer.shadowPath = shadowPath.cgPath
+        self.taskView.layer.masksToBounds = false
+        
+        
+        
+        super.viewDidAppear(true)
     }
     
     func setImage(profileID: String){
