@@ -24,6 +24,13 @@ class CompleteInfo: UIViewController{
     @IBOutlet weak var requesterImage: UIImageView!
     @IBOutlet weak var greenView: UIView!
     @IBOutlet weak var taskView: UIView!
+    var beenRated = String()
+    var taskRequester = String()
+    var totalRatings = Int()
+    var requesterKey = String()
+    var requesterRating = Double()
+    var userFBID = String()
+    
     
     @IBOutlet weak var rating: CosmosView!
     var requestRating: String = ""
@@ -38,16 +45,18 @@ class CompleteInfo: UIViewController{
             } else {
                 let value = snapshot.value as? NSDictionary
                 let requester = value?["id"] as? String ?? ""
+                self.userFBID = requester
                 self.getRating(userId: requester)
-                let name = value?["name"] as? String ?? ""
+                self.taskRequester = value?["name"] as? String ?? ""
                 let title = value?["title"] as? String ?? ""
                 let task = value?["description"] as? String ?? ""
                 let place = value?["location"] as? String ?? ""
                 let price = value?["tip"] as? Double ?? 0.0
+                self.beenRated = value?["beenRated"] as? String ?? ""
                 
                 //GET and DISPLAY RECEIPT IMAGE HERE
                 self.titleText.text = title
-                self.Requester.text = name
+                self.Requester.text = self.taskRequester
                 self.Description.text = task
                 self.locationText.text = place
                 self.paymentText.text = "$" + String(format: "%.2f", price)
@@ -56,6 +65,7 @@ class CompleteInfo: UIViewController{
                     //print("we in here")
                     self.setImage(profileID: requester)
                 }
+                
             }
             let test = UIView(frame: CGRect(x: 0, y: self.greenView.layer.bounds.height-1.5, width: self.greenView.layer.bounds.width, height: 3))
             //print(self.greenView.layer.bounds.width)
@@ -63,12 +73,12 @@ class CompleteInfo: UIViewController{
             self.greenView.addSubview(test)
             
             self.taskView.backgroundColor = UIColor(colorLiteralRed: 0.96, green: 0.96, blue: 0.96, alpha: 1)
-
             
 
         })
 
     }
+    
     
     override func viewDidLoad() {
         self.requesterImage.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
@@ -76,7 +86,7 @@ class CompleteInfo: UIViewController{
         self.requesterImage.layer.borderColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0).cgColor
         self.requesterImage.layer.borderWidth = 3
         self.requesterImage.clipsToBounds = true
-    
+        
         super.viewDidLoad()
     }
     
@@ -88,8 +98,34 @@ class CompleteInfo: UIViewController{
         self.taskView.layer.shadowPath = shadowPath.cgPath
         self.taskView.layer.masksToBounds = false
 
+        
+        print("been rated is \(self.beenRated)")
+        if self.beenRated == "false" && self.taskRequester != globalUser{
+            var newRating = Double(totalRatings)*requesterRating
+            let alert = UIAlertController(title: "Please rate your experience with \(self.taskRequester)!", message: nil, preferredStyle: .alert)
+            
+            let viewStar = CosmosView(frame: CGRect(x: 75, y: 60, width: 150, height: 30))
+
+            alert.view.addSubview(viewStar)
+            
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                let ref = FIRDatabase.database().reference()
+                newRating = (newRating + viewStar.rating)/(Double(self.totalRatings)+1.0)
+                print(viewStar.rating)
+                ref.child("users/\(self.requesterKey)").updateChildValues(["posterRating": newRating])
+                ref.child("users/\(self.requesterKey)").updateChildValues(["totalPosts": (self.totalRatings+1)])
+                ref.child("tasks/\(globalMyTaskKey)").updateChildValues(["beenRated": "true"])
+                self.beenRated = "true"
+                self.getRating(userId: self.userFBID)
+
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
         super.viewDidAppear(true)
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -132,6 +168,7 @@ class CompleteInfo: UIViewController{
                     return
                 } else {
                     for rest in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                        self.requesterKey = rest.key
                         for test in rest.value as! NSDictionary{
                             if (String(describing: test.key) == "posterRating"){
                                 print(test.value)
@@ -143,6 +180,11 @@ class CompleteInfo: UIViewController{
                                 self.rating.settings.filledBorderColor = UIColor(red:0.98, green:0.63, blue:0.11, alpha:1.0)
                                 self.rating.settings.updateOnTouch = false
                                 self.rating.rating = test.value as! Double
+                                self.requesterRating = test.value as! Double
+                            }
+                            if (String(describing: test.key) == "totalPosts"){
+                                print(test.value)
+                                self.totalRatings = test.value as! Int
                             }
                         }
                     }

@@ -46,6 +46,10 @@ class FormViewController: UIViewController, UIImagePickerControllerDelegate, UIN
          }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
         picture.image = info[UIImagePickerControllerOriginalImage] as? UIImage

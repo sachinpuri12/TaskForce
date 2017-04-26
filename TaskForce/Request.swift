@@ -135,7 +135,8 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
                 "status": String("requested") as Any,
                 "group": group as Any,
                 "acceptor": String("null") as Any,
-                "type": taskType as Any
+                "type": taskType as Any,
+                "beenRated": "false"
                 ] as [String: Any]
             // FIXME make price and tip decimal format
             
