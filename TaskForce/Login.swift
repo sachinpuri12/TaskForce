@@ -37,12 +37,43 @@ class Login: UIViewController, FBSDKLoginButtonDelegate{
             print("NOT LOGGED IN")
             db = FIRDatabase.database().reference()
             let loginButton = FBSDKLoginButton()
-            loginButton.center = view.center
+            loginButton.frame = CGRect(x: 16, y: 300, width: view.frame.width - 32, height: 50)
+            loginButton.setTitle("Join the Force", for: .highlighted)
+            loginButton.layer.cornerRadius = 10
+            loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
             view.addSubview(loginButton)
             loginButton.delegate = self
+        
+//            let customLoginButton = UIButton(type: .system)
+//            customLoginButton.backgroundColor  = UIColor.darkGray
+//            customLoginButton.frame = CGRect(x: 16, y: 300, width: view.frame.width - 32, height: 50)
+//            customLoginButton.setTitle("Join the Force", for: .normal)
+//            customLoginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//            customLoginButton.setTitleColor(.white, for: .normal)
+//            customLoginButton.layer.cornerRadius = 5
+//            view.addSubview(customLoginButton)
+//        
+//        customLoginButton.addTarget(self, action:(#selector(loginButton)), for: .touchUpInside)
 //        }
     
     }
+//    
+//    func handleCustomLoginButton() {
+//        FBSDKLoginManager().logIn(withReadPermissions: ["public_profile"], from: self)
+//        {
+//            (result, err) in
+//            if err != nil {
+//                print("An error has occured... ", err)
+//                return
+//            }
+//        }
+//        print("Login successful")
+//            
+//        getFacebookUserInfo()
+//            
+//        self.performSegue(withIdentifier: "loginSuccess", sender: nil)
+//        return
+//    }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         
