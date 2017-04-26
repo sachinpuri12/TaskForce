@@ -147,6 +147,13 @@ class TaskRequest: UIViewController, UIPickerViewDelegate, UIPickerViewDataSourc
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        
+        
+        self.taskTitle.text = ""
+        self.taskDescription.text = ""
+        self.location.text = ""
+        self.cost.text = ""
+        
 
     }
     
