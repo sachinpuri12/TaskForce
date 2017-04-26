@@ -9,6 +9,7 @@ pod 'Firebase/Core'
 pod 'Firebase/Messaging'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'Cosmos'
 
   target 'TaskForceTests' do
     inherit! :search_paths

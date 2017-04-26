@@ -184,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TaskForce/TaskInfo.swift"
-            timestampString = "514865782.65786"
+            timestampString = "514869624.265343"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "resizeImage(image:toTheSize:)"
             landmarkType = "7">
          </BreakpointContent>
