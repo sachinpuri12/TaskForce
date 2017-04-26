@@ -204,6 +204,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         globalPickerTag = segmentedController.selectedSegmentIndex + 1
         if segmentedController.selectedSegmentIndex == 0 {
             globalMyTaskKey = runTaskKeys[indexPath.section]
+            print("my task " + runTaskKeys[indexPath.section])
             globalPickerTag = 1
             
             if runTaskStatusArray[indexPath.section] == "completed" {

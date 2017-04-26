@@ -38,7 +38,7 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         let ref = FIRDatabase.database().reference()
-        ref.child("tasks/\(selectedTask)").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("tasks/\(globalMyTaskKey)").observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
                 return
             } else {
@@ -94,31 +94,27 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
                 }
                 
             }
-        })
-        
+            let test = UIView(frame: CGRect(x: 0, y: self.greenView.layer.bounds.height-1.5, width: self.greenView.layer.bounds.width, height: 3))
+            test.backgroundColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0)
+            self.greenView.addSubview(test)
             
+            self.taskView.backgroundColor = UIColor(colorLiteralRed: 0.96, green: 0.96, blue: 0.96, alpha: 1)
             
+            self.completeButton.layer.cornerRadius = 8
+            self.completeButton.layer.masksToBounds = true
             
-        let test = UIView(frame: CGRect(x: 0, y: self.greenView.layer.bounds.height-1.5, width: self.greenView.layer.bounds.width, height: 3))
-        test.backgroundColor = UIColor(colorLiteralRed: 0.98, green:0.63, blue:0.11, alpha:1.0)
-        self.greenView.addSubview(test)
-            
-        self.taskView.backgroundColor = UIColor(colorLiteralRed: 0.96, green: 0.96, blue: 0.96, alpha: 1)
-        
-        self.completeButton.layer.cornerRadius = 8
-        self.completeButton.layer.masksToBounds = true
-        
-        self.messageButton.layer.cornerRadius = 8
-        self.messageButton.layer.masksToBounds = true
+            self.messageButton.layer.cornerRadius = 8
+            self.messageButton.layer.masksToBounds = true
 
+        })
+
+        
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
        
-        
         
         
         self.requesterImage.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
@@ -133,6 +129,11 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
         self.paymentText.layer.masksToBounds = true
         self.paymentText.layer.borderWidth = 3
         self.paymentText.layer.borderColor = (UIColor(colorLiteralRed: 0.31, green: 0.36, blue: 0.4, alpha: 1)).cgColor
+        
+        
+
+        super.viewDidLoad()
+
 
         
     }
