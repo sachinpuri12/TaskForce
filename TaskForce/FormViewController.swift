@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class FormViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var ChargeAmount: UITextField!
@@ -73,6 +74,13 @@ class FormViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func sendToVenmo(_ sender: Any) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("tasks/\(globalMyTaskKey)").updateChildValues(["status": "completed"])
+        
+        let alert = UIAlertController(title: "Venmo Request Sent!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+
     }
 
     /*
