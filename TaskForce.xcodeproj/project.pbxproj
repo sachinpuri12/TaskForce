@@ -318,7 +318,7 @@
 				TargetAttributes = {
 					03F1A4C71E55204F0094262A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = YYH7UXGAA8;
+						DevelopmentTeam = 5KYX7246HH;
 						ProvisioningStyle = Automatic;
 					};
 					03F1A4DB1E55204F0094262A = {
@@ -697,8 +697,9 @@
 			baseConfigurationReference = 5A9471E7D41D6963B89067B4 /* Pods-TaskForce.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = YYH7UXGAA8;
+				DEVELOPMENT_TEAM = 5KYX7246HH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
@@ -706,7 +707,7 @@
 				INFOPLIST_FILE = TaskForce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
+				PRODUCT_BUNDLE_IDENTIFIER = carneyjimmy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -719,8 +720,9 @@
 			baseConfigurationReference = 7B90DF889E18F1335E6C7EA3 /* Pods-TaskForce.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = YYH7UXGAA8;
+				DEVELOPMENT_TEAM = 5KYX7246HH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-4.20.2",
@@ -745,7 +747,7 @@
 				INFOPLIST_FILE = TaskForce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CSE431.TaskForce;
+				PRODUCT_BUNDLE_IDENTIFIER = carneyjimmy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
