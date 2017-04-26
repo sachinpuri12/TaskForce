@@ -43,8 +43,7 @@ class Members: UITableViewController {
         
         viewDidLoad()
         viewDidAppear(true)
-        //print("memberArray: " + String(describing: memberArray))
-        //print("key array:" + String(describing: memberKeyArray))
+
         super.viewWillAppear(true)
         self.memberArray.removeAll()
         self.memberKeyArray.removeAll()

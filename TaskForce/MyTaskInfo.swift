@@ -116,14 +116,17 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
     
     
     @IBAction func completeButtonPressed(_ sender: Any) {
+        print("here")
         if completeButton.currentTitle == "Complete Task" {
             // ADD INVOICE RECEIPT HERE
             let ref = FIRDatabase.database().reference()
             ref.child("tasks/\(globalMyTaskKey)").updateChildValues(["status": "completed"])
             
             // alert for fields not filled
-            let alert = UIAlertController(title: "Completed!", message: "Thank You! The requester will be notified! Please upload invoice!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Completed!", message: "Specify amount. Dont forget to upload a receipt!", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+            let textField = alert.textFields![0]
+            textField.keyboardType = .decimalPad
             self.present(alert, animated: true, completion: nil)
             taskStatus = "completed"
             

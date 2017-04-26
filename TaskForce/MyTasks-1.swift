@@ -60,8 +60,7 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.myPicker.delegate = self
         self.myPicker.dataSource = self
         
-        self.pullData(status: filterText.text!)
-        self.taskTable.reloadData()
+       
         segueShouldOccur = false
         super.viewDidLoad()
         
