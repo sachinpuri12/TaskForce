@@ -18,7 +18,7 @@ class FormViewController: UIViewController {
         // Do any additional setup after loading the view
         
         ChargeAmount.keyboardType = .decimalPad
-        VenmoNote.keyboardType = .
+        VenmoNote.keyboardType = .asciiCapable
     }
 
     override func didReceiveMemoryWarning() {
