@@ -116,14 +116,13 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
     
     
     @IBAction func completeButtonPressed(_ sender: Any) {
-        
-        
-        if completeButton.currentTitle == "Complete" {
-            print("here")
+        print("here")
+        if completeButton.currentTitle == "Complete Task" {
             // ADD INVOICE RECEIPT HERE
             let ref = FIRDatabase.database().reference()
             ref.child("tasks/\(globalMyTaskKey)").updateChildValues(["status": "completed"])
-
+            
+            // alert for fields not filled
             let alert = UIAlertController(title: "Completed!", message: "Specify amount. Dont forget to upload a receipt!", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
             let textField = alert.textFields![0]
@@ -138,7 +137,6 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
             let _ = self.navigationController?.popViewController(animated: true)
             
         }
-        
     }
     
     @IBAction func messageButtonPressed(_ sender: Any) {
