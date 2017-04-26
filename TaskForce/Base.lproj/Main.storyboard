@@ -769,6 +769,9 @@
                                 <rect key="frame" x="104" y="278" width="146" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take photo of receipt"/>
+                                <connections>
+                                    <action selector="TakePic:" destination="zg8-rO-O2h" eventType="touchUpInside" id="Xdg-7Y-RUQ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Venmo Text:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lon-mh-UfZ">
                                 <rect key="frame" x="46" y="342" width="95" height="21"/>
@@ -809,6 +812,7 @@
                     <connections>
                         <outlet property="ChargeAmount" destination="tQg-wd-kgA" id="pOV-zk-uP7"/>
                         <outlet property="VenmoNote" destination="9y6-r3-l63" id="CfY-7W-Wp9"/>
+                        <outlet property="picture" destination="Rec-dm-Uwo" id="QN8-o9-xr5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEO-S4-Rgd" userLabel="First Responder" sceneMemberID="firstResponder"/>

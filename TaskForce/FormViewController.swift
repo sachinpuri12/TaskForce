@@ -8,10 +8,34 @@
 
 import UIKit
 
-class FormViewController: UIViewController {
+class FormViewController: UIViewController,  UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var ChargeAmount: UITextField!
     @IBOutlet weak var VenmoNote: UITextField!
 
+    
+   var imagePicker: UIImagePickerController!
+    
+    
+    @IBAction func TakePic(_ sender: Any) {
+       /* imagePicker =  UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil) */
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePicker.dismiss(animated: true, completion: nil)
+        picture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
