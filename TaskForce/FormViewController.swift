@@ -8,10 +8,21 @@
 
 import UIKit
 
-class FormViewController: UIViewController {
+class FormViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var ChargeAmount: UITextField!
     @IBOutlet weak var VenmoNote: UITextField!
 
+    @IBOutlet weak var noteView: UIView!
+    @IBOutlet weak var receiptView: UIView!
+    @IBOutlet weak var chargeView: UIView!
+    @IBOutlet weak var takePhotoButton: UIButton!
+    @IBOutlet weak var picture: UIImageView!
+    
+    @IBOutlet weak var sendButton: UIButton!
+    
+    var imagePicker: UIImagePickerController!
+    
+    var viewArray = [UIView]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +32,37 @@ class FormViewController: UIViewController {
         VenmoNote.keyboardType = .asciiCapable
     }
 
+    @IBAction func takePhoto(_ sender: Any) {
+        /* imagePicker =  UIImagePickerController()
+                 imagePicker.delegate = self
+                 imagePicker.sourceType = .camera
+                 present(imagePicker, animated: true, completion: nil) */
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+         }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePicker.dismiss(animated: true, completion: nil)
+        picture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewArray = [noteView,  receiptView, chargeView]
+        
+        for view in viewArray{
+            view.layer.borderWidth = 1
+            view.layer.borderColor = UIColor(colorLiteralRed: 0.88, green: 0.88, blue: 0.89, alpha: 1).cgColor
+            view.layer.cornerRadius = 8
+        }
+        takePhotoButton.layer.cornerRadius = 8
+        sendButton.layer.cornerRadius = 8
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
