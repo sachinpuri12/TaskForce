@@ -116,6 +116,7 @@ class MyTaskInfo: UIViewController, MFMessageComposeViewControllerDelegate{
     
     
     @IBAction func completeButtonPressed(_ sender: Any) {
+        print("here")
         if completeButton.currentTitle == "Complete Task" {
             // ADD INVOICE RECEIPT HERE
             let ref = FIRDatabase.database().reference()
