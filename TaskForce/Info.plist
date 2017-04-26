@@ -40,10 +40,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We want pictures for user profiles in our task application.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>App wants to access camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We want pictures for user profiles in our task application.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
