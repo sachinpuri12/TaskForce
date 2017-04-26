@@ -54,12 +54,14 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.tabBarController?.tabBar.tintColor = UIColor.white
         self.tabBarController?.tabBar.barTintColor = UIColor(colorLiteralRed: 0.18, green: 0.24, blue: 0.28, alpha: 1)
         self.tabBarController?.tabBar.unselectedItemTintColor = UIColor(colorLiteralRed: 0.75, green: 0.75, blue: 0.75, alpha: 1)
+        self.navigationController?.navigationItem.hidesBackButton = true
+        self.navigationItem.hidesBackButton = true
+
         self.myPicker = UIPickerView()
         self.filterText.delegate = self
         self.filterText.inputView = self.myPicker
         self.myPicker.delegate = self
         self.myPicker.dataSource = self
-        
        
         segueShouldOccur = false
         super.viewDidLoad()
@@ -128,6 +130,8 @@ class MyNewTasks: UITableViewController, UIPickerViewDelegate, UIPickerViewDataS
     override func viewWillAppear(_ animated: Bool) {
         self.getUsername()
         self.pullData(status: filterText.text!)
+        self.navigationItem.hidesBackButton = true
+        self.navigationController?.navigationItem.hidesBackButton = true
         // self.loadTables()
         self.taskTable.reloadData()
         taskTable.separatorStyle = .none
