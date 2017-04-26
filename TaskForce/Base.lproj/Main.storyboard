@@ -690,8 +690,8 @@
                                             <action selector="messageButtonPressed:" destination="obC-rX-O66" eventType="touchUpInside" id="RxT-gg-kpr"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EGR-ux-Qlo" customClass="CosmosView" customModule="Cosmos">
-                                        <rect key="frame" x="104" y="151" width="167" height="20"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGR-ux-Qlo" customClass="CosmosView" customModule="Cosmos">
+                                        <rect key="frame" x="104" y="151" width="120" height="20"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -744,10 +744,10 @@
             </objects>
             <point key="canvasLocation" x="1145" y="-2114"/>
         </scene>
-        <!--View Controller-->
+        <!--Form View Controller-->
         <scene sceneID="MQo-ow-Qjq">
             <objects>
-                <viewController id="zg8-rO-O2h" sceneMemberID="viewController">
+                <viewController id="zg8-rO-O2h" customClass="FormViewController" customModule="TaskForce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eOj-uI-zPA"/>
                         <viewControllerLayoutGuide type="bottom" id="fmh-cE-Tqo"/>
@@ -793,10 +793,17 @@
                                 <rect key="frame" x="135" y="494" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send to Venmo"/>
+                                <connections>
+                                    <segue destination="UxC-Bp-l6E" kind="show" id="QlJ-OI-Z5p"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="ChargeAmount" destination="tQg-wd-kgA" id="pOV-zk-uP7"/>
+                        <outlet property="VenmoNote" destination="9y6-r3-l63" id="CfY-7W-Wp9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEO-S4-Rgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1696,5 +1703,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="bae-q7-L2q"/>
         <segue reference="EjX-fa-5kt"/>
+        <segue reference="QlJ-OI-Z5p"/>
     </inferredMetricsTieBreakers>
 </document>
