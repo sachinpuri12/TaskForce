@@ -34,15 +34,16 @@ class FormViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
 
     @IBAction func takePhoto(_ sender: Any) {
-        /* imagePicker =  UIImagePickerController()
-                 imagePicker.delegate = self
-                 imagePicker.sourceType = .camera
-                 present(imagePicker, animated: true, completion: nil) */
+
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            
             imagePicker = UIImagePickerController()
+            
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
             imagePicker.allowsEditing = false
+            imagePicker.cameraCaptureMode = .photo
+
             self.present(imagePicker, animated: true, completion: nil)
          }
     }
@@ -51,11 +52,18 @@ class FormViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.view.endEditing(true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        imagePicker.dismiss(animated: true, completion: nil)
-        picture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String : AnyObject])
+    {
+        var  chosenImage = UIImage()
+        chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+        picture.contentMode = .scaleAspectFit //3
+        picture.image = chosenImage //4
+        dismiss(animated:true, completion: nil) //5
     }
-    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     override func viewWillAppear(_ animated: Bool) {
         viewArray = [noteView,  receiptView, chargeView]
         
@@ -80,6 +88,18 @@ class FormViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let alert = UIAlertController(title: "Venmo Request Sent!", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        let storage = FIRStorage.storage().reference().child("jimmy.jpg")
+        
+        
+        if let upload_data = UIImagePNGRepresentation(picture.image!){
+            print("HOW")
+            storage.put(upload_data, metadata: nil, completion: { (metadata, error) in
+                
+            })
+            storage.put(upload_data)
+        }
+        
 
     }
 
